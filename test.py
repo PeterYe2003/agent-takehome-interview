@@ -507,7 +507,7 @@ runner = Runner()
 
 def prepare_longbench2(n=None):
     if n is None:
-        n = int(os.getenv("N", "10"))  # Default to 10 for testing
+        n = int(os.getenv("N", "50"))  # Default to 50 for testing
     logger.info("Preparing dataset sample: n=%d", n)
     dataset = load_dataset("THUDM/LongBench-v2", split="train")
     total = len(dataset)

@@ -1,206 +1,926 @@
 {
-  "overall_accuracy": 0.5,
-  "total_tasks": 10,
+  "overall_accuracy": 0.5833333333333334,
+  "total_tasks": 50,
   "category_stats": {
     "Long (512k-8M chars)": {
-      "total": 5,
-      "correct": 2,
+      "total": 28,
+      "correct": 11,
       "context_lengths": [
-        871676,
-        1949620,
-        623006,
-        837902,
-        6018020
-      ]
-    },
-    "Short (0-144k chars)": {
-      "total": 3,
-      "correct": 2,
-      "context_lengths": [
-        114157,
-        55343,
-        97992
+        548058,
+        1842906,
+        1015452,
+        1275474,
+        614556,
+        654747,
+        7941595,
+        1599163,
+        789435,
+        570828,
+        775559,
+        2261771,
+        607741,
+        581261,
+        1932425,
+        1355721,
+        601885,
+        543592,
+        907968,
+        514887,
+        590572,
+        2531634,
+        549551,
+        1223145,
+        1115662,
+        2407150,
+        575381,
+        1454635
       ]
     },
     "Medium (144k-512k chars)": {
-      "total": 2,
-      "correct": 1,
+      "total": 10,
+      "correct": 3,
       "context_lengths": [
-        227352,
-        399444
+        192211,
+        177582,
+        244743,
+        332556,
+        449472,
+        485709,
+        261180,
+        195974,
+        336986,
+        306252
+      ]
+    },
+    "Short (0-144k chars)": {
+      "total": 12,
+      "correct": 7,
+      "context_lengths": [
+        102466,
+        58772,
+        77032,
+        96492,
+        136594,
+        56031,
+        99827,
+        90814,
+        96706,
+        92214,
+        111598,
+        83034
       ]
     }
   },
   "detailed_results": [
     {
       "id": 0,
-      "question": "Which model is best suited for identifying genes related to neuron migration, and what type of dataset was this model trained on?",
+      "question": "Which of the topics has been asked by the users for suggestions?",
       "choices": {
-        "A": "AssertionLogRegModel, trained on the 2010 i2b2/VA challenge on concepts, assertions, and relations in clinical text with embeddings_clinical.",
-        "B": "AssertionDLModel, trained on the 2010 i2b2/VA challenge on concepts, assertions, and relations in clinical text with embeddings_clinical.",
-        "C": "NerDLModel, trained on the Cancer Genetics (CG) task of the BioNLP Shared Task 2013 with embeddings_clinical.",
-        "D": "DeIdentificationModel, trained on Rule-based DeIdentifier based on ner_deid."
-      },
-      "expected": "B",
-      "output": "C",
-      "raw_output": "C",
-      "correct": false,
-      "context_length": 871676,
-      "context_category": "Long (512k-8M chars)",
-      "duration": 1.02282958291471
-    },
-    {
-      "id": 1,
-      "question": "What is the role of the \"glacier mouse\" rolling in the warm season?",
-      "choices": {
-        "A": "Discharge water",
-        "B": "Get nutrients",
-        "C": "Hide Away From The Sun",
-        "D": "preserve body heat"
+        "A": "Online resources to study Mexican",
+        "B": "How to enrich the time spend on the road",
+        "C": "Plants that are easy to grow",
+        "D": "What brand of new car should the user buy"
       },
       "expected": "B",
       "output": "B",
       "raw_output": "B",
       "correct": true,
-      "context_length": 114157,
-      "context_category": "Short (0-144k chars)",
-      "duration": 0.9638719590147957
+      "context_length": 548058,
+      "context_category": "Long (512k-8M chars)",
+      "duration": 15.38222595793195
+    },
+    {
+      "id": 1,
+      "question": "What is the primary reason that Scarlett decide to marry Charles?",
+      "choices": {
+        "A": "Because he has a lot of money and he hasn\u2019t any parents to bother her and he lives in Atlanta.",
+        "B": "Because she is impulsive and wants to show Ashley that she doesn\u2019t care his rejection.",
+        "C": "Because Ashley is going to marry Melanie. She hates Melanie and wants to hurt Melanie, who loves Charles so much.",
+        "D": "Because she wants Ashley to be sorry."
+      },
+      "expected": "B",
+      "output": "B",
+      "raw_output": "B",
+      "correct": true,
+      "context_length": 192211,
+      "context_category": "Medium (144k-512k chars)",
+      "duration": 1.2677184579661116
     },
     {
       "id": 2,
-      "question": "In the urls method of the Channel class, what does not determine the final URL list that is returned when both credentials and subdirs are provided?",
+      "question": "How does ChatGLM-Math use the methods mentioned in CritiqueLLM?",
       "choices": {
-        "A": "Handling of subdirs: If subdirs is not provided (i.e., None), the method assigns it the default value of **[./]**, ensuring a default list of subdirectories is used.",
-        "B": "Unknown Channel Handling: If the channel\u2019s canonical name is UNKNOWN_CHANNEL, the method calls the urls method of the DEFAULTS_CHANNEL_NAME and does not proceed further with the current logic.",
-        "C": "with_credentials Option: When the with_credentials argument is True, the URL will contain the authentication token and, if available, the user authentication details (self.auth) are added to the base URL.",
-        "D": "Platform Yielding: If self.platform is defined and not equal to \"noarch\", the method yields both self.platform and \"noarch\" as platform subdirectories. Otherwise, it yields the provided subdirs."
+        "A": "ChatGLM Math used the data construction method in CritiqueLLM to construct pairwise data for the DPO stage.",
+        "B": "ChatGLM Math used CritiqueLLM as the Math Critique model to annotate the dataset and select comparative data for further training.",
+        "C": "ChatGLM Math uses CritiqueLLM as a reward model to construct Math Critique training data and pair data.",
+        "D": "ChatGLM Math has not applied the relevant technology of CritiqueLLM."
+      },
+      "expected": "C",
+      "output": "B",
+      "raw_output": "B",
+      "correct": false,
+      "context_length": 177582,
+      "context_category": "Medium (144k-512k chars)",
+      "duration": 1.2672970409039408
+    },
+    {
+      "id": 3,
+      "question": "Recently, I purchased an ILCA-77M2 series camera, and I encountered some issues while shooting. Can help me determine which of the following statements is correct?",
+      "choices": {
+        "A": "The camera's power cable, lens mount, mirror, built-in flash, and viewfinder should not come into direct contact, and the microphone should be covered to avoid surrounding noise and wind sounds that could create noise or reduce volume.",
+        "B": "Images and photos from the camera can be transferred to a smartphone or computer, and can also be sent to a TV for viewing. However, this camera does  have wireless transmission capability like bluetooth , and a dedicated data cable also could be used for transfer.",
+        "C": "This camera is equipped with a SteadyShot anti-shake function, which should be activated when shooting dynamic images or using a tripod to achieve more stable, higher-quality images. The manual provides three correct methods for holding the camera.",
+        "D": "The lens is equipped with a distance encoder. By using a flash with ADI functionality, the distance encoder can provide more accurate measurements (ADI). Depending on the lens mechanism, any changes in shooting distance may also affect the focal length. The focal length assumes that the lens is focused on infinity."
+      },
+      "expected": "D",
+      "output": "D",
+      "raw_output": "D",
+      "correct": true,
+      "context_length": 102466,
+      "context_category": "Short (0-144k chars)",
+      "duration": 15.381096499972045
+    },
+    {
+      "id": 4,
+      "question": "Which of the following aspects is not a common feature of the global eVTOL leader Archer Aviation and Lilium?",
+      "choices": {
+        "A": "Listing method",
+        "B": "High R&D investment",
+        "C": "Business landscape",
+        "D": "Power system"
+      },
+      "expected": "D",
+      "output": "A",
+      "raw_output": "A",
+      "correct": false,
+      "context_length": 1842906,
+      "context_category": "Long (512k-8M chars)",
+      "duration": 15.381462207995355
+    },
+    {
+      "id": 5,
+      "question": "Which statement is not true according to the Annual Financial Report ?",
+      "choices": {
+        "A": "The company's revenue of 2023 was lower than that of 2022 due to lower demand in notebook and desktop across market segments.",
+        "B": "In 2023, the company released the 13th Gen Intel Core desktop processor family and launched the Intel Core Ultra processors with integrated neural processing unit.",
+        "C": "The company's R&D investments has decreased from 2022 to 2023, while holding negative amount of adjusted free cash flow.",
+        "D": "For investors who intends to hold the securities of this company, the company's long-term and risky R&D and manufacturing investments might be a risk source."
+      },
+      "expected": "B",
+      "output": "D",
+      "raw_output": "D",
+      "correct": false,
+      "context_length": 1015452,
+      "context_category": "Long (512k-8M chars)",
+      "duration": 77.5519137919182
+    },
+    {
+      "id": 6,
+      "question": "According to this document, which choice is true?",
+      "choices": {
+        "A": "The budget appropriations for fiscal year 2025 are used to pay down government debt",
+        "B": "The appropriation referred to in Section 101 May be used for projects specified in fiscal year 2024",
+        "C": "Plans to provide veterans with complementary and alternative health programs for post-traumatic growth programs have begun to become fully available",
+        "D": "According to the policy, spouses and children of veterans may be buried in national cemeteries as of August 30, 2025"
+      },
+      "expected": "D",
+      "output": "B",
+      "raw_output": "B",
+      "correct": false,
+      "context_length": 58772,
+      "context_category": "Short (0-144k chars)",
+      "duration": 43.64198270800989
+    },
+    {
+      "id": 7,
+      "question": "For the \"Hippie Jam Fest 2005\" event mentioned in the document, if the type of asphalt (Asphalt) with 4% binder content is used for road paving, how many kilograms of asphalt are needed per square meter, assuming that the density of asphalt is 2400 kilograms per cubic meter?",
+      "choices": {
+        "A": "86kg",
+        "B": "96kg",
+        "C": "104kg",
+        "D": "110kg"
+      },
+      "expected": "B",
+      "output": null,
+      "raw_output": "To solve the problem, we focus on this fact from the evidence, repeated with high scores across all the top search results:\n\n- \"Asphalt\",\"4% binder content by mass\",,2.860,0.059,0.066,\"Cradle to gate\",\"1.68 MJ/kg Feedstock Energy (Included). Modelled from the bitumen binder content. The fuel consumption of asphalt mixing operations was taken from the Mineral Products Association (MPA). It represents typical UK industrial data.\",,\"http://people.bath.ac.uk/cj219/\"\n\nFor asphalt with 4% binder, the density is given as 2.86 t/m\u00b3 (which equals 2,860 kg/m\u00b3).\n\nCalculation for the mass per m\u00b2, for a standard road thickness (not specified in the question, but in civil engineering, a typical single asphalt layer is often about 0.04m = 4cm):\n\nMass per m\u00b2 = density (kg/m\u00b3) \u00d7 thickness (m)\n\nAssume the thickness is 0.04m (typical surface course):\n\nMass per m\u00b2 = 2,860 kg/m\u00b3 \u00d7 0.04 m = **114.4 kg/m\u00b2**\n\nNone of the options is 114.4, but the closest is **110kg (Option D)** and **104kg (Option C)**.\n\nHowever, if we consider a slightly thinner overlay, such as 0.035m (3.5cm):\n\n2,860 \u00d7 0.035 = 100.1 kg/m\u00b2\n\nFor 0.036 m: 2,860 \u00d7 0.036 = 102.96 kg/m\u00b2\n\nGiven the answer choices, **104kg (Option C)** is most consistent with an asphalt thickness of approximately 3.6cm, which is commonly used in practice and is well-supported by the context.\n\n**Therefore, the best-supported, evidence-backed answer is:**\n\nC",
+      "correct": false,
+      "context_length": 1275474,
+      "context_category": "Long (512k-8M chars)",
+      "duration": 74.50450541696046
+    },
+    {
+      "id": 8,
+      "question": "In this molecular dynamics simulation framework, higher performance is achieved at the expense of some simulation accuracy. If performance requirements are not high, which of the following is not a feasible measure to improve simulation accuracy?",
+      "choices": {
+        "A": "Use a larger cutoff radius",
+        "B": "Updating the neighbor list in each time slice",
+        "C": "Increasing the skin",
+        "D": "Decreasing the time slice"
+      },
+      "expected": "C",
+      "output": "C",
+      "raw_output": "C",
+      "correct": true,
+      "context_length": 614556,
+      "context_category": "Long (512k-8M chars)",
+      "duration": 15.381050208001398
+    },
+    {
+      "id": 9,
+      "question": "Why did Susan forgive her husband after he had an affair, and of course she forgave him\uff1f",
+      "choices": {
+        "A": "She believes that her husband's infidelity, Myra Jenkins, will not pose a threat to her marriage",
+        "B": "She is trying to rationalize the reality that she cannot accept",
+        "C": "For it was inevitable that the handsome, blond, attractive, manly man, Matthew Rawlings, should be at times tempted",
+        "D": "Because she doesn't think this matter is very serious"
+      },
+      "expected": "B",
+      "output": "B",
+      "raw_output": "B",
+      "correct": true,
+      "context_length": 77032,
+      "context_category": "Short (0-144k chars)",
+      "duration": 15.380941667011939
+    },
+    {
+      "id": 10,
+      "question": "Which of the following statements about the metric used in the HELM benchmark is incorrect?",
+      "choices": {
+        "A": "HELM calculated the inference efficiency of the model as part of the metric and used two different algorithms for the API model and open source model, respectively.",
+        "B": "In some evaluation fields, HELM also focuses on the robustness and fairness of model responses, not just accuracy.",
+        "C": "To evaluate the uncertainty in its prediction of the model, HELM introduced an expected calibration error and used 10 bins for evaluation.",
+        "D": "Compared to the later LLM-AS-A-JUDGE, HELM achieved the unification of all benchmark metrics to an objective determination, without relying on external model calculation methods."
+      },
+      "expected": "D",
+      "output": "D",
+      "raw_output": "D",
+      "correct": true,
+      "context_length": 654747,
+      "context_category": "Long (512k-8M chars)",
+      "duration": 15.380868333973922
+    },
+    {
+      "id": 11,
+      "question": "Which of the following statements is correct?",
+      "choices": {
+        "A": "Both contractor data and data crawled from the Internet are used to train VPT agents to model state-action pairs.",
+        "B": "All machine learning methods involved in the two articles are related to neural network deep learning.",
+        "C": "Both voyager and VPT control Minecraft agents by predicting the actions of simulated mouse and keyboard operations in each given state.",
+        "D": "VPT's modeling of action space is approximate rather than precise."
+      },
+      "expected": "D",
+      "output": "D",
+      "raw_output": "D",
+      "correct": true,
+      "context_length": 244743,
+      "context_category": "Medium (144k-512k chars)",
+      "duration": 15.381075583980419
+    },
+    {
+      "id": 12,
+      "question": "Which of the following description is right based on the work on government in 2021?",
+      "choices": {
+        "A": "China has made progress in the following six fronts: employment, financial sector, foreign trade, basic living needs, food and energy security and expectations.",
+        "B": "Among the main projected targets for development in 2021, the following aims are included:  creating over 11 million news jobs, making GDP growth for over 6 percent,  reducing the energy consumption per GDP for less than  3 percent, and curbing the unemployment rate to around 6.5 percent.",
+        "C": "China has increased its GDP volume by 30 trillion yuan over the past five years, and the 14th Five-Year Plan is the first five years in which China has became a modern socialist country in all respects.",
+        "D": "China has made a tax deduction of 85 percent on enterprises' R&D costs, and China will continue to raise this percentage to 100 percent for manufacturing enterprises."
+      },
+      "expected": "C",
+      "output": "A",
+      "raw_output": "A",
+      "correct": false,
+      "context_length": 96492,
+      "context_category": "Short (0-144k chars)",
+      "duration": 15.380888083018363
+    },
+    {
+      "id": 13,
+      "question": "Which player wins the most golds in the game?",
+      "choices": {
+        "A": "player_0",
+        "B": "player_3",
+        "C": "player_5",
+        "D": "player_9"
+      },
+      "expected": "B",
+      "output": "B",
+      "raw_output": "B",
+      "correct": true,
+      "context_length": 136594,
+      "context_category": "Short (0-144k chars)",
+      "duration": 67.36369445896707
+    },
+    {
+      "id": 14,
+      "question": "In the context of Islamic inheritance law, where the shares of male and female heirs are predetermined, what multifaceted approaches could be adopted to reconcile the inherent gender disparities in these laws with contemporary feminist legal theories, particularly in multicultural societies like Malaysia? Discuss the implications of such reconciliations on both the legal framework and the societal norms surrounding gender roles.",
+      "choices": {
+        "A": "Implementing educational programs for both genders about Islamic inheritance laws may create awareness and lead to a gradual shift in societal attitudes, ultimately fostering gender equity.",
+        "B": "Enacting laws that allow for equal shares of inheritance based on the economic contributions of heirs can challenge traditional interpretations and promote a more equitable legal framework, while still being grounded in Islamic principles.",
+        "C": "A complete overhaul of the existing inheritance laws is necessary to align with feminist legal theories, as they argue that any legal framework supporting gender disparities is inherently unjust.",
+        "D": "Incorporating feminist perspectives into the interpretation of Islamic law can provide a more nuanced understanding of gender roles, suggesting that such reinterpretations might be selectively applied based on the socio-economic context of the heirs."
+      },
+      "expected": "B",
+      "output": "D",
+      "raw_output": "D",
+      "correct": false,
+      "context_length": 56031,
+      "context_category": "Short (0-144k chars)",
+      "duration": 15.380696957930923
+    },
+    {
+      "id": 15,
+      "question": "I plan to train an evaluation model that predicts the following based on given inputs: Yes/No, to evaluate the correctness of a statement. At the same time, I hope to modify the predefined prompts of the template during the training process to my custom prompts. I intend to train using LoRa and then deploy the vllm version of model for testing. According to the operation I want to perform, which of the following is incorrect?",
+      "choices": {
+        "A": "Organize my data in the data folder according to the data format of dpo_en_demo. json. Add my training dataset in the format of the example in data/dataset_info.json.",
+        "B": "Add a new  _register_template in src/lamafactory/data/template, modify it to my template content, and change the template name in the training YAML file.",
+        "C": "Modify the model and input/output positions according to the training YAML file of SFT, and then proceed with training.",
+        "D": "Modify examples/inference/llama3_vllm.yaml by changing `model_name_or_path` to the output path from the trained model, and then execute the deployment command."
+      },
+      "expected": "D",
+      "output": "C",
+      "raw_output": "C",
+      "correct": false,
+      "context_length": 7941595,
+      "context_category": "Long (512k-8M chars)",
+      "duration": 15.38050541607663
+    },
+    {
+      "id": 16,
+      "question": "Please try to deduce the true story based on the evidence currently known. In your deduction, how did the murderer leave the crime scene without getting wet in the rain?",
+      "choices": {
+        "A": "The murderer left with an umbrella",
+        "B": "The murderer was wearing a raincoat",
+        "C": "The murderer left the stadium directly through the corridor",
+        "D": "The murderer hid in a two-wheeled cart and was pushed away"
+      },
+      "expected": "D",
+      "output": "C",
+      "raw_output": "C",
+      "correct": false,
+      "context_length": 332556,
+      "context_category": "Medium (144k-512k chars)",
+      "duration": 63.980909791076556
+    },
+    {
+      "id": 17,
+      "question": "This is the troch.nn modeule. In this module, there exists an implementation of flexible attention mechanisms, in this implementation, what is the default value used for the BLOCK_SIZE parameter when creating a BlockMask from key-value block information if no specific block size is provided, and what is the corresponding _ModificationType enum value that represents a score modification function?",
+      "choices": {
+        "A": "_DEFAULT_SPARSE_BLOCK_SIZE, _ModificationType.SCORE_MOD",
+        "B": "_LARGE_SPARSE_BLOCK_SIZE, _ModificationType.MASK_MOD",
+        "C": "_DEFAULT_SPARSE_BLOCK_SIZE, _ModificationType.MASK_MOD",
+        "D": "_LARGE_SPARSE_BLOCK_SIZE, _ModificationType.SCORE_MOD"
       },
       "expected": "A",
       "output": "A",
       "raw_output": "A",
       "correct": true,
-      "context_length": 1949620,
+      "context_length": 1599163,
       "context_category": "Long (512k-8M chars)",
-      "duration": 2.94072558300104
+      "duration": 15.380811333074234
     },
     {
-      "id": 3,
-      "question": "In this article, based on what features, the author proposed a new stratification method and what is the clinical meaning?",
+      "id": 18,
+      "question": "Which of the following is incorrect according to the equipment manual?",
       "choices": {
-        "A": "Based on SV, CNA and WGD, sex; for better representation of disease state",
-        "B": "Based on gene mutations and chromosome variations; for better understanding the diseases mechanism",
-        "C": "Based on gene mutations, chromosome variations, and demographics; for better giving prognostic predictions",
-        "D": "Based on gene mutations, WGD, SV, SNV, and mean ploidy; for better treatment"
+        "A": "A dynamic IP address is assigned to the SICAM FCG when it is connected to Electrification X Cloud or MindSphere Cloud via GPRS.",
+        "B": "FQDN such as \"myfcg.example.com\" which is resolvable via DNS can be a legal value for  \"Indentifier (Local ID)\" when entering an Internet Key Exchange address.",
+        "C": "IP Address of \"192.168.0.55\" is used after I press the IP-Addr. push-button for > 3 seconds. The LED on the terminal side will indicate \"Default IP address is applied\".",
+        "D": "When I establish the communication between SICAM FCG and FSI, I need to scan or manually copy the QR code on the FSI to the FCG."
       },
       "expected": "C",
-      "output": "D",
-      "raw_output": "D",
+      "output": "B",
+      "raw_output": "B",
       "correct": false,
-      "context_length": 227352,
+      "context_length": 449472,
       "context_category": "Medium (144k-512k chars)",
-      "duration": 31.766386082977988
+      "duration": 67.36334541696124
     },
     {
-      "id": 4,
-      "question": "Which of the following is NOT a key business development that Huawei has achieved in 2023?",
+      "id": 19,
+      "question": "Given the distinct macroeconomic challenges faced by Mozambique and Egypt, which of the following policy combinations would most effectively achieve long-term macroeconomic stability while addressing inflation, external vulnerabilities, governance issues, and social demands?",
       "choices": {
-        "A": "Provide network infrastructure for remote areas and global users, help upgrade innovative applications such as naked-eye 3D, new calls, and cloud mobile phones, with more than 1.5 billion global users.",
-        "B": "Launch a series of Harmony OS ecosystem devices, with shipments of smart wearable products exceeding 150 million.",
-        "C": "Develop large-scale models for industry-specific applications, particularly in the medical and meteorological fields.",
-        "D": "Build cloud platforms for 40,000 enterprises in over 170 countries and regions to accelerate industry digitization and intelligence."
+        "A": "Mozambique should follow the \"Flexible Exchange Rate and SOE Reform Approach\" and Egypt should adopt the \"Inflation Control and Exchange Rate Flexibility Approach,\" allowing for exchange rate flexibility in both countries while maintaining tight fiscal and monetary control until inflation and governance issues are addressed.",
+        "B": "Mozambique should adopt the \"Growth-First Approach with Reliance on LNG,\" focusing on maximizing future revenues through infrastructure investment, and Egypt should adopt the \"Monetary Easing and Gradual Reform Approach,\" loosening monetary policy to stimulate short-term growth while delaying difficult structural reforms.",
+        "C": "Both Mozambique and Egypt should follow the \"Combined Policy Proposal\" by balancing fiscal consolidation with necessary social spending and governance reforms, while allowing for gradual exchange rate flexibility and maintaining tight monetary policies until inflation is under control.",
+        "D": "Mozambique and Egypt should adopt a \"Tight Fiscal and Monetary Discipline Approach,\" maintaining fixed exchange rates, prioritizing debt reduction, and delaying significant social spending until inflation stabilizes and external risks abate."
+      },
+      "expected": "A",
+      "output": "C",
+      "raw_output": "C",
+      "correct": false,
+      "context_length": 789435,
+      "context_category": "Long (512k-8M chars)",
+      "duration": 15.380119750043377
+    },
+    {
+      "id": 20,
+      "question": "What was NOT something that made Mrs. Judith Loftus realize that Huck wasn't really a girl, but a boy in disguise?",
+      "choices": {
+        "A": "He snorted loud and spit on the ground",
+        "B": "His attempts to thread a needle were very awkward",
+        "C": "He caught a bar of lead in his lap by bringing his knees together",
+        "D": "He threw lead at a rat side-armed and with his elbow bent"
+      },
+      "expected": "A",
+      "output": "A",
+      "raw_output": "A",
+      "correct": true,
+      "context_length": 570828,
+      "context_category": "Long (512k-8M chars)",
+      "duration": 14.113977291970514
+    },
+    {
+      "id": 21,
+      "question": "In the DMesh framework, the face existence probability function  \\Lambda_{wdt}(F_3)  determines whether a triangular face  F_3  belongs to the weighted Delaunay triangulation (WDT). This function is defined as  \\Lambda_{wdt}(F_3) = \\sigma(\\alpha_{wdt} \\cdot \\Delta(F_3)) , where  \\sigma  is a sigmoid function, and  \\Delta(F_3)  represents the signed distance between the dual line of the face and the reduced Power cells of its vertices. The hyperparameter  \\alpha_{wdt}  is introduced to modulate this function. Which of the following best explains the role of  \\alpha_{wdt}  in this formulation?",
+      "choices": {
+        "A": "\\alpha_{wdt}  helps in reducing the computational burden by accelerating the convergence of the optimization process. As  \\alpha_{wdt}  increases, the sigmoid function becomes more selective, rapidly eliminating unlikely face candidates from consideration during the WDT construction, small variations in  \\Delta(F_3)  can result in significant changes in the face inclusion probability This reduces the number of faces that need to be optimized, thereby improving the overall efficiency and convergence speed of the algorithm, especially for high-resolution meshes.",
+        "B": "The hyperparameter  \\alpha_{wdt}  modulates signoid function of the regularization of the face inclusion process and the overall mesh quality in a differentiable triangulations manner. By controlling the transition of the sigmoid function,  \\alpha_{wdt}  directly influences the likelihood of complex geometric structures being represented by the mesh through sensitive \\Delta(F_3). A large  \\alpha_{wdt}  prioritizes high-quality mesh structures but at a computational cost, as the model becomes more selective about which faces are included in the final mesh.",
+        "C": "\\alpha_{wdt}  primarily governs the mesh complexity by controlling the inclusion of faces based on their geometric properties. A higher  \\alpha_{wdt}  differentially encourages the inclusion of fewer faces, resulting in a coarser mesh. Conversely, a smaller  \\alpha_{wdt}  allows more faces to be included, leading to a denser mesh, which is useful for capturing intricate geometric details such as small-scale features or sharp edges.",
+        "D": "\\alpha_{wdt}  modulates the gradient of the sigmoid function, thereby affecting the model\u2019s sensitivity to geometric changes in the mesh. A higher  \\alpha_{wdt}  makes the sigmoid transition sharper, meaning that small variations in  \\Delta(F_3)  can result in significant changes in the face inclusion probability. This sharper transition enhances the model\u2019s ability to backpropagate gradients more effectively through differentiable triangulations, influencing both the stability and accuracy of the mesh optimization process."
+      },
+      "expected": "D",
+      "output": "D",
+      "raw_output": "D",
+      "correct": true,
+      "context_length": 99827,
+      "context_category": "Short (0-144k chars)",
+      "duration": 14.113770042080432
+    },
+    {
+      "id": 22,
+      "question": "Narrives: 1. [\\\"Sakina and the narrator are joined by Mike Stiles at a bar, where they discuss potential testimonies regarding Omar's case and the implications of recalling Serenho to the stand.\\\"]\\n2. [\\\"Beth and the narrator discuss the possibility of revisiting testimony in Omar's case due to Robbie's past abusive behavior towards Thalia.\\\"]\\n3. [\\\"Bodie Kane encountered her former teacher Madame Mancio while walking with Petra on the way to campus, leading to a conversation where Madame Mancio expressed surprise at Bodie's transformation since her time at Granby.\\\"]\\n4. ['The narrator attempts to watch a video in a caf\\u00e9 using slow wi-fi, leading to frustration and an overwhelming need to focus despite distractions.']\\n\\nQuery: Considering the given book and narratives, Which order of the narratives in the following options is correct?",
+      "choices": {
+        "A": "3412",
+        "B": "1423",
+        "C": "1324",
+        "D": "3124"
+      },
+      "expected": "A",
+      "output": "C",
+      "raw_output": "C",
+      "correct": false,
+      "context_length": 775559,
+      "context_category": "Long (512k-8M chars)",
+      "duration": 4.749254875001498
+    },
+    {
+      "id": 23,
+      "question": "Which of the following statements is incorrect?",
+      "choices": {
+        "A": "Both papers(Learning to Communicate and Correct Pose Errors&Keypoints-Based Deep Feature Fusion for Cooperative Vehicle Detection of Autonomous Driving) compress the sent feature maps.",
+        "B": "The positioning and orientation errors added in the experiments in both papers(Learning to Communicate and Correct Pose Errors&Keypoints-Based Deep Feature Fusion for Cooperative Vehicle Detection of Autonomous Driving)  follow a normal distribution.",
+        "C": "FPV-RCNN calibrates positioning and orientation errors by aligning objects in the environment, while the other paper (Learning to Communicate and Correct Pose Errors) improves target detection through error prediction, consistency module, and attention mechanism.",
+        "D": "Both papers (Learning to Communicate and Correct Pose Errors&Keypoints-Based Deep Feature Fusion for Cooperative Vehicle Detection of Autonomous Driving)propose a new method to solve the pose error problem and alleviate the pressure on communication bandwidth."
+      },
+      "expected": "D",
+      "output": "B",
+      "raw_output": "B",
+      "correct": false,
+      "context_length": 2261771,
+      "context_category": "Long (512k-8M chars)",
+      "duration": 4.749316000030376
+    },
+    {
+      "id": 24,
+      "question": "How do Charmaz and Thornberg in The Pursuit of Quality in Grounded Theory and Holton and Walsh in Classic Grounded Theory conceptualize the role of researcher subjectivity in the coding process, and what do their differing views reveal about the potential for bias in theory generation within grounded theory?",
+      "choices": {
+        "A": "Charmaz and Thornberg acknowledge researcher subjectivity as a natural and useful part of the coding process, enriching theoretical insights, while Holton and Walsh emphasize that subjectivity must be controlled through rigorous coding to ensure the theory remains grounded in the data rather than influenced by personal interpretations.",
+        "B": "Both sets of authors acknowledge the presence of researcher subjectivity, but Charmaz and Thornberg see it as a source of insight that can deepen theoretical understanding, while Holton and Walsh stress that researcher subjectivity must be controlled through rigorous coding to ensure that the theory accurately reflects the data rather than personal interpretations.",
+        "C": "Charmaz and Thornberg argue that researcher subjectivity provides valuable perspectives that can enhance theory co-construction with participants, while Holton and Walsh focus on minimizing subjectivity to prevent it from distorting the theory, advocating for systematic coding that keeps the theory grounded in the data.",
+        "D": "Both Charmaz and Thornberg and Holton and Walsh recognize that researcher subjectivity influences coding, but Charmaz and Thornberg see it as a vital aspect of shaping theoretical insights, while Holton and Walsh maintain that subjectivity should be minimized to let the data drive the theoretical process more objectively."
+      },
+      "expected": "B",
+      "output": "C",
+      "raw_output": "C",
+      "correct": false,
+      "context_length": 607741,
+      "context_category": "Long (512k-8M chars)",
+      "duration": 2.144615708035417
+    },
+    {
+      "id": 25,
+      "question": "When the player needs to kill lots of enemies in a short time and keeps himself safe, which of the following strategies is the most practical?",
+      "choices": {
+        "A": "Choose Mesa and use the Ability 4 without stoping it to shoot and kill enemies quickly.",
+        "B": "Choose Saryn and use the Ability 4 to affect enemies in range and kill them over time.",
+        "C": "Choose Gara and use the Ability 4 to slow down the enemies and cause damage.",
+        "D": "Choose Limbo and use his Passive Ability to go to the Rift Plane to keep safe, and use  weapons with range damage to kill enemies."
+      },
+      "expected": "C",
+      "output": "A",
+      "raw_output": "A",
+      "correct": false,
+      "context_length": 485709,
+      "context_category": "Medium (144k-512k chars)",
+      "duration": 0.6111172089586034
+    },
+    {
+      "id": 26,
+      "question": "Sean Foley is accused of child porn charge, which option below could make him not guilty of the charge?",
+      "choices": {
+        "A": "When the officers searched the laptops and computers in his possession, they came up with the following search results:\na) The browser folder (emptied every 30 days) on the laptop contained photographs of child pornography\nb) No relevant photos were found in the mobile phone",
+        "B": "In the questioning of him, the testimony recorded is as follows:\n\u2018My wife and I have an extremely happy and fulfilling marriage, and I'm an old man, and I've never thought about looking at any child pornography or searching for this type of pornography, and I know it's against the law. It could have been viewed by my roommate, after all I let him use my computer sometimes... \u2019",
+        "C": "According to the evidence given by S.F. himself, at 1900 UST on 23 December he was on a plane to Norway.\nThe timestamp of the photographs saved in the browser folder is 23 December at 19.02 hours",
+        "D": "all options above"
+      },
+      "expected": "D",
+      "output": "C",
+      "raw_output": "C",
+      "correct": false,
+      "context_length": 90814,
+      "context_category": "Short (0-144k chars)",
+      "duration": 0.688658665982075
+    },
+    {
+      "id": 27,
+      "question": "In Divergent, how does Beatrice\u2019s understanding of faction identity evolve after she transitions from Abnegation to Dauntless, and what does this reveal about the larger theme of individual identity versus societal expectations in the novel?",
+      "choices": {
+        "A": "Beatrice realizes that faction identity is fluid, and her transition to Dauntless allows her to break free from Abnegation\u2019s strict values, showing that individual identity can only be truly discovered by rejecting societal expectations.",
+        "B": "Beatrice begins to recognize that her true identity cannot be confined to a single faction, as both Abnegation\u2019s selflessness and Dauntless\u2019s bravery shape her understanding of herself, suggesting that individual identity is a fusion of multiple societal roles.",
+        "C": "Beatrice comes to understand that neither Dauntless nor Abnegation defines her entirely, and that true identity is formed by integrating different faction qualities, revealing that societal expectations can shape but not fully define one\u2019s individuality.",
+        "D": "Beatrice realizes that while factions provide a foundation for understanding identity, true self-awareness comes from blending qualities of different factions, indicating that societal expectations influence but do not limit personal identity."
       },
       "expected": "C",
       "output": "C",
       "raw_output": "C",
       "correct": true,
-      "context_length": 623006,
+      "context_length": 581261,
       "context_category": "Long (512k-8M chars)",
-      "duration": 0.9327021660283208
+      "duration": 2.144017249927856
     },
     {
-      "id": 5,
-      "question": "According to the report, which of the following statements are correct?",
+      "id": 28,
+      "question": "Which of the following suggestions for the new year's initiatives is correct?",
       "choices": {
-        "A": "CLP continues to expand its investment portfolio and actively develop partnerships with other companies. All projects belonging to these will be firmly implemented.",
-        "B": "CLP successfully commissioned Hong Kong's first offshore LNG terminal in September, so Xia Baolong, director of the National Hong Kong and Macao Affairs Office, recognized CLP's long-term commitment to Hong Kong and China and was confident in the future of CLP's business.",
-        "C": "CLP regards decarbonization as its top priority, attaches great importance to the safety of employees\u2019 working environment, and will help disadvantaged groups.",
-        "D": "The sooner we transition to net-zero emissions, the sooner we can achieve a just and equitable energy future"
-      },
-      "expected": "C",
-      "output": "B",
-      "raw_output": "B",
-      "correct": false,
-      "context_length": 837902,
-      "context_category": "Long (512k-8M chars)",
-      "duration": 37.55762591701932
-    },
-    {
-      "id": 6,
-      "question": "In the test cases for complete graphs, which of the following complete graphs weren't used?",
-      "choices": {
-        "A": "K5",
-        "B": "K10",
-        "C": "K15",
-        "D": "K20"
-      },
-      "expected": "C",
-      "output": null,
-      "raw_output": "After a comprehensive evidence search, here's the systematic answer:\n\n---\n\n### STRONGEST EVIDENCE FINDINGS:\n\n- **K5**: There are many code/testing snippets (`test_K5`, `nx.complete_graph(5)`, K5 in barbell etc.) in the evidence, indicating that K5 is frequently *used* in the test cases for complete graphs.\n- **K10**: There are test cases like `test_cartesian_product_null`, `test_tensor_product_random`, and also in `TestAllPairsNodeConnectivityApprox`, where K10 (`nx.complete_graph(10)`) is directly used in various product and connectivity tests.\n- **K15**: No direct evidence appears for K15 being used in any test case for complete graphs. K15 is not mentioned in any test code, product, or connectivity test, unlike K5, K10, or K20.\n- **K20**: The evidence (`TestAllPairsNodeConnectivityApprox`, `cls.K20 = nx.complete_graph(20)`, etc.) shows that K20 has been explicitly used in connectivity and product tests.\n\n---\n\n### REASONING:\n\n- All options except **K15** have **direct, clear evidence** of use in test cases for complete graphs.\n- **K15** is noticeably absent from all test and evidence snippets provided.\n\n---\n\nThus, the correct answer is:\n\n**C) K15**",
-      "correct": false,
-      "context_length": 6018020,
-      "context_category": "Long (512k-8M chars)",
-      "duration": 48.34120133391116
-    },
-    {
-      "id": 7,
-      "question": "What information can be drawn from the two documents?",
-      "choices": {
-        "A": "Discrimination against women can be seen in the Ethical Principles for Human Reproductive Technologies and Human Sperm Banks alone.",
-        "B": "Ginsberg believes that women are discriminated against as a result of the nation and the law.",
-        "C": "Legal, moral and ethical factors have led to China not allowing women to freeze their eggs.",
-        "D": "Ginsburg does not support providing maternity leave to women alone."
-      },
-      "expected": "D",
-      "output": "B",
-      "raw_output": "B",
-      "correct": false,
-      "context_length": 55343,
-      "context_category": "Short (0-144k chars)",
-      "duration": 0.8923635000828654
-    },
-    {
-      "id": 8,
-      "question": "Please try to deduce the true story based on the evidence currently known. What was the real cause of Mary Blakiston's death in your deduction?",
-      "choices": {
-        "A": "Murdered by Robert Blakiston",
-        "B": "Murdered by Matthew Blakiston",
-        "C": "Suicide",
-        "D": "Accident"
+        "A": "Ensure the looseness and progressiveness of policies, and strengthen the coordination and cooperation of various policies.",
+        "B": "Support and highlight the dominant position of enterprises in production, and increase the cultivation of technical production talents.",
+        "C": "Promote the growth of the RMB exchange rate at a reasonable and balanced level.",
+        "D": "On the basis of a comprehensive and scientific summary of epidemic prevention and control work, we should do a more scientific, accurate, and efficient job in prevention and control."
       },
       "expected": "D",
       "output": "D",
       "raw_output": "D",
       "correct": true,
-      "context_length": 399444,
-      "context_category": "Medium (144k-512k chars)",
-      "duration": 9.403754582977854
+      "context_length": 96706,
+      "context_category": "Short (0-144k chars)",
+      "duration": 1.4059261661022902
     },
     {
-      "id": 9,
-      "question": "The paper proposed a method named ReSTIR to calculate direct illumination, including its biased and unbiased version. Which of the following statement is true about the differences and similarities between the two versions?",
+      "id": 29,
+      "question": "In the function that calculates the derivative of given functions, which of the following keyword arguments are all recognized?",
       "choices": {
-        "A": "The unbiased version beats the biased one in almost all aspects, for we just need some math derivation to get ReSTIR unbiased.",
-        "B": "The bias is caused by the reuse of candidates from adjacent pixels. Therefore, the biased ReSTIR reuses the adjacent reservoir, and if ReSTIR gives up the reuse process, it'll be unbiased.",
-        "C": "Both adopt Resampled Importance Sampling(RIS) with Multiple Importance Sampling(MIS). The biased one saves time, because we don't need to introduce a denoiser to eliminate the bias.",
-        "D": "They all reuse reservoirs spatiotemporally, and are efficient when rendering direct lighting from many dynamic light sources. The biased ReSTIR traces less rays than the unbiased ReSTIR, and costs more time which can be overcome by GPU acceleration. The biased one has less noise compared with the unbiased one."
+        "A": "singular, addprec, function",
+        "B": "h, method, direction",
+        "C": "relative, fc, y",
+        "D": "radius, x, step"
       },
       "expected": "B",
       "output": "B",
       "raw_output": "B",
       "correct": true,
-      "context_length": 97992,
+      "context_length": 1932425,
+      "context_category": "Long (512k-8M chars)",
+      "duration": 2.1437093330314383
+    },
+    {
+      "id": 30,
+      "question": "In the 2023 National Population Health Survey, multiple factors affecting public health are examined, including physical activity levels and alcohol consumption patterns. Given the complex relationship between lifestyle behaviors and societal expectations, what is the most subtle yet impactful factor that may prevent middle-aged adults (ages 40-59) from fully embracing both regular physical activity and reduced alcohol consumption?",
+      "choices": {
+        "A": "The psychological association between physical activity and alcohol consumption as rewards for enduring the stress of daily life creates conflicting motivations.",
+        "B": "The tendency to treat both physical activity and alcohol consumption as outlets for stress management makes it harder for middle-aged adults to balance these behaviors consistently.",
+        "C": "Viewing physical activity and alcohol consumption as coping mechanisms for work-related stress leads to a cycle where neither behavior is fully moderated.",
+        "D": "The use of physical activity and social drinking as simultaneous methods for stress relief creates a dilemma, making it difficult for middle-aged adults to prioritize one healthy behavior over the other."
+      },
+      "expected": "A",
+      "output": "B",
+      "raw_output": "B",
+      "correct": false,
+      "context_length": 261180,
+      "context_category": "Medium (144k-512k chars)",
+      "duration": 57.17517587507609
+    },
+    {
+      "id": 31,
+      "question": "Which player contributed the most tokens in the game?",
+      "choices": {
+        "A": "player_2",
+        "B": "player_4",
+        "C": "player_6",
+        "D": "player_8"
+      },
+      "expected": "C",
+      "output": "A",
+      "raw_output": "A",
+      "correct": false,
+      "context_length": 195974,
+      "context_category": "Medium (144k-512k chars)",
+      "duration": 56.05365612497553
+    },
+    {
+      "id": 32,
+      "question": "In terms of modernizing energy governance, how is China building an open and efficient energy market?",
+      "choices": {
+        "A": "The energy industry is determined by the market totally,  market competition is used to adjust the market layout.",
+        "B": "The government participates in the unified and standardized pricing to ensure the unified operation of the market.",
+        "C": "Strengthen legal supervision and break the original monopoly pattern.",
+        "D": "Relying on market participation for pricing."
+      },
+      "expected": "D",
+      "output": "C",
+      "raw_output": "C",
+      "correct": false,
+      "context_length": 92214,
       "context_category": "Short (0-144k chars)",
-      "duration": 9.403546499903314
+      "duration": 2.143538625095971
+    },
+    {
+      "id": 33,
+      "question": "Narrives: 1. Elsie, with the guidance of Big Ammachi and Odat Kochamma, places her premature baby, Ninan, on her bare chest to keep him warm and help him survive immediately after birth.\n2. Philipose experiences his first car ride after being picked up by Chandy, who praises him for saving an infant's life.\n3. Mariamma observes Digby perform a tendon surgery on a patient named Karuppamma, who successfully moves her thumb by imagining she is moving her ring finger.\n4. The protagonist receives a letter from her mother, who strongly dissuades her from visiting, which increases her worry about her mother's welfare.\nQuery: Considering the given book and narratives, Which order of the narratives in the following options is correct?",
+      "choices": {
+        "A": "4231",
+        "B": "1342",
+        "C": "4321",
+        "D": "4213"
+      },
+      "expected": "D",
+      "output": "B",
+      "raw_output": "B",
+      "correct": false,
+      "context_length": 1355721,
+      "context_category": "Long (512k-8M chars)",
+      "duration": 2.1433331249281764
+    },
+    {
+      "id": 34,
+      "question": "Narrives: 1. ['Cameron discovers a class ring and a photo of his teenage mother with an unknown man while sifting through items from a box left by his aunt.']\\n2. ['Tova discovers the name of a girl, Daphne Cassmore, who was associated with her deceased son Erik, by looking through his old high school yearbook.']\\n3. [\\\"Cameron arrives at a basement cocktail lounge for a meeting with Mr. Brinks but is told by a girl with green hair that the place doesn't open until eight.\\\"]\\n4. ['Cameron discovers that the airline has lost his bag, which contained valuable jewelry he intended to pawn for money.']\\n\\nQuery: Considering the given book and narratives, Which order of the narratives in the following options is correct?",
+      "choices": {
+        "A": "1423",
+        "B": "3241",
+        "C": "2431",
+        "D": "1342"
+      },
+      "expected": "A",
+      "output": "D",
+      "raw_output": "D",
+      "correct": false,
+      "context_length": 601885,
+      "context_category": "Long (512k-8M chars)",
+      "duration": 4.747809041058645
+    },
+    {
+      "id": 35,
+      "question": "Considering the detailed regulatory, legal, and economic structures outlined in the reports for the Indian Medical Device and Pharmaceutical industries, which of the following statements provides the most comprehensive comparative analysis of the long-term effects of government policies, global market integration, and regulatory strategies on the innovation ecosystems and market sustainability of these two sectors?",
+      "choices": {
+        "A": "The pharmaceutical industry\u2019s focus on generic drug manufacturing, supported by the Drug Price Control Order (DPCO) and global patent regimes, enables it to maintain cost-competitiveness in international markets, but limits its ability to foster significant domestic innovation. In contrast, the medical device sector\u2019s reliance on foreign technology imports and weaker intellectual property frameworks provide more room for domestic innovation, particularly in mid-tier and low-risk medical devices, supported by initiatives like the Production-Linked Incentive (PLI) scheme.",
+        "B": "Although both sectors benefit from government incentives and foreign direct investment (FDI), the pharmaceutical industry has a clear advantage due to its integration with global supply chains and post-TRIPS IP regime, allowing for sustained growth in generic drug exports and limited innovation in novel therapies. The medical device sector, however, struggles with import dependency, regulatory complexity, and limited global market penetration, which hampers both domestic innovation and export competitiveness, despite attempts to build local manufacturing capacity.",
+        "C": "The pharmaceutical sector\u2019s reliance on global regulatory compliance (such as US FDA standards) and India\u2019s post-TRIPS patent laws constrains domestic companies from scaling up high-margin innovations, focusing instead on generic manufacturing for export markets. By contrast, the medical device industry, with its less stringent regulatory environment and lower global compliance barriers, has greater potential for scaling domestic production and achieving self-reliance under the government\u2019s Atmanirbhar Bharat program, leading to increased competitiveness over time.",
+        "D": "The government\u2019s PLI scheme has had a greater positive impact on the medical device industry than the pharmaceutical industry, as it supports the rapid scaling of domestic manufacturing by reducing import dependency. The pharmaceutical sector, while benefiting from the PLI scheme, continues to face significant challenges in balancing global IP compliance, price control regulations, and domestic production costs, leading to a slower pace of innovation compared to the more dynamic medical device sector, which is increasingly driven by public-private partnerships."
+      },
+      "expected": "B",
+      "output": "B",
+      "raw_output": "B",
+      "correct": true,
+      "context_length": 336986,
+      "context_category": "Medium (144k-512k chars)",
+      "duration": 2.1431902500335127
+    },
+    {
+      "id": 36,
+      "question": "How do the Singapore Customs Act (1960) and the Malaysia Customs Act (1967) differ in their treatment of penalties for evading customs duties, and what do these differences suggest about the balance between preventive enforcement and regulatory leniency in managing violations of customs laws?",
+      "choices": {
+        "A": "The Singapore Customs Act emphasizes strict enforcement, imposing higher penalties, including mandatory imprisonment for customs duty evasion, while the Malaysia Customs Act adopts a more lenient approach by allowing fine-only penalties in minor offenses, indicating a greater focus on compliance in less severe cases.",
+        "B": "The Singapore Customs Act focuses on strict enforcement by imposing higher penalties, including mandatory imprisonment for serious customs duty evasion, while the Malaysia Customs Act permits fines without imprisonment in specific instances, reflecting a more lenient approach in less serious cases.",
+        "C": "The Singapore Customs Act mandates imprisonment for most customs duty evasion cases, emphasizing a deterrence approach, while the Malaysia Customs Act allows for fine-only penalties in minor violations, reflecting a softer enforcement strategy in Malaysia.",
+        "D": "Both acts impose penalties for customs duty evasion, but the Singapore Customs Act imposes mandatory imprisonment for a broader range of offenses, while the Malaysia Customs Act focuses more on financial penalties with optional imprisonment for more severe offenses, indicating a more balanced approach to enforcement."
+      },
+      "expected": "B",
+      "output": "B",
+      "raw_output": "B",
+      "correct": true,
+      "context_length": 543592,
+      "context_category": "Long (512k-8M chars)",
+      "duration": 1.533353333012201
+    },
+    {
+      "id": 37,
+      "question": "How to translate the following Quenya sentence into English: I Nauco uva anta ninque mama i Atanin ?",
+      "choices": {
+        "A": "The Dwarf didn't give a white sheep to the Man.",
+        "B": "The Dwarf gives a yellow horse to the Man.",
+        "C": "The Dwarf will not give a white sheep to the Man.",
+        "D": "The Dwarf didn't give a yellow horse to the Man."
+      },
+      "expected": "C",
+      "output": "C",
+      "raw_output": "C",
+      "correct": true,
+      "context_length": 907968,
+      "context_category": "Long (512k-8M chars)",
+      "duration": 4.060248667025007
+    },
+    {
+      "id": 38,
+      "question": "Given the constraints of limited fiscal space, the complexity of sectoral silos, and the EU's stringent regulatory frameworks for cohesion funding, which of the following options would be the most challenging to implement effectively, despite its potential long-term benefits, and why?",
+      "choices": {
+        "A": "Implementing a place-based infrastructure investment approach that integrates regional needs into national planning, while overcoming sectoral silos by centralizing project prioritization under a national infrastructure coordination body.",
+        "B": "Creating a unified national digital platform that harmonizes data sharing across regions and sectors to track the life cycle of infrastructure projects, ensuring transparent resource allocation and real-time monitoring of regional disparities in infrastructure quality.",
+        "C": "Establishing financial and non-financial incentives for municipalities and regions to cooperate on cross-regional projects, with a focus on public-private partnerships (PPPs) and leveraging EU cohesion funds to scale up green infrastructure in economically lagging regions.",
+        "D": "Revising Czechia\u2019s tax-sharing formula and increasing local governments\u2019 fiscal autonomy to allow subnational entities to capture land-value increases from infrastructure investments, thus reducing dependency on central government transfers and EU funding."
+      },
+      "expected": "D",
+      "output": "D",
+      "raw_output": "D",
+      "correct": true,
+      "context_length": 514887,
+      "context_category": "Long (512k-8M chars)",
+      "duration": 9.540224541909993
+    },
+    {
+      "id": 39,
+      "question": "How do the 2022\u20132023 AUSTRAC Annual Report and the 2018\u20132019 AUSTRAC Annual Report differ in their treatment of data-sharing protocols with international partners, and what do these differences reveal about the evolving priorities in global financial intelligence cooperation over time?",
+      "choices": {
+        "A": "Both the 2022\u20132023 and 2018\u20132019 reports highlight increasing international data-sharing, but the 2022\u20132023 report places more emphasis on the use of real-time data-sharing platforms like Fintel Alliance, while the 2018\u20132019 report focuses on formal memoranda of understanding (MOUs), showing a shift from formal agreements to rapid intelligence collaboration.",
+        "B": "Both the 2022\u20132023 and 2018\u20132019 reports focus on enhancing global data-sharing, but the 2022\u20132023 report emphasizes operational tools for faster collaboration, whereas the 2018\u20132019 report prioritizes formal MOUs, reflecting a shift from formal agreements to rapid, real-time intelligence sharing.",
+        "C": "The 2022\u20132023 report focuses on improving real-time data-sharing mechanisms through platforms like Fintel Alliance, while the 2018\u20132019 report relies more on the establishment of traditional MOUs, indicating a movement from formal processes to faster, action-driven collaboration between financial intelligence units.",
+        "D": "Both the 2022\u20132023 and 2018\u20132019 reports emphasize AUSTRAC\u2019s commitment to international data-sharing, but the 2022\u20132023 report focuses on the creation of faster, operational tools for real-time collaboration, while the 2018\u20132019 report underscores formalized MOUs, revealing a shift towards more dynamic and immediate intelligence exchanges over time."
+      },
+      "expected": "B",
+      "output": "D",
+      "raw_output": "D",
+      "correct": false,
+      "context_length": 590572,
+      "context_category": "Long (512k-8M chars)",
+      "duration": 26.117757333093323
+    },
+    {
+      "id": 40,
+      "question": "Which player got the most utility in the game?",
+      "choices": {
+        "A": "player_1",
+        "B": "player_3",
+        "C": "player_5",
+        "D": "player_7"
+      },
+      "expected": "D",
+      "output": "D",
+      "raw_output": "D",
+      "correct": true,
+      "context_length": 111598,
+      "context_category": "Short (0-144k chars)",
+      "duration": 55.59205462492537
+    },
+    {
+      "id": 41,
+      "question": "You are given a translation textbook from Zhuang to Chinese, how to translate the following sentence in Zhuang into Chinese: \"Gienh saeh gou ceiq muengh ndeu dwg gijmaz ne, couh dwg hawj gyoengq beixnuengx gwn donq noh imq ndeu, baezlaeng caiqlij ndaej seizseiz gwn noh dem.\"?",
+      "choices": {
+        "A": "\u6211\u6700\u5e0c\u671b\u7684\u4e8b\uff0c\u5c31\u662f\u8ba9\u4e61\u4eb2\u4eec\u80fd\u5403\u4e0a\u4e00\u987f\u597d\u8089\uff0c\u4ee5\u540e\u4e5f\u8981\u4fdd\u8bc1\u4ed6\u4eec\u7ecf\u5e38\u80fd\u5403\u5230\u8089\u3002",
+        "B": "\u6211\u6700\u60f3\u5b8c\u6210\u7684\u4e8b\u60c5\uff0c\u5c31\u662f\u8ba9\u6751\u6c11\u4eec\u80fd\u591f\u5403\u4e0a\u4e00\u987f\u7f8e\u5473\u7684\u8089\uff0c\u5e76\u4e14\u4fdd\u8bc1\u4ed6\u4eec\u5f80\u540e\u90fd\u4e0d\u4f1a\u7f3a\u5c11\u8089\u5403\u3002",
+        "C": "\u6211\u6700\u5e0c\u671b\u7684\u4e8b\u662f\u4ec0\u4e48\u5462\uff0c\u5c31\u662f\u8ba9\u4e61\u4eb2\u4eec\u80fd\u5403\u4e0a\u4e00\u987f\u7f8e\u5473\u7684\u597d\u8089\uff0c\u5e76\u4e14\u4fdd\u8bc1\u4ed6\u4eec\u5f80\u540e\u90fd\u4e0d\u4f1a\u7f3a\u5c11\u8089\u5403\u3002",
+        "D": "\u6211\u5f88\u671f\u76fc\u7684\u4e00\u4ef6\u4e8b\u662f\u4ec0\u4e48\u5462\uff0c\u5c31\u662f\u8ba9\u4e61\u4eb2\u4eec\u9971\u9910\u4e00\u987f\u8089\uff0c\u5e76\u4e14\u4eca\u540e\u80fd\u591f\u7ecf\u5e38\u5403\u8089\u3002"
+      },
+      "expected": "D",
+      "output": "A",
+      "raw_output": "A",
+      "correct": false,
+      "context_length": 2531634,
+      "context_category": "Long (512k-8M chars)",
+      "duration": 10.519996249931864
+    },
+    {
+      "id": 42,
+      "question": "Only Based on this paper, please indicate under what circumstances international treaties can be directly applied by Chinese courts:",
+      "choices": {
+        "A": "Incorporating treaty obligations into domestic law through national legislation or law amendments.",
+        "B": "When stipulated within the Chinese legal system that treaties can be applied.",
+        "C": "Giving precedence to international treaties in accordance with the treaty provisions.",
+        "D": "Applying international treaties based on the contractual agreement of the parties."
+      },
+      "expected": "B",
+      "output": "B",
+      "raw_output": "B",
+      "correct": true,
+      "context_length": 83034,
+      "context_category": "Short (0-144k chars)",
+      "duration": 46.38786120794248
+    },
+    {
+      "id": 43,
+      "question": "Which of the following events occurred most recently\uff1f",
+      "choices": {
+        "A": "the user joined XYZ Corporation",
+        "B": "the user graduated from college",
+        "C": "the user  took a  writing workshop",
+        "D": "the user went to Yosemite National Park"
+      },
+      "expected": "D",
+      "output": "A",
+      "raw_output": "A systematic comparison of the evidence for each option reveals the following:\n\n- Option A (user joined XYZ Corporation): Strong evidence found of the user referencing their employment at XYZ, but no explicit indications of a recent change or event more recent than other options.\n- Option B (user graduated from college): No evidence surfaced placing this event in a \"most recent\" time frame. When mentioned, it was in context of undergraduate experience that predates other events.\n- Option C (user took a writing workshop): There is strong and recent evidence the user mentioned taking a writing workshop at a retreat center in the mountains \"back in October\" and references to having just recently gotten back into writing after this event, directly in context with questions about recent activities/habits. Workshop is described as a \"weekend-long\" event and is spoken of as the catalyst for recent behavior. This is presented in the forums/contexts as a very recent event.\n- Option D (user went to Yosemite National Park): Evidence shows the user mentioning a trip to Yosemite National Park \"about three weeks ago\" with friends Rachel and Mike. The trip is described as having happened recently, but the temporal marker \"three weeks ago\" is less recent than the writing workshop in October (given that many contexts and sample timelines in the evidence refer to the current month being November or later).\n\n**Key comparison:**  \n- \"Took a writing workshop at a retreat in October\" is more recent than \"went to Yosemite about three weeks ago\" if the current conversations imply a date after October (which is consistent with multiple references).\n- Graduation from college is treated as long past, and joining XYZ is referenced in context as several months prior or as ongoing employment.\n- The only events treated as immediate or recent are the writing workshop and Yosemite trip, with the writing workshop occurring \"last October\" and other activities referencing time periods after that workshop.\n\n**Conclusion (strongest, most direct, and time-marked evidence):**\n\n**C**",
+      "correct": false,
+      "context_length": 549551,
+      "context_category": "Long (512k-8M chars)",
+      "duration": 62.833743792027235
+    },
+    {
+      "id": 44,
+      "question": "Which of the following is not a contributing factor to the Chinese Rites Controversy?",
+      "choices": {
+        "A": "The Council of Trent was held, and the power of the Pope was expanded",
+        "B": "Disputes among Jesuits over the Chinese translation of God",
+        "C": "The speed of Chinese teaching was accelerated, and missionaries did not fully understand Chinese thoughts and classics",
+        "D": "The believers formed spontaneous associations, and the missionaries lost control of these associations"
+      },
+      "expected": "D",
+      "output": "A",
+      "raw_output": "A",
+      "correct": false,
+      "context_length": 1223145,
+      "context_category": "Long (512k-8M chars)",
+      "duration": 26.117485582944937
+    },
+    {
+      "id": 45,
+      "question": "Narrives: 1. ['In the excerpt, the protagonist expresses inner turmoil and fears about their destructive power, leading to a moment of intimacy with Xaden as they kiss him impulsively.']\\n2. [\\\"A cadet attempts to flee from the dragons and is incinerated by a red dragon's fire, adding to the day's death toll.\\\"]\\n3. [\\\"Violet decides to leave with Xaden despite Dain's objections, signaling her trust in Xaden and willingness to face the dangers beyond the wards.\\\"]\\n4. ['Violet struggles to stay seated on Tairn during a flight training session, repeatedly falling off as Tairn intentionally makes the maneuvers more challenging.']\\n\\nQuery: Considering the given book and narratives, Which order of the narratives in the following options is correct?",
+      "choices": {
+        "A": "1342",
+        "B": "3214",
+        "C": "4312",
+        "D": "2413"
+      },
+      "expected": "D",
+      "output": "A",
+      "raw_output": "A",
+      "correct": false,
+      "context_length": 1115662,
+      "context_category": "Long (512k-8M chars)",
+      "duration": 26.117481749970466
+    },
+    {
+      "id": 46,
+      "question": "Which two countries are the second and third frequently mentioned among all these organization addresses?",
+      "choices": {
+        "A": "Italy as the second and China as the third.",
+        "B": "Germany as the second and Italy as the third.",
+        "C": "Japan as the second and Germany as the third.",
+        "D": "United States as the second and China as the third."
+      },
+      "expected": "B",
+      "output": "A",
+      "raw_output": "A",
+      "correct": false,
+      "context_length": 306252,
+      "context_category": "Medium (144k-512k chars)",
+      "duration": 23.512928124982864
+    },
+    {
+      "id": 47,
+      "question": "For end dates on 2021-12-31, which company has the highest total asset/total liability ratio? Please provide the stock symbol of the company, and the value of the total asset/total liability ratio (rounded to the nearest whole number).",
+      "choices": {
+        "A": "600052\uff1b32",
+        "B": "000722\uff1b30",
+        "C": "000416\uff1b30",
+        "D": "000416\uff1b29"
+      },
+      "expected": "D",
+      "output": "A",
+      "raw_output": "A",
+      "correct": false,
+      "context_length": 2407150,
+      "context_category": "Long (512k-8M chars)",
+      "duration": 23.512997249956243
+    },
+    {
+      "id": 48,
+      "question": "Narrives: 1. ['Jess experiences a moment of panic when she notices blood while wiping after using the bathroom at eleven weeks and five days into her pregnancy, leading Malcolm to rush to her side, believing something is wrong.']\\n2. ['Malcolm discovers that the usually locked bar door is unexpectedly unlocked, raising suspicions that Tripp might have been using the bar as a hiding place.']\\n3. ['Jess and Malcolm took a pregnancy test together in a Pizza Hut bathroom in Times Square.']\\n4. [\\\"Malcolm asks Jess if she is happy, reflecting on their current life and his constant thoughts about Tripp Waggoner's crimes.\\\"]\\n\\nQuery: Considering the given book and narratives, Which order of the narratives in the following options is correct?",
+      "choices": {
+        "A": "1423",
+        "B": "3124",
+        "C": "4321",
+        "D": "3142"
+      },
+      "expected": "B",
+      "output": "B",
+      "raw_output": "B",
+      "correct": true,
+      "context_length": 575381,
+      "context_category": "Long (512k-8M chars)",
+      "duration": 29.73758012498729
+    },
+    {
+      "id": 49,
+      "question": "Which of the following statements is incorrect according to the manual?",
+      "choices": {
+        "A": "With default settings and a current gradient = 0.4 A, an indication of \"Pickup di/dt\" is issued. This happens when quadrilateral characteristic curve is applied rather than combined characteristic curve.",
+        "B": "If optical fibers is used to connect devices, I should use the parameter \"Lowest appearing bit rate = 2048 kBit/s\" to reset the lowest appearing bit rate from the default 64 kBit/s. Direct optical fiber connection also requires \"Difference Tx and Rx time = 0.1 ms\".",
+        "C": "When I set the parameters \"No. permis. state changes = 5\" and \"No. of chatter tests = 3\", the check is repeated 3 times if the chatter-blocking should occur. The indication is added to the log the first time the blocking takes place.",
+        "D": "It is possible that DIGSI 5 and SIPROTEC 5 Configurator have different function-point requirements, so it is suggested that I find out those requirements before ordering license file using SIPROTEC function point manager."
+      },
+      "expected": "B",
+      "output": "A",
+      "raw_output": "A",
+      "correct": false,
+      "context_length": 1454635,
+      "context_category": "Long (512k-8M chars)",
+      "duration": 8.603628083947115
     }
   ]
 }
