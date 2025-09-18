@@ -15,6 +15,7 @@ def _key_terms(s: str) -> List[str]:
     return [t for t in _tokens(s) if t not in _STOP and len(t) > 2]
 
 def _chunk(s: str, size: int) -> List[str]:
+    size = int(size)  # Ensure size is an integer
     return [s[i:i+size] for i in range(0, len(s), size)]
 
 def _score(ch: str, keys: set[str]) -> int:
@@ -44,7 +45,7 @@ def compress_context_for_question(
     scored.sort(key=lambda x: x[2], reverse=True)
 
     if top_k is None:
-        top_k = max(1, max_chars // max(1, chunk_size))
+        top_k = max(1, int(max_chars // max(1, chunk_size)))
 
     selected = sorted(scored[:top_k], key=lambda x: x[0])
     compressed = "".join(ch for _, ch, _ in selected)
