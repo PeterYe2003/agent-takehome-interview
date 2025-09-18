@@ -1,0 +1,12 @@
+Task ID: 8
+Question: Which of the following statements is correct?
+Question Keywords: statements, correct
+Choices: {'A': 'Both contractor data and data crawled from the Internet are used to train VPT agents to model state-action pairs.', 'B': 'All machine learning methods involved in the two articles are related to neural network deep learning.', 'C': 'Both voyager and VPT control Minecraft agents by predicting the actions of simulated mouse and keyboard operations in each given state.', 'D': "VPT's modeling of action space is approximate rather than precise."}
+Answer: D
+Context Length: 244743 chars
+Context Category: Medium (144k-512k chars)
+
+Option A Keywords: contractor data, data crawled from the Internet, VPT agents, state-action pairs
+Option B Keywords: machine learning methods, two articles, neural network, deep learning
+Option C Keywords: voyager, VPT, Minecraft agents, simulated mouse and keyboard operations
+Option D Keywords: VPT, modeling, action space, approximate

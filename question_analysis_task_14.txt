@@ -1,0 +1,10 @@
+Task ID: 14
+Question: Which players got the second most utility in the game?
+Context Length: 111,670 characters
+Context Category: Medium
+
+Question Analysis:
+Type: ANALYTICAL  
+Complexity: 3  
+Context_Need: NARROW  
+Reasoning: The question requires analysis of player performance in terms of utility, which involves comparing the utility levels of different players to determine who ranks second. This necessitates some reasoning and comparison but does not require a broad understanding of multiple concepts or complex processes.

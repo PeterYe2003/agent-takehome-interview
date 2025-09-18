@@ -1,0 +1,12 @@
+Task ID: 1
+Question: According to the report, how to promote the construction of smart courts?
+Question Keywords: report, promote, construction, smart courts
+Choices: {'A': 'Through technology empowerment, change the way of working and improve office efficiency.', 'B': 'Establish new types of courts, such as intellectual property courts, financial courts, and Internet courts, and accelerate the construction of intelligent courts.', 'C': 'Improve the work ability of office staff and strengthen the reserve of work knowledge.', 'D': 'Use advanced information systems to improve the level of information technology in case handling.'}
+Answer: D
+Context Length: 163356 chars
+Context Category: Medium (144k-512k chars)
+
+Option A Keywords: technology empowerment, way of working, office efficiency
+Option B Keywords: intellectual property courts, financial courts, Internet courts, intelligent courts
+Option C Keywords: work ability, office staff, reserve, work knowledge
+Option D Keywords: advanced information systems, information technology, case handling

@@ -1,0 +1,12 @@
+Task ID: 6
+Question: Which player got the least utility in the game?
+Question Keywords: player, least utility, game
+Choices: {'A': 'player_1', 'B': 'player_3', 'C': 'player_5', 'D': 'player_7'}
+Answer: B
+Context Length: 166770 chars
+Context Category: Medium (144k-512k chars)
+
+Option A Keywords: player_1
+Option B Keywords: player_3
+Option C Keywords: player_5
+Option D Keywords: player_7

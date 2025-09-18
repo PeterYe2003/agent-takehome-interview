@@ -1,0 +1,12 @@
+Task ID: 7
+Question: In the function that calculates the derivative of given functions, which of the following keyword arguments are all recognized?
+Question Keywords: function, calculates, derivative, keyword arguments, recognized
+Choices: {'A': 'singular, addprec, function', 'B': 'h, method, direction', 'C': 'relative, fc, y', 'D': 'radius, x, step'}
+Answer: B
+Context Length: 1932425 chars
+Context Category: Long (512k-8M chars)
+
+Option A Keywords: singular, addprec, function
+Option B Keywords: h, method, direction
+Option C Keywords: relative, fc, y
+Option D Keywords: radius, x, step

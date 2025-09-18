@@ -1,0 +1,13 @@
+Task ID: 4
+Question: When Miller tried to answer the question "should we read Heart of Darkness?", he put forward a new concept for read "but perform a reading in the strong
+sense, an active responsible response that renders justice to a book by generating more language in its turn". However, he actually laid an implied premise for his argument, which one of the followings is true?
+Question Keywords: Miller, Heart of Darkness, perform a reading, active responsible response, implied premise
+Choices: {'A': 'Each must read for himself or herself and testify anew.', 'B': 'Readers must reach a high standrad to some degree.', 'C': 'It is the readers\' obligation to get the "truth" from the primary narrator.', 'D': 'The performative interpretation of language transforms what it interprets.'}
+Answer: B
+Context Length: 98930 chars
+Context Category: Short (0-144k chars)
+
+Option A Keywords: read, testify anew
+Option B Keywords: readers, high standard, degree
+Option C Keywords: readers' obligation, "truth", primary narrator
+Option D Keywords: performative interpretation, language, transforms

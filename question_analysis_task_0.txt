@@ -1,0 +1,10 @@
+Task ID: 0
+Question: You are given a grammar book of Kalamang language, now translate the following Kalamang sentence into English: Faisal emun me mindi don bolonet me ma he kademor.
+Context Length: 1,000,567 characters
+Context Category: Very Long
+
+Question Analysis:
+Type: FACTUAL  
+Complexity: 2  
+Context_Need: NARROW  
+Reasoning: The question asks for a direct translation of a sentence from Kalamang to English using a provided grammar book. This is a straightforward retrieval and application of information (vocabulary and grammar rules) from a single source, without requiring analysis, synthesis, or inference beyond basic understanding of the grammar. Only the specific sentence and its components need to be understood and translated, so the focus is narrow and the complexity is low.

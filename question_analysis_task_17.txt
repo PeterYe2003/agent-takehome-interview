@@ -1,0 +1,10 @@
+Task ID: 17
+Question: Which player wins the most golds in the game?
+Context Length: 88,088 characters
+Context Category: Short
+
+Question Analysis:
+Type: FACTUAL  
+Complexity: 2  
+Context_Need: NARROW  
+Reasoning: The question asks for a specific piece of information regarding which player has won the most golds in a game. It requires simple fact retrieval without the need for extensive reasoning or analysis. The context is narrow as it focuses solely on the achievement of players in a specific game.

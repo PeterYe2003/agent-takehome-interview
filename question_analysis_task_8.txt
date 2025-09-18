@@ -1,0 +1,10 @@
+Task ID: 8
+Question: Which of the following statements is correct?
+Context Length: 244,743 characters
+Context Category: Medium
+
+Question Analysis:
+Type: FACTUAL  
+Complexity: 1  
+Context_Need: NARROW  
+Reasoning: The question "Which of the following statements is correct?" typically asks for the identification of a single correct fact or detail from a list. It does not require analysis, synthesis, or connecting multiple concepts—just simple fact retrieval from the provided options.
