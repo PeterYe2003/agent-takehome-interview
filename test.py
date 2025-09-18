@@ -5,9 +5,11 @@ import asyncio
 from dotenv import load_dotenv
 from datasets import load_dataset
 import random
-from agents import Agent, Runner
+from agents import Agent, Runner, function_tool
 import matplotlib.pyplot as plt
 import json
+from tools import compress_context_for_question
+import re
 
 load_dotenv()
 
@@ -17,37 +19,66 @@ logging.basicConfig(
 )
 logger = logging.getLogger("agents-test")
 
+# Suppress verbose HTTP logs
+logging.getLogger("httpx").setLevel(logging.WARNING)
+
 def get_context_length_category(context_length: int) -> str:
     """Categorize context length into Short, Medium, or Long."""
     if context_length <= 144000:
-        return "Short (0-144k words)"
+        return "Short (0-144k chars)"
     elif context_length <= 512000:
-        return "Medium (144k-512k words)"
+        return "Medium (144k-512k chars)"
     else:
-        return "Long (512k-8M words)"
+        return "Long (512k-8M chars)"
+
+@function_tool
+def compress_context_tool(
+    context: str,
+    question: str,
+    choices: str,
+    chunk_size: int = 800,
+    max_chars: int = 300000,
+    top_k: int = None
+) -> str:
+    """Compress a long context by selecting the most relevant parts for the given question and choices."""
+    choices_dict = json.loads(choices) if isinstance(choices, str) else choices
+    result = compress_context_for_question(context, question, choices_dict, chunk_size, max_chars, top_k)
+    return result["compressed"]
+
+def _letter_only(s: str) -> str | None:
+    """Extract just the letter (A, B, C, D) from the response."""
+    m = re.match(r'^\s*([ABCD])\b', s.strip().upper())
+    return m.group(1) if m else None
 
 agent = Agent(
-    model="gpt-4.1",
     name="baseline-agent",
     instructions="""You are a precise question-answering agent for multiple-choice questions. 
 
 Your task:
-1. Carefully read the provided context and question
-2. Analyze all the given choices (A, B, C, D)
-3. Select the single best answer based on the context
-4. Respond with ONLY the letter of your chosen answer (A, B, C, or D)
-5. Do not provide explanations, reasoning, or additional text
+1. Use compress_context_tool to extract the most relevant parts
+3. Carefully read the context (compressed if applicable) and question
+4. Analyze all the given choices (A, B, C, D)
+5. Select the single best answer based on the context
+6. Respond with ONLY the letter of your chosen answer (A, B, C, or D)
+7. Do not provide explanations, reasoning, or additional text
+
+For the compress_context_tool:
+- Pass the context, question, and choices as a JSON string
+- The tool will return a compressed version of the context focusing on relevant content
+- Use the outputted context as your new context
 
 Example:
 Question: What is the capital of France?
 A) London
-B) Paris  
+B) Paris
 C) Berlin
 D) Madrid
 
 Correct response: B
 
-Remember: Your response must start with exactly one letter (A, B, C, or D)."""
+Remember: Your response must start with exactly one letter (A, B, C, or D).""",
+    model="gpt-4.1",
+    tools=[compress_context_tool]
 )
 
 runner = Runner()
@@ -69,68 +100,69 @@ def prepare_longbench2(n=None):
 
 async def run_task(i: int, task: dict):
     q = task["question"]
-    context = task.get("context", "")
-    
-    # Track original context length and category
+    context = task.get("context", "") or ""
+    choices = {
+        "A": task.get('choice_A', ''),
+        "B": task.get('choice_B', ''),
+        "C": task.get('choice_C', ''),
+        "D": task.get('choice_D', '')
+    }
+
     original_context_length = len(context)
     context_category = get_context_length_category(original_context_length)
-    
-    # Truncate context if too long (limit to ~50k chars to stay under context window)
-    max_context_len = 300000
-    if len(context) > max_context_len:
-        context = context[:max_context_len] + "... [truncated]"
-        logger.warning("Task %s: context truncated from %d to %d chars", i, len(task.get("context", "")), len(context))
-    
-    input_prompt = f"""Context:
-{context}
 
-Question:
-{q}
+    # --- Pre-compress on the client BEFORE building the prompt ---
 
-Choices:
-A) {task.get('choice_A', '')}
-B) {task.get('choice_B', '')}
-C) {task.get('choice_C', '')}
-D) {task.get('choice_D', '')}
+    budget_chars = 120000 * 4 
+    if len(context) > budget_chars:
+        compressed = compress_context_for_question(
+            context=context,
+            question=q,
+            choices=choices,
+            chunk_size=min(budget_chars, len(context)/2)/1000,
+            max_chars=min(budget_chars, len(context)/2),
+            top_k=None
+        )["compressed"]
+    else:
+        compressed = context
 
-Answer:"""
-    
-    # Check total input length (limit to 10MB as per API)
-    max_input_len = 10 * 1024 * 1024  # 10MB
-    if len(input_prompt) > max_input_len:
-        logger.error("Task %s: input too long (%d chars), skipping", i, len(input_prompt))
-        return {"id": i, "error": "Input too long"}
+    # Build prompt with compressed context
+    input_prompt = (
+        f"Context:\n{compressed}\n\n"
+        f"Question:\n{q}\n\n"
+        "Choices:\n"
+        f"A) {choices['A']}\n"
+        f"B) {choices['B']}\n"
+        f"C) {choices['C']}\n"
+        f"D) {choices['D']}\n\n"
+        "Answer:"
+    )
 
     start_time = time.perf_counter()
-    logger.debug("Task %s: starting; prompt_len=%d", i, len(input_prompt))
-    try:
-        result = await runner.run(agent, input=input_prompt)
-        output = result.final_output.strip()
-        is_correct = (output.upper().startswith(task["answer"]))
-        duration = time.perf_counter() - start_time
-        logger.info("Task %s completed in %.2fs; correct=%s", i, duration, is_correct)
-        return {
-            "id": i,
-            "question": q,
-            "choices": {k: task[k] for k in ["choice_A","choice_B","choice_C","choice_D"]},
-            "expected": task["answer"],
-            "output": output,
-            "correct": is_correct,
-            "context_length": original_context_length,
-            "context_category": context_category,
-            "duration": duration,
-        }
-    except Exception as e:
-        duration = time.perf_counter() - start_time
-        logger.exception("Task %s failed after %.2fs: %s", i, duration, e)
-        return {
-            "id": i, 
-            "error": str(e),
-            "context_length": original_context_length,
-            "context_category": context_category,
-            "duration": duration,
-            "correct": False,
-        }
+    logger.debug(
+        "Task %s: starting; prompt_len=%d chars (~%d tokens), original_ctx=%d chars",
+        i, len(input_prompt), len(input_prompt)//4, original_context_length
+    )
+
+    result = await runner.run(agent, input=input_prompt)
+    raw_output = (result.final_output or "").strip()
+    letter = _letter_only(raw_output)
+    is_correct = (letter == task["answer"])
+    duration = time.perf_counter() - start_time
+    logger.info("Task %s completed in %.2fs; correct=%s", i, duration, is_correct)
+    return {
+        "id": i,
+        "question": q,
+        "choices": choices,
+        "expected": task["answer"],
+        "output": letter,
+        "raw_output": raw_output,
+        "correct": is_correct,
+        "context_length": original_context_length,
+        "context_category": context_category,
+        "duration": duration,
+    }
+
 
 def create_accuracy_chart(category_accuracy, category_stats):
     """Create a bar chart showing accuracy by context length category."""
@@ -228,13 +260,13 @@ async def main():
     tasks = prepare_longbench2()
     logger.info("Loaded %d tasks", len(tasks))
 
-    sem = asyncio.Semaphore(5)
+    sem = asyncio.Semaphore(30)
 
     async def bounded_task(i, t):
         async with sem:
             return await run_task(i, t)
 
-    logger.info("Launching %d tasks with concurrency=%d", len(tasks), 5)
+    logger.info("Launching %d tasks with concurrency=%d", len(tasks), 30)
     results = await asyncio.gather(*(bounded_task(i, t) for i, t in enumerate(tasks)))
 
     scored = [r for r in results if "correct" in r]
