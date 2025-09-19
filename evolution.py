@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 tool_code_evolution.py
-Evolve Python functions by mutating their code with Claude.
+Evolve Python functions by mutating their code with Claude. This is a toy example for evolution_baseline_combined.py.
 Evaluates each generation on a benchmark, keeps the best variant.
 """
 
@@ -9,20 +9,17 @@ import os
 import re
 import inspect
 import textwrap
-import random
 import asyncio
 import logging
 from typing import Callable, List, Dict, Any, Tuple
 
 from dotenv import load_dotenv
-from openai import OpenAI
 from anthropic import Anthropic
 
 load_dotenv()
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger("tool-code-evolution")
 
-openai_client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 anthropic_client = Anthropic(api_key=os.getenv("ANTHROPIC_API_KEY"))
 
 
@@ -49,7 +46,7 @@ benchmark: List[Dict[str, Any]] = [
     {
         "query": "typo test",
         "docs": ["typo test doc", "typo"],
-        "expected": "typ test doc",
+        "expected": "typo test doc",
     },
 ]
 
@@ -140,6 +137,7 @@ Requirements:
 - Return ONLY valid Python code (no markdown fences).
 - DO NOT use any excess text like "Here's an improved version of the search_tool function..."
 - Have ONLY the code in your response as if it was in a .py file.
+- Make sure that the code is working properly and will not return any errors.
 """
     resp = anthropic_client.messages.create(
         model="claude-3-5-sonnet-20240620",

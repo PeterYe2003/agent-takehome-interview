@@ -1,399 +1,486 @@
 {
-  "overall_accuracy": 0.3333333333333333,
-  "total_tasks": 30,
+  "overall_accuracy": 0.525,
+  "total_tasks": 100,
   "category_stats": {
-    "Long (512k-8M chars)": {
-      "total": 9,
-      "correct": 4,
-      "context_lengths": [
-        4952558,
-        9598789,
-        5279366,
-        760508,
-        575381,
-        3363114,
-        623006,
-        1241929,
-        1115662
-      ]
-    },
     "Short (0-144k chars)": {
-      "total": 12,
-      "correct": 1,
+      "total": 27,
+      "correct": 11,
       "context_lengths": [
-        65069,
-        93445,
-        89720,
-        111670,
-        88088,
+        111066,
+        88000,
+        85956,
+        61556,
+        108019,
+        77385,
         99827,
         79705,
+        97091,
+        51623,
+        128987,
+        87773,
+        96706,
+        76481,
+        68396,
+        55546,
+        129805,
+        60721,
+        129168,
+        76176,
+        92437,
+        103145,
+        59918,
+        112363,
         56138,
-        110923,
-        121347,
-        88001,
-        50092
+        53982,
+        92437
       ]
     },
     "Medium (144k-512k chars)": {
-      "total": 9,
-      "correct": 3,
+      "total": 33,
+      "correct": 8,
       "context_lengths": [
-        159675,
-        226874,
-        162668,
-        200258,
+        455774,
+        346908,
+        458615,
+        455689,
+        488760,
+        287498,
+        479543,
+        199543,
+        475079,
+        435687,
+        201717,
+        484719,
+        496131,
+        209804,
+        228083,
+        295339,
+        292355,
+        296781,
+        425025,
+        227352,
+        149407,
+        314738,
+        433523,
         472131,
-        283823,
-        366845,
-        472100,
-        450764
+        495898,
+        153559,
+        282443,
+        489539,
+        226001,
+        445748,
+        197834,
+        177582,
+        391714
+      ]
+    },
+    "Long (512k-8M chars)": {
+      "total": 40,
+      "correct": 21,
+      "context_lengths": [
+        783299,
+        2531634,
+        1179099,
+        2136912,
+        543592,
+        785828,
+        606899,
+        570828,
+        667717,
+        2305097,
+        513588,
+        1000567,
+        829592,
+        762530,
+        566401,
+        1637915,
+        830776,
+        875897,
+        532956,
+        2016383,
+        720278,
+        539008,
+        16182936,
+        11199358,
+        544722,
+        629200,
+        1275474,
+        708655,
+        536571,
+        1000530,
+        4952558,
+        1970520,
+        1050812,
+        550357,
+        2120155,
+        9598789,
+        694284,
+        1083074,
+        4247788,
+        3596979
       ]
     }
   },
   "detailed_results": [
     {
       "id": 0,
-      "question": "Can you tell me the time in the above data when the price fluctuated the most in one minute?",
-      "choices": {
-        "A": "05 September 2022 10:32",
-        "B": "17 July 2022 11:57",
-        "C": "15 August 2022 09:30",
-        "D": "23 June 2022 14:10"
-      },
-      "expected": "C",
-      "output": "C",
-      "raw_output": "C",
-      "correct": true,
-      "context_length": 4952558,
-      "context_category": "Long (512k-8M chars)",
-      "duration": 54.252122042002156
-    },
-    {
-      "id": 1,
-      "question": "In the context of the numpy.ma module, which provides functionality for handling missing or invalid values in arrays, which of the following wrongly describes how the apply_along_axis function ensure the correct construction of the output array when applying func1d along a specified axis, and how it handle the shape transformations and data types of the resulting masked array?",
-      "choices": {
-        "A": "Output Shape Handling: The output shape is determined by removing the dimension corresponding to the specified axis from the input array shape. The function updates the output shape by inserting the shape of the result from func1d in the position of the specified axis.",
-        "B": "Scalar Result Handling: If the result of func1d is a scalar, the output array is initialized as an object array, and the function checks if the result is scalar by attempting to compute its length. If it is scalar, it adds the scalar result directly to the output array.",
-        "C": "Iteration Over Indices: The function uses a recursive function to iterate over all indices of the input array, adjusting the index for each dimension except the specified axis. Inside the loop, the index of the specified axis is set to slice(None) to ensure that func1d is applied along the correct dimension.",
-        "D": "Handling Dtypes: The function maintains a list of dtypes encountered while applying func1d to ensure that the output array is of a compatible type. At the end of the process, it computes the maximum dtype from the list and casts the output array to that type to avoid downcasting."
-      },
-      "expected": "C",
-      "output": "D",
-      "raw_output": "D",
-      "correct": false,
-      "context_length": 9598789,
-      "context_category": "Long (512k-8M chars)",
-      "duration": 15.950195416109636
-    },
-    {
-      "id": 2,
-      "question": "Based on these press releases from Sanofi regarding their pharmaceutical products, which of the following products cannot usually be used to treat blood diseases?\n\u2460ALTUVIIIO\n\u2461Dupixent\n\u2462Sarclisa\n\u2463Tolebrutinib\n\u2464Aubagio\n\u2465Placebo",
-      "choices": {
-        "A": "\u2460\u2463\u2464\u2465",
-        "B": "\u2460\u2461\u2462\u2465",
-        "C": "\u2461\u2462\u2464\u2465",
-        "D": "\u2461\u2463\u2464\u2465"
-      },
-      "expected": "D",
-      "output": "C",
-      "raw_output": "C",
-      "correct": false,
-      "context_length": 65069,
-      "context_category": "Short (0-144k chars)",
-      "duration": 19.53971695806831
-    },
-    {
-      "id": 3,
-      "question": "The Transformers package by Hugging Face is widely used for implementing state-of-the-art natural language processing (NLP) models. The package provides various utilities for dynamic loading of models and managing dependencies. Files inside includes functions for initializing cache directories, checking imports, and dynamically loading modules from the Hugging Face Hub. Which of the following is an inaccurate description?",
-      "choices": {
-        "A": "Conditional Local File Copying: The implementation checks if the module_file is located within the pretrained_model_name_or_path directory (local file). If it is, it only copies the specific module_file to the Transformers dynamic modules cache (HF_MODULES_CACHE) when the file is new or has changed since the last copy. This avoids creating unnecessary nested folders in the cache for local files.",
-        "B": "Relative Import Handling:  The function get_cached_module_file doesn't just copy the module_file itself. It also checks for any relative imports used within the file (get_relative_imports). It then uses an iterative process to retrieves and copies these additional files (get_relative_import_files) to the cache alongside the main module. This ensures all dependencies are met when importing the dynamic module.",
-        "C": "Versioning with Git Commit Hash: When dealing with modules from a remote repository (not a local file), the code extracts the commit hash associated with the downloaded files (extract_commit_hash). This hash is used to create a subfolder within the cache with the same name. This allows for versioning of the downloaded module files based on the specific Git commit they correspond to.",
-        "D": "Hidden Warning for Downloaded Code: There's a subtle warning message logged (logger.warning) if new files are downloaded during the process and the revision argument is not set. This warns the user that new versions of code files were downloaded and suggests pinning a specific revision to avoid unexpected changes. This message might be easy to miss if not paying close attention."
-      },
-      "expected": "B",
-      "output": "C",
-      "raw_output": "C",
-      "correct": false,
-      "context_length": 5279366,
-      "context_category": "Long (512k-8M chars)",
-      "duration": 15.950404707924463
-    },
-    {
-      "id": 4,
-      "question": "According to the two articles above, which of the following statements is incorrect?",
-      "choices": {
-        "A": "Using the following prompt to generate a specific molecular will get a better performance on molT5 than asking GPT-4:\n\"The molecule is a sulfonated xanthene dye of absorption wavelength 573 nm and emission wavelength 591 nm. It has a role as a fluorochrome.\"",
-        "B": "Using the following prompt to predict protein-molecule affinity will get a better performance on GPT-4 than asking molT5:\n\"SMILES: COC1=NC=C(C=C1)COC2=C(C=C(C=C2)CN3C=NC4=C3N=CC(=C4)C5=NN=C(O5)C6CCNCC6)OC, FASTA: MSSWIRWHGPAMARLWGFCWLVVGFWRAAFACPTSCKCSA...TLLQNLAKASPVYLDILG. You need to calculate the binding affinity score.\"",
-        "C": "When given few-shot examples, GPT-4 can produce results almost comparable to existing deep learning models on the Drug-Target Affinity (DTA) task.",
-        "D": "GPT-4 demonstrates a solid understanding of key information in evolutionary biology."
-      },
-      "expected": "C",
-      "output": "A",
-      "raw_output": "A",
-      "correct": false,
-      "context_length": 760508,
-      "context_category": "Long (512k-8M chars)",
-      "duration": 15.94957458297722
-    },
-    {
-      "id": 5,
-      "question": "Narrives: 1. ['Jess experiences a moment of panic when she notices blood while wiping after using the bathroom at eleven weeks and five days into her pregnancy, leading Malcolm to rush to her side, believing something is wrong.']\\n2. ['Malcolm discovers that the usually locked bar door is unexpectedly unlocked, raising suspicions that Tripp might have been using the bar as a hiding place.']\\n3. ['Jess and Malcolm took a pregnancy test together in a Pizza Hut bathroom in Times Square.']\\n4. [\\\"Malcolm asks Jess if she is happy, reflecting on their current life and his constant thoughts about Tripp Waggoner's crimes.\\\"]\\n\\nQuery: Considering the given book and narratives, Which order of the narratives in the following options is correct?",
-      "choices": {
-        "A": "1423",
-        "B": "3124",
-        "C": "4321",
-        "D": "3142"
-      },
-      "expected": "B",
-      "output": "B",
-      "raw_output": "B",
-      "correct": true,
-      "context_length": 575381,
-      "context_category": "Long (512k-8M chars)",
-      "duration": 15.94974637508858
-    },
-    {
-      "id": 6,
-      "question": "Which of the following is correct\uff1f",
-      "choices": {
-        "A": "Accelerate the establishment of a science and technology innovation guidance fund, guiding long-term capital and patient capital to invest early, large, and information technology-based technology.",
-        "B": "Promote the construction of important infrastructure such as the Shanghai section of the Shanghai Nantong Railway Phase II and the Shanghai section of the Shanghai Chongqing Chengdu High speed Railway.",
-        "C": "Improve the government financing guarantee system and credit incentive policies for small and medium-sized enterprises, and increase efforts to cultivate medium-sized enterprises.",
-        "D": "Promote the high-quality development of modern service industry clusters in areas such as the North Bund, Lujiazui, and Xujiahui."
-      },
-      "expected": "B",
-      "output": "D",
-      "raw_output": "D",
-      "correct": false,
-      "context_length": 93445,
-      "context_category": "Short (0-144k chars)",
-      "duration": 0.8525169579079375
-    },
-    {
-      "id": 7,
-      "question": "What is the difference in the focus of the two departments in terms of creating high-quality cases?",
-      "choices": {
-        "A": "The Nanjing Maritime Court has won praise for improving the accuracy of case handling by formulating normative guidelines; The Guangzhou Maritime Court cited the results to explain.",
-        "B": "The Nanjing Maritime Court has won the trust of the international community in China's maritime justice with its professional judicial ability; The Guangzhou Maritime Court illustrates the results of its work through data.",
-        "C": "The Nanjing Maritime Court promotes the quality of law enforcement and case handling through fair and efficient trial of cases; The Guangzhou Maritime Court illustrates its work results by listing its achievements.",
-        "D": "Nanjing Maritime Court adheres to the strategy of high-quality trials; The Guangzhou Maritime Court cited the results of high-quality cases."
-      },
-      "expected": "A",
-      "output": "C",
-      "raw_output": "C",
-      "correct": false,
-      "context_length": 159675,
-      "context_category": "Medium (144k-512k chars)",
-      "duration": 15.949761916999705
-    },
-    {
-      "id": 8,
-      "question": "Which product pipeline advancements of Sanofi have been reported in these two press releases? (If the press releases from Q2 2024 and Q4 2024 report on the same product, please take the most recent developments into account).",
-      "choices": {
-        "A": "Sanofi anticipates that by 2025, partial or full indications of Dupixent, Rilzabrutinib, Tolebrutinib, Sarclisa, MenQuadfi, Fitusiran, Losmapimod, Itekimab, and SP0087 will complete regulatory submissions in the United States or Europe.",
-        "B": "In 2023Q4, Sanofi submitted applications to regulatory agencies in the U.S., EU, and China for Dupixent's treatment of COPD, and it was approved during 2024Q2.",
-        "C": "In the vaccine product area, Sanofi is collaborating with a subsidiary of Johnson & Johnson to develop a vaccine targeting extraintestinal pathogenic E. coli, and plans to achieve a regulatory submission for the extension of the indication of a meningococcal ACWY conjugate vaccine down to 6-week-old infants in the United States.",
-        "D": "During 2024Q2, the company achieved 3 regulatory approvals, including immunological drugs Dupixent, Kevzara pJIA, and Altuvoct, as well as 4 regulatory submissions, including oncological drugs Fitusiran and Sarclisa."
-      },
-      "expected": "C",
-      "output": "D",
-      "raw_output": "D",
-      "correct": false,
-      "context_length": 226874,
-      "context_category": "Medium (144k-512k chars)",
-      "duration": 15.94991729198955
-    },
-    {
-      "id": 9,
-      "question": "According to the article, which one is not a powerful force to unite in the fight against the epidemic?",
-      "choices": {
-        "A": "People-oriented.",
-        "B": "Uniting as one.",
-        "C": "Science and technology underpin China\u2019s efforts.",
-        "D": "spare no effort."
-      },
-      "expected": "C",
-      "output": "A",
-      "raw_output": "A",
-      "correct": false,
-      "context_length": 162668,
-      "context_category": "Medium (144k-512k chars)",
-      "duration": 15.949821917107329
-    },
-    {
-      "id": 10,
-      "question": "After analyzing the 2023 Annual Enterprise Survey and the June 2024 Quarterly Report, you observe significant discrepancies in the financial performance of industries across varying firm sizes and sectors. Both datasets capture the effects of macroeconomic conditions, including inflation, changes in labor costs, and shifts in capital investment strategies. Specific findings include:\n\nEntertainment and Manufacturing Sectors (capital-intensive sectors):\n\nLarge enterprises have significantly increased their capital expenditures between 2023 and 2024, with a 20% increase in 2024, but profitability has dropped by 5% despite rising revenues.\nSmall and medium-sized enterprises (SMEs) in these sectors have experienced more extreme volatility, with a sharp decline in revenues (down 10%) and profitability (down 15%).\nProfessional Services and Financial Services Sectors (service-oriented sectors):\n\nLarge firms show declining revenues (down 8% in 2024) but substantial gains in profitability (up 12%) due to strong cost management and reductions in labor expenses.\nSMEs in these sectors, however, show stagnation in revenue (growth close to 0%) but modest profitability gains (up 5%), largely attributed to operational efficiencies.\nCross-Industry Findings:\n\nThe data indicates a rise in labor costs across all industries, but the capital-intensive sectors (manufacturing, entertainment) appear to have mitigated the effect of rising wages through automation and capital investments. However, this has not translated into immediate profitability gains.\nThe service sectors, where labor costs are more dominant and harder to substitute, have employed aggressive cost-cutting measures and restructuring to boost profitability despite falling revenues.\nGiven these data points, how to assess the long-term viability of each sector\u2019s strategy in response to macroeconomic conditions? Specifically, address how each sector's response to rising capital expenditures and labor costs will impact their future growth trajectories and profitability over the next three years. Construct an advanced portfolio allocation strategy that exploits these sectoral trends, firm-size performance, and macroeconomic risks (e.g., rising interest rates, inflation, and technological disruption). In your strategy, use a quantitative approach that incorporates the relative performance metrics from both datasets.",
-      "choices": {
-        "A": "Factor Risk Modeling with Sector-Specific Beta Adjustments: Utilize a multi-factor model to assess sector-specific betas, incorporating firm size, capital intensity, and labor dependence as factors. In capital-intensive industries, high capital expenditure may depress near-term profitability but improve efficiency long term. By adjusting beta for size and sector, you can overweight large firms in manufacturing and entertainment, as they are likely to benefit from increased automation and technology investments, and underweight SMEs, which will struggle with rising interest rates and capital costs. In service sectors, focus on large firms with low betas (less volatile) that are managing labor costs efficiently and generating profitability even in a low-revenue environment.",
-        "B": "Stochastic Dominance Analysis with Non-Linear Effects of Capital Expenditure: Apply stochastic dominance theory to model non-linear impacts of capital expenditure on profitability and revenue growth across sectors. Capital-intensive sectors exhibit non-linear responses to investment, where early-stage capital investment leads to profitability declines but produces long-term gains. SMEs in manufacturing and entertainment face increasing returns to scale once they cross a certain capital threshold but are at higher risk due to interest rate hikes. In service-oriented sectors, focus on second-order stochastic dominance to emphasize firms that have achieved operational efficiency and reduced risk exposure, thereby improving profitability even with shrinking revenues.",
-        "C": "Dynamic Portfolio Optimization with Regime-Switching Models: Use a regime-switching model to dynamically adjust portfolio allocation based on projected macroeconomic conditions (inflation, interest rates) and firm performance trends. The capital-intensive sectors may be in a \u201chigh-growth, low-profitability\u201d regime in the near term, driven by automation and large-scale capital expenditure, while service sectors may be transitioning to a \u201clow-growth, high-profitability\u201d regime due to cost-cutting and restructuring. Optimize portfolio allocation by shifting toward large firms in capital-intensive sectors as they move into a higher profitability regime, while overweighting SMEs in service sectors that are more agile and can benefit from operational efficiency in the face of inflationary pressures.",
-        "D": "Intertemporal Capital Asset Pricing Model (ICAPM) with Sector-Specific Risk Premia: Apply the ICAPM framework to model the evolution of sector-specific risk premia over time, considering the effects of rising capital expenditures, automation, and labor market dynamics. In capital-intensive sectors, large firms will gradually reduce their risk premia as automation improves future cash flow stability, despite short-term profitability losses. SMEs in these sectors will have higher risk premia due to volatile cash flows and high borrowing costs. In service sectors, risk premia for large firms will decrease as they continue improving labor efficiency and profitability, while SMEs in these sectors will have lower risk premia due to their ability to quickly restructure and adapt to inflationary pressures. This strategy will prioritize large firms in capital-intensive sectors for long-term stability and SMEs in service sectors for higher returns with lower risk exposure."
-      },
-      "expected": "C",
-      "output": "A",
-      "raw_output": "A",
-      "correct": false,
-      "context_length": 3363114,
-      "context_category": "Long (512k-8M chars)",
-      "duration": 15.949443082907237
-    },
-    {
-      "id": 11,
-      "question": "Why can VR Headset be used to help understand haptic slant adaptation in this article?",
-      "choices": {
-        "A": "To distinguish between an effect due to a relative static posture adaptation and an effect based on a low-level unimanual adaptation",
-        "B": "VR devices can provide an unlimited workspace.",
-        "C": "VR Headset can be used to render virtual slanted surfaces and record the participant\u2019s movement trajectories.",
-        "D": "Haptic force feedback has been proven to be unnecessary."
-      },
-      "expected": "D",
-      "output": "C",
-      "raw_output": "C",
-      "correct": false,
-      "context_length": 89720,
-      "context_category": "Short (0-144k chars)",
-      "duration": 15.949003042071126
-    },
-    {
-      "id": 12,
-      "question": "Which of the following is NOT a key business development that Huawei has achieved in 2023?",
-      "choices": {
-        "A": "Provide network infrastructure for remote areas and global users, help upgrade innovative applications such as naked-eye 3D, new calls, and cloud mobile phones, with more than 1.5 billion global users.",
-        "B": "Launch a series of Harmony OS ecosystem devices, with shipments of smart wearable products exceeding 150 million.",
-        "C": "Develop large-scale models for industry-specific applications, particularly in the medical and meteorological fields.",
-        "D": "Build cloud platforms for 40,000 enterprises in over 170 countries and regions to accelerate industry digitization and intelligence."
-      },
-      "expected": "C",
-      "output": "C",
-      "raw_output": "C",
-      "correct": true,
-      "context_length": 623006,
-      "context_category": "Long (512k-8M chars)",
-      "duration": 15.950205707922578
-    },
-    {
-      "id": 13,
-      "question": "Why does the threshold of criminal liability for IPR infringement crimes stipulated in the Criminal Law of China and relevant judicial interpretations not violate Article 61 of the TRIPS Agreement?",
-      "choices": {
-        "A": "China's Criminal Law and relevant judicial interpretations stipulate the amount and number of criminal sanctions for intellectual property rights, and China has actually set a certain criminal threshold, which may result in certain infringements that do not meet the criminal threshold or have no evidence to prove that they have a commercial purpose but reach a certain level of infringement cannot be regulated.",
-        "B": "The meaning of \"scale, grade, proportion, scale\" and so on in the word scale itself has a certain scope or relativity, so the \"scale of business\" under Article 61 of the TRIPS Agreement should be judged according to specific needs or specific circumstances\uff0cA case-by-case analysis is required.",
-        "C": "Because the panel found that China had not violated the provision.",
-        "D": "Because China did not participate in the agreement."
-      },
-      "expected": "B",
-      "output": "B",
-      "raw_output": "B",
-      "correct": true,
-      "context_length": 200258,
-      "context_category": "Medium (144k-512k chars)",
-      "duration": 0.8517268339637667
-    },
-    {
-      "id": 14,
-      "question": "Which players got the second most utility in the game?",
-      "choices": {
-        "A": "player_1 and player_8",
-        "B": "player_0 and player_8",
-        "C": "player_8 and player_9",
-        "D": "player_1 and player_9"
-      },
-      "expected": "D",
-      "output": "B",
-      "raw_output": "B",
-      "correct": false,
-      "context_length": 111670,
-      "context_category": "Short (0-144k chars)",
-      "duration": 57.56342266697902
-    },
-    {
-      "id": 15,
-      "question": "What measures has Chinese governments and enterprises taken to improve its self-sufficiency in key mineral resources?\uff1f",
-      "choices": {
-        "A": "The Chinese government has banned the export of some key mineral resources to ensure stable and sufficient domestic supply.",
-        "B": "Chinese mining enterprises are actively engaging in mergers and acquisitions to occupy a higher share of the supply.",
-        "C": "China has increased its investment in the lithium industry in emerging energy markets overseas such as Australia, Argentina, the United States, the Congo, and Chile.",
-        "D": "China has increased its investment in the expansion of the transmission grid with At a world-leading rate."
-      },
-      "expected": "B",
-      "output": "A",
-      "raw_output": "A",
-      "correct": false,
-      "context_length": 472131,
-      "context_category": "Medium (144k-512k chars)",
-      "duration": 15.950273292022757
-    },
-    {
-      "id": 16,
-      "question": "Which of the following is incorrect according to the handbook?",
-      "choices": {
-        "A": "When the contactor opens and the device stops working, I should check the ER LED for error messages. Such thing may happen when the current is below a set lower limit.",
-        "B": "Whether I want to mount the load feeder of size S0 for direct or reversing starting, I should lock the 3RC7 ILM on the contactor by pulling the locking slide downwards.",
-        "C": "A DIN rail adapter is a must if I mount size S0 load feeders for reversing starting. The DIN adapter is mounted in the same way as the motor starter protector.",
-        "D": "If I only have 3RC7 ILM Power Cable, I must install the 3RA8 ILF device group side by side with a maximum distance of 4.5 centimeters."
-      },
-      "expected": "A",
-      "output": "C",
-      "raw_output": "C",
-      "correct": false,
-      "context_length": 283823,
-      "context_category": "Medium (144k-512k chars)",
-      "duration": 0.8522100419504568
-    },
-    {
-      "id": 17,
-      "question": "Which player wins the most golds in the game?",
+      "question": "Which player contributed the second most tokens in the game?",
       "choices": {
         "A": "player_3",
-        "B": "player_4",
+        "B": "player_5",
         "C": "player_7",
         "D": "player_9"
       },
+      "expected": "D",
+      "output": "B",
+      "raw_output": "B",
+      "correct": false,
+      "context_length": 111066,
+      "context_category": "Short (0-144k chars)",
+      "duration": 48.979003457934596
+    },
+    {
+      "id": 1,
+      "question": "Please try to deduce the true story based on the evidence currently known. What was the real cause of Diana Cowper's death in your deduction?",
+      "choices": {
+        "A": "Murdered by Alan Godwin",
+        "B": "Murdered by Martin Lovell",
+        "C": "Murdered by Robert Cornwallis",
+        "D": "Suicide"
+      },
       "expected": "C",
       "output": "B",
       "raw_output": "B",
       "correct": false,
-      "context_length": 88088,
-      "context_category": "Short (0-144k chars)",
-      "duration": 43.1468047919916
+      "context_length": 455774,
+      "context_category": "Medium (144k-512k chars)",
+      "duration": 70.79397566698026
     },
     {
-      "id": 18,
-      "question": "What is the first ship the 'Pequod' meets?",
+      "id": 2,
+      "question": "if beam did not call all the students into the canteen to listen to him, what might happen?",
       "choices": {
-        "A": "Albatross",
-        "B": "Rachael",
-        "C": "Wanderer",
-        "D": "Lagoda"
+        "A": "Petra will be punched by bonito",
+        "B": "ender will still get blood on him",
+        "C": "bonito will not bully ender",
+        "D": "bean will be blamed by ender"
+      },
+      "expected": "B",
+      "output": "B",
+      "raw_output": "B",
+      "correct": true,
+      "context_length": 783299,
+      "context_category": "Long (512k-8M chars)",
+      "duration": 48.97803183400538
+    },
+    {
+      "id": 3,
+      "question": "Document: I'm more interested in why there are goldfish in the picture...\\n\\nQuestion: Only considering the given document, what are the emotions of the document?",
+      "choices": {
+        "A": "aan",
+        "B": "aao",
+        "C": "abb",
+        "D": "aav"
       },
       "expected": "A",
-      "output": "A",
-      "raw_output": "A",
-      "correct": true,
-      "context_length": 1241929,
-      "context_category": "Long (512k-8M chars)",
-      "duration": 0.8520906670019031
+      "output": "C",
+      "raw_output": "C",
+      "correct": false,
+      "context_length": 346908,
+      "context_category": "Medium (144k-512k chars)",
+      "duration": 44.14840458298568
     },
     {
-      "id": 19,
-      "question": "In this review, which statements is correct?",
+      "id": 4,
+      "question": "You are given a translation textbook from Zhuang to Chinese, now translate the following sentence in Zhuang into Chinese: \"Honghgai mbouj gvangq mbouj gaeb, vangvang raehraeh, byaij geij yamq couh raen di dujdwzcanj baij youq bakdou ranz bouxguhnaz, bitring\u3001bya'iq sauj\u3001lauxbaeg sei\u3001saejlab\u3001nohlab\u3001haeuxfaengx\u3001laeujmakmoiz\u2026\u2026\"",
       "choices": {
-        "A": "In CCC history, researcher found that the growth factor could facilitate the growth of cells and given the fact that platelet and other cells could release growth factors. Therefore, cancer cells\u2019 growth mainly is stimulated by other cells signals.",
-        "B": "In CCC mechanism, it mentioned that the endocrine cells regulate the secretion by detecting the concentration of specific substances. Therefore, by employing single cell seq technique, researcher could analyze how the endocrine cells could be activated by glucose, electrolytes, and other hormones by specific computational tools mentioned in this article.",
-        "C": "This article summarizes the computational tools for analyzing the cell-cell interaction. The tools in permutation-based tool can generally classified into two categories (discrete and continuous) based on the methods to evaluate the interactions.",
-        "D": "The summary part mentioned the potential improvements by including multi-omics methods. Therefore, to better understand the CCC mechanism, researcher could involve transcriptomics, viriomics, and etc."
+        "A": "\u873f\u8712\u66f2\u6298\u7684\u8857\u9053\u7eb5\u6a2a\u4ea4\u9519\uff0c\u6bcf\u9694\u4e00\u6bb5\u5c31\u80fd\u770b\u5230\u5f53\u5730\u7279\u4ea7\u6446\u5728\u5546\u94fa\u95e8\u524d\u51fa\u552e\uff0c\u6709\u70e4\u9e2d\u3001\u9c7c\u5e72\u3001\u841d\u535c\u4e1d\u3001\u9999\u80a0\u3001\u732a\u8089\u3001\u7cbd\u5b50\u3001\u6885\u9152\u2026\u2026",
+        "B": "\u4e0d\u5bbd\u4e0d\u7a84\u7684\u8857\u9053\u7eb5\u6a2a\u6709\u5e8f\uff0c\u8857\u8fb9\u4e0d\u65f6\u53ef\u89c1\u519c\u5bb6\u5c0f\u5e97\uff0c\u51fa\u552e\u5404\u79cd\u571f\u7279\u4ea7\uff0c\u5982\u70e4\u9e2d\u3001\u5c0f\u9c7c\u5e72\u3001\u841d\u535c\u4e1d\u3001\u9999\u80a0\u3001\u814a\u8089\u3001\u7cbd\u5b50\u3001\u6885\u5b50\u9152\u2026\u2026",
+        "C": "\u4e0d\u5bbd\u4e0d\u7a84\u7684\u8857\u5df7\u4e03\u7eb5\u516b\u6a2a\uff0c\u6bcf\u8d70\u51e0\u6b65\u5c31\u4f1a\u770b\u5230\u4e00\u4e9b\u571f\u7279\u4ea7\u54c1\u6446\u5728\u519c\u5bb6\u95e8\u524d\u552e\u5356\uff0c\u70e4\u9e2d\u3001\u5c0f\u9c7c\u5e72\u3001\u841d\u535c\u4e1d\u3001\u814a\u80a0\u3001\u814a\u8089\u3001\u7cbd\u5b50\u3001\u6885\u5b50\u9152\u2026\u2026",
+        "D": "\u4e0d\u5bbd\u4e0d\u7a84\u7684\u8857\u5df7\u873f\u8712\u4ea4\u9519\uff0c\u6bcf\u8d70\u51e0\u6b65\u5c31\u4f1a\u770b\u5230\u4e00\u4e9b\u571f\u7279\u4ea7\u54c1\u6446\u5728\u519c\u5bb6\u95e8\u524d\u552e\u5356\uff0c\u70e4\u9e2d\u3001\u5c0f\u9c7c\u5e72\u3001\u841d\u535c\u4e1d\u3001\u814a\u80a0\u3001\u814a\u8089\u3001\u9992\u5934\u3001\u7c73\u9152\u2026\u2026"
       },
       "expected": "C",
       "output": "C",
       "raw_output": "C",
       "correct": true,
-      "context_length": 366845,
+      "context_length": 2531634,
+      "context_category": "Long (512k-8M chars)",
+      "duration": 70.80110516690183
+    },
+    {
+      "id": 5,
+      "question": "In the METIS library, which function is responsible for performing the initial partitioning of a graph?",
+      "choices": {
+        "A": "metis_InitPartition",
+        "B": "kwayfm_PartGraph",
+        "C": "pmetis",
+        "D": "fm_RefineGraph"
+      },
+      "expected": "C",
+      "output": "C",
+      "raw_output": "C",
+      "correct": true,
+      "context_length": 1179099,
+      "context_category": "Long (512k-8M chars)",
+      "duration": 70.83301820897032
+    },
+    {
+      "id": 6,
+      "question": "In the Malaysian context, coercive isomorphism is primarily driven by federal oversight bodies exerting pressure on state governments to conform to standardized Key Performance Indicators (KPIs). However, in a situation where federal mandates conflict with the unique socioeconomic goals of individual state governments (e.g., urban vs. rural development priorities), how might normative isomorphism\u2014specifically through professionalization of bureaucrats\u2014serve as a counterforce to coercive pressures, and what would be the potential risks to public accountability if normative forces dominate KPI reporting?\n\nAnalyze how this interplay between coercive and normative isomorphism might impact:\n-The adaptability of performance measures to local priorities\n-The consistency of public accountability standards across states\n-The potential for institutional decoupling between formal reporting and actual performance outcomes.",
+      "choices": {
+        "A": "Normative isomorphism would improve adaptability of KPIs to local priorities by empowering state bureaucrats to design context-specific measures, but this could weaken consistency in public accountability as each state develops its own standards, leading to institutional decoupling where KPIs no longer reflect national goals.",
+        "B": "Normative isomorphism would strengthen both adaptability and consistency of KPIs, as the professionalization of bureaucrats would lead to the development of universally accepted best practices, ensuring both local relevance and alignment with national standards, reducing the risk of institutional decoupling.",
+        "C": "Normative isomorphism would primarily reinforce federal control rather than adaptability, as professional bureaucrats tend to adopt best practices that align with centralized standards, limiting innovation at the state level, while coercive pressures would ensure that KPIs continue to reflect federal, not local, priorities.",
+        "D": "The interplay between coercive and normative isomorphism would likely create a fragmented system where neither adaptability nor consistency is achieved. States with highly professionalized bureaucracies would set their own KPIs, while others would strictly follow federal mandates, leading to widespread institutional decoupling and reduced public accountability."
+      },
+      "expected": "A",
+      "output": "A",
+      "raw_output": "A",
+      "correct": true,
+      "context_length": 88000,
+      "context_category": "Short (0-144k chars)",
+      "duration": 48.977720458991826
+    },
+    {
+      "id": 7,
+      "question": "What are the main contributions of this code base?",
+      "choices": {
+        "A": "This code library makes up for the limited collaborative sensing fusion datasets.",
+        "B": "This codebase provides benchmarks for standard collaborative sensing algorithms.",
+        "C": "This code base proposes a new algorithm to improve the accuracy of target recognition and positioning.",
+        "D": "This codebase proposes a temporally compensated late fusion framework for subsequent research."
+      },
+      "expected": "B",
+      "output": "B",
+      "raw_output": "B",
+      "correct": true,
+      "context_length": 2136912,
+      "context_category": "Long (512k-8M chars)",
+      "duration": 48.96838366705924
+    },
+    {
+      "id": 8,
+      "question": "Which of the following is a competitive advantage of the multinational pharmaceutical company AbbVie Inc.?",
+      "choices": {
+        "A": "Strategic collaborations with other pharmaceutical companies, academic institutions, and research organizations endow AbbVie with robust R&D capabilities, with five new drugs currently in the pipeline submitted for market approval.",
+        "B": "AbbVie's business is spread across more than 170 countries worldwide, with particularly impressive growth in developed markets such as the United States, Europe, and Japan.",
+        "C": "AbbVie owns a strong portfolio of patent-protected pharmaceutical products, with best-selling drugs such as Humira, Imbruvica, and Venclexta driving the company's revenue growth.",
+        "D": "AbbVie continues to leverage external resources to expand its oncology portfolio. On December 6, 2023, the company announced the acquisition of Cerevel Therapeutics, a biopharmaceutical company focused on the treatment of schizophrenia, Parkinson's disease, and mood disorders."
+      },
+      "expected": "A",
+      "output": "C",
+      "raw_output": "C",
+      "correct": false,
+      "context_length": 458615,
       "context_category": "Medium (144k-512k chars)",
-      "duration": 48.81887833296787
+      "duration": 48.977638875017874
+    },
+    {
+      "id": 9,
+      "question": "Under the \u2018Western Australia Road Traffic Act 1974\u2019, if a learner driver is involved in a minor traffic violation while under the supervision of a licensed instructor, but the instructor momentarily fails to provide proper guidance, which of the following scenarios would most likely result in the instructor being held legally responsible for the learner's actions, assuming no prior offenses by either party?",
+      "choices": {
+        "A": "The instructor will only be held responsible if it can be proven that their failure to control or guide the learner driver directly caused the violation.",
+        "B": "The instructor will be held responsible if their failure to provide sufficient supervision is shown to have contributed to the learner driver\u2019s violation.",
+        "C": "The instructor will be held responsible if their lack of timely guidance is determined to have played a role in the learner\u2019s traffic violation.",
+        "D": "The instructor will only be held responsible if it can be proven that their failure to provide guidance directly contributed to the learner\u2019s violation."
+      },
+      "expected": "D",
+      "output": "B",
+      "raw_output": "B",
+      "correct": false,
+      "context_length": 455689,
+      "context_category": "Medium (144k-512k chars)",
+      "duration": 48.97749424993526
+    },
+    {
+      "id": 10,
+      "question": "What is the core argument of this article?",
+      "choices": {
+        "A": "Lawyers should be regarded as friends of clients.",
+        "B": "A good lawyer can be a good person.",
+        "C": "Refuting the social doubts about lawyers' professional ethics through analogy.",
+        "D": "Lawyers and doctors are similar. Although they are both criticized in society, they actually own professional ethics."
+      },
+      "expected": "C",
+      "output": "A",
+      "raw_output": "A",
+      "correct": false,
+      "context_length": 85956,
+      "context_category": "Short (0-144k chars)",
+      "duration": 44.194430708070286
+    },
+    {
+      "id": 11,
+      "question": "How do the Singapore Customs Act (1960) and the Malaysia Customs Act (1967) differ in their treatment of penalties for evading customs duties, and what do these differences suggest about the balance between preventive enforcement and regulatory leniency in managing violations of customs laws?",
+      "choices": {
+        "A": "The Singapore Customs Act emphasizes strict enforcement, imposing higher penalties, including mandatory imprisonment for customs duty evasion, while the Malaysia Customs Act adopts a more lenient approach by allowing fine-only penalties in minor offenses, indicating a greater focus on compliance in less severe cases.",
+        "B": "The Singapore Customs Act focuses on strict enforcement by imposing higher penalties, including mandatory imprisonment for serious customs duty evasion, while the Malaysia Customs Act permits fines without imprisonment in specific instances, reflecting a more lenient approach in less serious cases.",
+        "C": "The Singapore Customs Act mandates imprisonment for most customs duty evasion cases, emphasizing a deterrence approach, while the Malaysia Customs Act allows for fine-only penalties in minor violations, reflecting a softer enforcement strategy in Malaysia.",
+        "D": "Both acts impose penalties for customs duty evasion, but the Singapore Customs Act imposes mandatory imprisonment for a broader range of offenses, while the Malaysia Customs Act focuses more on financial penalties with optional imprisonment for more severe offenses, indicating a more balanced approach to enforcement."
+      },
+      "expected": "B",
+      "output": "B",
+      "raw_output": "B",
+      "correct": true,
+      "context_length": 543592,
+      "context_category": "Long (512k-8M chars)",
+      "duration": 48.968290915945545
+    },
+    {
+      "id": 12,
+      "question": "How many matches has Q439302 played as a member of Q18521?",
+      "choices": {
+        "A": "14",
+        "B": "19",
+        "C": "15",
+        "D": "65"
+      },
+      "expected": "C",
+      "output": "C",
+      "raw_output": "C",
+      "correct": true,
+      "context_length": 785828,
+      "context_category": "Long (512k-8M chars)",
+      "duration": 70.79094095807523
+    },
+    {
+      "id": 13,
+      "question": "What is true about the Sony Digital Camera according to the help guide?",
+      "choices": {
+        "A": "If I attach a mount adaptor to my camera with SAM lens and autofocus is not available, then I'm probably using LA-EA3 Mount Adaptor.",
+        "B": "When the camera's software version is 3.00 or later, I can use XAVC card for still-image shooting and movie recording with the maximum recordable bit rate of 600bps.",
+        "C": "Touch operations allow me to focus on the monitor. When I'm wearing gloves, I may set Touch Sensitivity to \"Sensitive\" instead of \"Standard\" for better responsivity.",
+        "D": "When using remote shooting, I can choose whether to save the still image on camera or the destination. I cannot record still images when no memory card is inserted after I release the shutter."
+      },
+      "expected": "C",
+      "output": "D",
+      "raw_output": "D",
+      "correct": false,
+      "context_length": 606899,
+      "context_category": "Long (512k-8M chars)",
+      "duration": 212.9668343749363
+    },
+    {
+      "id": 14,
+      "question": "Which one is noted in all the five passages?",
+      "choices": {
+        "A": "the democracy",
+        "B": "the education of the young people who are allways considered as the sun of the nation",
+        "C": "the cooperation between various people",
+        "D": "the bright future of China"
+      },
+      "expected": "C",
+      "output": "C",
+      "raw_output": "C",
+      "correct": true,
+      "context_length": 61556,
+      "context_category": "Short (0-144k chars)",
+      "duration": 48.97723591700196
+    },
+    {
+      "id": 15,
+      "question": "In this cloud storage system, the scheduler is a crucial component responsible for allocating file blocks to the appropriate slave servers. There are three Raspberry Pi devices acting as slave servers, named pi1, pi2, and pi3, with remaining storage capacities of 800 bytes, 700 bytes, and 500 bytes, respectively. A file has been divided into 9 blocks, each of 100 bytes, and two copies (including the original) need to be stored. Based on the scheduler\u2019s allocation strategy, analyze how the two copies are distributed across the three Raspberry Pi devices:",
+      "choices": {
+        "A": "Copy 1: pi3(500), pi2(400). Copy 2: pi2(300), pi1(600)",
+        "B": "Copy 1: pi1(400), pi2(400), pi3(100). Copy 2: pi3(400), pi2(300), pi1(200)",
+        "C": "Copy 1: pi1(400), pi2(200), pi3(300). Copy 2: pi1(400), pi1(500)",
+        "D": "Copy 1: pi1(800), pi2(100). Copy 2: pi2(600), pi3(300)"
+      },
+      "expected": "D",
+      "output": "B",
+      "raw_output": "B",
+      "correct": false,
+      "context_length": 108019,
+      "context_category": "Short (0-144k chars)",
+      "duration": 48.97730404208414
+    },
+    {
+      "id": 16,
+      "question": "What was NOT something that made Mrs. Judith Loftus realize that Huck wasn't really a girl, but a boy in disguise?",
+      "choices": {
+        "A": "He snorted loud and spit on the ground",
+        "B": "His attempts to thread a needle were very awkward",
+        "C": "He caught a bar of lead in his lap by bringing his knees together",
+        "D": "He threw lead at a rat side-armed and with his elbow bent"
+      },
+      "expected": "A",
+      "output": "A",
+      "raw_output": "A",
+      "correct": true,
+      "context_length": 570828,
+      "context_category": "Long (512k-8M chars)",
+      "duration": 70.79097504203673
+    },
+    {
+      "id": 17,
+      "question": "Narrives: 1. ['Patrice and Wood Mountain share a meal of pemmican on a train as they discuss her plans to find her sister in the Cities.']\\n2. ['Millie, who was cold despite wearing warm clothes, quietly joined Grace under the blankets in their shared bedroom to get warm.']\\n3. ['Thomas Wazhashk and other Turtle Mountain Band members attended a meeting where they listened to Mr. Holmes read a government bill proposing the termination of Indian services for their community, prompting concerns and objections about the loss of their land and rights.']\\n4. ['Roderick, a ghost, pretends to eat a chicken sandwich while hiding behind the motor at the jewel bearing plant, reflecting on his past experiences working in a school bakery.']\\n\\nQuery: Considering the given book and narratives, Which order of the narratives in the following options is correct?",
+      "choices": {
+        "A": "4132",
+        "B": "3412",
+        "C": "1324",
+        "D": "3421"
+      },
+      "expected": "C",
+      "output": "C",
+      "raw_output": "C",
+      "correct": true,
+      "context_length": 667717,
+      "context_category": "Long (512k-8M chars)",
+      "duration": 70.79320408392232
+    },
+    {
+      "id": 18,
+      "question": "Which of the following statements about Chroma and GPT-4 is incorrect?",
+      "choices": {
+        "A": "Both of Chroma and GPT-4 are capable of executing tasks pertinent to biological molecular processes.",
+        "B": "Chroma incorporates concepts from diffusion model, whereas GPT-4 is independent of any references to it.",
+        "C": "Like text-to-image diffusion models, Chroma can generate protein caption from its 1D sequence independently.",
+        "D": "Both of Chroma and GPT-4 have cited at least one common paper in their Reference section."
+      },
+      "expected": "C",
+      "output": "A",
+      "raw_output": "A",
+      "correct": false,
+      "context_length": 488760,
+      "context_category": "Medium (144k-512k chars)",
+      "duration": 48.97682324994821
+    },
+    {
+      "id": 19,
+      "question": "Both articles are related to the simulation of snow accumulation, but they differ in their focus and implementation details. Which of the following statements regarding the research and implementation methods of snow simulation in both articles is incorrect?",
+      "choices": {
+        "A": "Both articles mention the use of particle simulation for snow and explain the performance challenges associated with this method.",
+        "B": "Both articles aim to simulate snow accumulation shapes to represent snow thickness.",
+        "C": "The first article simulates snow using factors such as water accumulation and weather, while the second article does not consider natural factors and instead simulates snow from the perspective of object occlusion using shadow buffer techniques.",
+        "D": "The first article uses LOD (Level of Detail) algorithms for performance optimization, while the method used in the second article performs better than the traditional ray tracing method."
+      },
+      "expected": "C",
+      "output": "C",
+      "raw_output": "C",
+      "correct": true,
+      "context_length": 77385,
+      "context_category": "Short (0-144k chars)",
+      "duration": 44.147449415992014
     },
     {
       "id": 20,
+      "question": "Who ate dinner after Don Quixote's fight with the giants/windmills?",
+      "choices": {
+        "A": "Don Quixote",
+        "B": "Sancho",
+        "C": "Both",
+        "D": "None of the above"
+      },
+      "expected": "B",
+      "output": "B",
+      "raw_output": "B",
+      "correct": true,
+      "context_length": 2305097,
+      "context_category": "Long (512k-8M chars)",
+      "duration": 44.231212582904845
+    },
+    {
+      "id": 21,
       "question": "In the DMesh framework, the face existence probability function  \\Lambda_{wdt}(F_3)  determines whether a triangular face  F_3  belongs to the weighted Delaunay triangulation (WDT). This function is defined as  \\Lambda_{wdt}(F_3) = \\sigma(\\alpha_{wdt} \\cdot \\Delta(F_3)) , where  \\sigma  is a sigmoid function, and  \\Delta(F_3)  represents the signed distance between the dual line of the face and the reduced Power cells of its vertices. The hyperparameter  \\alpha_{wdt}  is introduced to modulate this function. Which of the following best explains the role of  \\alpha_{wdt}  in this formulation?",
       "choices": {
         "A": "\\alpha_{wdt}  helps in reducing the computational burden by accelerating the convergence of the optimization process. As  \\alpha_{wdt}  increases, the sigmoid function becomes more selective, rapidly eliminating unlikely face candidates from consideration during the WDT construction, small variations in  \\Delta(F_3)  can result in significant changes in the face inclusion probability This reduces the number of faces that need to be optimized, thereby improving the overall efficiency and convergence speed of the algorithm, especially for high-resolution meshes.",
@@ -407,10 +494,61 @@
       "correct": true,
       "context_length": 99827,
       "context_category": "Short (0-144k chars)",
-      "duration": 15.098504167050123
+      "duration": 26.642096167081036
     },
     {
-      "id": 21,
+      "id": 22,
+      "question": "Which album has the lowest rating among all the albums released by its artist, and the artist has at least one other album with a rating higher than 80?",
+      "choices": {
+        "A": "Money Changes Everything",
+        "B": "Back in the Jazz Coffin",
+        "C": "Road Trips Vol. 4 No. 5: Boston Music Hall June 9 1976",
+        "D": "He Chuang"
+      },
+      "expected": "C",
+      "output": "A",
+      "raw_output": "A",
+      "correct": false,
+      "context_length": 287498,
+      "context_category": "Medium (144k-512k chars)",
+      "duration": 44.1189176250482
+    },
+    {
+      "id": 23,
+      "question": "Narrives: 1. [\\\"Ben leaves Greta at the Alaskan port to rush back to his daughter's side in the hospital, while Greta stays behind to continue the cruise to Vancouver.\\\"]\\n2. [\\\"Greta decides not to participate in the cruise ship\\u2019s variety show despite Eleanor's encouragement.\\\"]\\n3. ['Ben confronts Greta with an online article claiming she is engaged to Luke, leading to a tense exchange between them.']\\n4. ['Greta reminisces about her mother, Helen, attending and enjoying her music performances, highlighting a specific memory of Helen enthusiastically supporting her at a Seattle show.']\\n\\nQuery: Considering the given book and narratives, Which order of the narratives in the following options is correct?",
+      "choices": {
+        "A": "3124",
+        "B": "3214",
+        "C": "1423",
+        "D": "2431"
+      },
+      "expected": "D",
+      "output": "A",
+      "raw_output": "A",
+      "correct": false,
+      "context_length": 479543,
+      "context_category": "Medium (144k-512k chars)",
+      "duration": 52.750244207913056
+    },
+    {
+      "id": 24,
+      "question": "The correct description of the relationship between the two articles \u201cDigiRL: Training In-The-Wild Device-Control Agents with Autonomous Reinforcement Learning\u201d and \u201cAutonomous evaluation and refinement of digital agents\u201d is:",
+      "choices": {
+        "A": "The core algorithm design (AWR method) of DigiRL references the algorithm design of Autonomous evaluation.",
+        "B": "The training dataset of DigiRL originates from the dataset constructed in the Autonomous evaluation article.",
+        "C": "DigiRL addresses the issue of modifying for a better action space proposed in Autonomous evaluation.",
+        "D": "DigiRL upgrades the evaluation method from the Autonomous evaluation article as the criterion for trace accuracy of its algorithm."
+      },
+      "expected": "D",
+      "output": "C",
+      "raw_output": "C",
+      "correct": false,
+      "context_length": 199543,
+      "context_category": "Medium (144k-512k chars)",
+      "duration": 52.750202125054784
+    },
+    {
+      "id": 25,
       "question": "What's the limitation of this article?",
       "choices": {
         "A": "We cannot be certain that those who purchase books from Amazon are similar to those from other website.",
@@ -424,10 +562,1064 @@
       "correct": false,
       "context_length": 79705,
       "context_category": "Short (0-144k chars)",
-      "duration": 42.29547241702676
+      "duration": 52.746936750016175
     },
     {
-      "id": 22,
+      "id": 26,
+      "question": "In the financial reports of Apple Inc. and Samsung Electronics for the years 2022 and 2023, which company has a higher percentage of revenue derived from the product category of phones, and in what range do the differences in this dependency between the two companies in the two years fall?",
+      "choices": {
+        "A": "Apple, 10% to 15%",
+        "B": "Samsung, 10% to 15%",
+        "C": "Apple, 5% to 10%",
+        "D": "Samsung, 5% to 10%"
+      },
+      "expected": "A",
+      "output": "A",
+      "raw_output": "A",
+      "correct": true,
+      "context_length": 475079,
+      "context_category": "Medium (144k-512k chars)",
+      "duration": 52.747084166971035
+    },
+    {
+      "id": 27,
+      "question": "Please try to deduce the true story based on the evidence currently known. In your deduction, who provided an alibi for the murderer?",
+      "choices": {
+        "A": "Honoka Nishikawa",
+        "B": "Tokuro Shibaura",
+        "C": "Takahiro Funami",
+        "D": "Tomoka Takino"
+      },
+      "expected": "A",
+      "output": "C",
+      "raw_output": "C",
+      "correct": false,
+      "context_length": 435687,
+      "context_category": "Medium (144k-512k chars)",
+      "duration": 52.77687241695821
+    },
+    {
+      "id": 28,
+      "question": "As a data compliance lawyer for a gaming company, what are the behaviours in your game that do not violate the principles of the GDPR Act and the measures that do not need to be brought to the attention of the business side of the business for additional attention or modification when the game goes overseas?",
+      "choices": {
+        "A": "In order to implement the team voice connection function in the game, if players need to use the microphone for voice connection during team matching, the recording will be temporarily stored in the mobile phone.",
+        "B": "In order to run the game on different models of mobile phones, online channels and PCs, the game needs to have software interfaces for different mobile phones.",
+        "C": "If players wish to add friends from their address book in the game, they can do so by associating them with their address book.",
+        "D": "None of these above"
+      },
+      "expected": "D",
+      "output": "B",
+      "raw_output": "B",
+      "correct": false,
+      "context_length": 201717,
+      "context_category": "Medium (144k-512k chars)",
+      "duration": 40.21445516694803
+    },
+    {
+      "id": 29,
+      "question": "If I turn off the permission to obtain location information, what context information can contextcam extract for creation at most?",
+      "choices": {
+        "A": "facial expression, location, music, screen content, and weather.",
+        "B": "facial expression, music, screen content, and weather.",
+        "C": "facial expression, music, and screen content.",
+        "D": "facial expression and screen content."
+      },
+      "expected": "C",
+      "output": "B",
+      "raw_output": "B",
+      "correct": false,
+      "context_length": 97091,
+      "context_category": "Short (0-144k chars)",
+      "duration": 52.746573625016026
+    },
+    {
+      "id": 30,
+      "question": "Why does the mistake happen?",
+      "choices": {
+        "A": "Matthew and Marilla ask Mrs. Spencer to pick a boy. But Mrs. Spencer want to pick a girl.",
+        "B": "Matthew and Marilla sent Mrs. Spencer word by other people but there are some misunderstanding in between.",
+        "C": "Mrs. Spencer sent telegram but the telegram is wrong.",
+        "D": "Matthew and Marilla ask Mrs. Spencer to pick a boy via Richard Spencer's folks at Carmody. But there are some mistakes in between."
+      },
+      "expected": "B",
+      "output": "D",
+      "raw_output": "D",
+      "correct": false,
+      "context_length": 51623,
+      "context_category": "Short (0-144k chars)",
+      "duration": 52.74675920908339
+    },
+    {
+      "id": 31,
+      "question": "How did the majority opinion balance efficiency and fairness, especially when it comes to Procedural justice and substantive justice\uff1f\uff08your answer need to focus on the evidence presented in this specific case and also the cited cases)",
+      "choices": {
+        "A": "In this case, the majority opinion focuses on the efficiency of precessing the case and the fluency of the accusation, especially when it comes to false and unqualified evidence can be justified and presented to the jury as long as the judge passes it.  This is a success for justice and efficiency.",
+        "B": "The Forth and the Forteenth Amendments focus more on the fairness, and then left the efficiency to the administration. So, in a way, this paradox between efficiency and fairness seems to be an unsolved problem, which need to be tackled in the future.",
+        "C": "The majority opinion stands at a stance where the assused stand, which represent the majority is  pro-liberal and pro-freedom instead of  pro-fairness\uff0cbecause the majority opinion specifically focus the consent principal and the restriction to the asminstration force.",
+        "D": "none of them is the right answer."
+      },
+      "expected": "B",
+      "output": "B",
+      "raw_output": "B",
+      "correct": true,
+      "context_length": 128987,
+      "context_category": "Short (0-144k chars)",
+      "duration": 52.737625999958254
+    },
+    {
+      "id": 32,
+      "question": "In Agatha Christie's \"Dumb Witness,\" what is the significance of the dog Bob's actions, and how do they relate to the murder case?",
+      "choices": {
+        "A": "Bob's barking at 5 a.m. is a distraction from the actual time of the murder.",
+        "B": "Bob's ball is used as a setup to imply that his presence caused the victim's fall.",
+        "C": "Bob's ball is a decoy.",
+        "D": "Bob was trained to attack the victim on command."
+      },
+      "expected": "C",
+      "output": "B",
+      "raw_output": "B",
+      "correct": false,
+      "context_length": 484719,
+      "context_category": "Medium (144k-512k chars)",
+      "duration": 52.746722124982625
+    },
+    {
+      "id": 33,
+      "question": "Which type of bank business operations is directly related to the implementation of monetary policy, and this operation is used as a feature in the model training?",
+      "choices": {
+        "A": "lending",
+        "B": "securities holdings",
+        "C": "bank funding",
+        "D": "asset purchases"
+      },
+      "expected": "A",
+      "output": "C",
+      "raw_output": "C",
+      "correct": false,
+      "context_length": 513588,
+      "context_category": "Long (512k-8M chars)",
+      "duration": 53.982570708030835
+    },
+    {
+      "id": 34,
+      "question": "Which player wins the most golds in the game?",
+      "choices": {
+        "A": "player_0",
+        "B": "player_3",
+        "C": "player_4",
+        "D": "player_6"
+      },
+      "expected": "D",
+      "output": "B",
+      "raw_output": "B",
+      "correct": false,
+      "context_length": 87773,
+      "context_category": "Short (0-144k chars)",
+      "duration": 53.98256579192821
+    },
+    {
+      "id": 35,
+      "question": "Which of the following suggestions for the new year's initiatives is correct?",
+      "choices": {
+        "A": "Ensure the looseness and progressiveness of policies, and strengthen the coordination and cooperation of various policies.",
+        "B": "Support and highlight the dominant position of enterprises in production, and increase the cultivation of technical production talents.",
+        "C": "Promote the growth of the RMB exchange rate at a reasonable and balanced level.",
+        "D": "On the basis of a comprehensive and scientific summary of epidemic prevention and control work, we should do a more scientific, accurate, and efficient job in prevention and control."
+      },
+      "expected": "D",
+      "output": "D",
+      "raw_output": "D",
+      "correct": true,
+      "context_length": 96706,
+      "context_category": "Short (0-144k chars)",
+      "duration": 53.98239720799029
+    },
+    {
+      "id": 36,
+      "question": "Document: It was produced by B. P. Schulberg and is now in the public domain . \\n\\nQuestion: Only considering the given document, what is the entity type of B. P. Schulberg?",
+      "choices": {
+        "A": "abt",
+        "B": "abl",
+        "C": "aaz",
+        "D": "acg"
+      },
+      "expected": "C",
+      "output": "C",
+      "raw_output": "C",
+      "correct": true,
+      "context_length": 496131,
+      "context_category": "Medium (144k-512k chars)",
+      "duration": 53.981630417052656
+    },
+    {
+      "id": 37,
+      "question": "You are given a grammar book of Kalamang language, now translate the following Kalamang sentence into English: Faisal emun me mindi don bolonet me ma he kademor.",
+      "choices": {
+        "A": "Faisal's mother is still angry at him for a little thing like that.",
+        "B": "Faisal's mother turns furious at him for a big thing like that.",
+        "C": "Faisal's mother gets frustrated at him for a big thing like this.",
+        "D": "Faisal's mother gets angry at him for a little thing like that."
+      },
+      "expected": "D",
+      "output": "D",
+      "raw_output": "D",
+      "correct": true,
+      "context_length": 1000567,
+      "context_category": "Long (512k-8M chars)",
+      "duration": 54.01846462499816
+    },
+    {
+      "id": 38,
+      "question": "To marry Emily in Stardew Valley, players are required to improve the friendship points with her. In order to do so, which of the following is ture?",
+      "choices": {
+        "A": "Emily loves Emerald, Jade and Ruby, and all of these minerals can be obtained from fishing treasure. And the minerals can be used for weapon forging.",
+        "B": "Emily loves wool, and players can get a cloth using a wool. And players can get taliored clothes in Sam's house with a cloth as an input.",
+        "C": "When inviting her to watch movie, choosing Joja Corn as snacks and watching Zuzu City Express is an ideal choice.",
+        "D": "Emily loves survival burger, which can be cooked with a bread, a cave carrot and a eggplant. Eggplant is planted in summer in this game and it is in the Fall Corps Bundle. And cave carrot is in the Exotic Foraging Bundle."
+      },
+      "expected": "A",
+      "output": "B",
+      "raw_output": "B",
+      "correct": false,
+      "context_length": 209804,
+      "context_category": "Medium (144k-512k chars)",
+      "duration": 53.97994091606233
+    },
+    {
+      "id": 39,
+      "question": "Read the prologue  and answer the following question: Which of the options below is correct?",
+      "choices": {
+        "A": "The lake cry for Narcissus's beauty.",
+        "B": "The lake think Narcissus isn't beautiful.",
+        "C": "The goddess think Narcissus isn't beautiful.",
+        "D": "The lake weep for its own beauty."
+      },
+      "expected": "D",
+      "output": "D",
+      "raw_output": "D",
+      "correct": true,
+      "context_length": 228083,
+      "context_category": "Medium (144k-512k chars)",
+      "duration": 53.942832875065506
+    },
+    {
+      "id": 40,
+      "question": "This code repository is used to generate comic strips where characters, styles, and environments remain consistent. It can utilize either Stable Diffusion XL or Base 1.0 to generate images based on the corresponding style from the text. Can you help explain which architecture it does not use to maintain character consistency across the images?",
+      "choices": {
+        "A": "It uses a new self-attention computation method called Consistent Self-Attention, which significantly improves the consistency between the generated images and enhances popular pre-trained diffusion-based text-to-image models in a zero-shot manner.",
+        "B": "Consistent self-attention is integrated into the pre-trained text-to-image diffusion model. Story text is split into multiple prompts, and images are generated in batches using these prompts. Consistent self-attention establishes links between multiple images within a batch to achieve subject consistency.",
+        "C": "The Consistent Self-Attention method is implemented in the code as the class SpatialAttnProcessor2_0. The main role of this module is to apply attention mechanism processing to the input features during image generation or processing tasks, ensuring that the generated images are consistent and of high quality.",
+        "D": "It employs multiple attention mechanisms and extends them for various scenarios: the default Attention Processor (AttnProcessor), as well as the Attention Processor combined with the IP-Adapter (IPAttnProcessor). The IP-Adapter is an enhanced model that combines image features with language prompts. The purpose of this code segment is to add control over image prompts (image prompts) on top of the attention mechanism, allowing the use of additional visual prompts to influence the model\u2019s generation process."
+      },
+      "expected": "D",
+      "output": "D",
+      "raw_output": "D",
+      "correct": true,
+      "context_length": 295339,
+      "context_category": "Medium (144k-512k chars)",
+      "duration": 53.55966054205783
+    },
+    {
+      "id": 41,
+      "question": "What analysis and recommendations would you make as an offshore export compliance lawyer in light of the European Commission's proposal to develop an Initial Impact Assessment (IIA) and subsequent policy for a regulation addressing distortions in the internal market caused by foreign subsidies?",
+      "choices": {
+        "A": "Although the European Commission has conducted a public consultation on the issue (White Paper on Foreign Subsidies), however, it is not yet known whether it will engage with companies specialising in the collection of data on foreign investment and third-country subsidies, and considerable legal risks remain.",
+        "B": "Due to the turbulence of the current situation, and the fact that it is difficult to reconcile the views of major enterprises as well as the government concerned. The EU is likely to maintain the status quo in the short term and not take new measures. The relevant enterprises in China only need to comply with the law and export in accordance with EU standards.",
+        "C": "If there is a situation where there is a bulk sale of some of the company's goods to the government, it is best to separate the entities. You would advise the company to either set up an off-body company exclusively for sales to the government, or to file the situation in advance and have a specialised attorney give notice or publicity about it.",
+        "D": "All above"
+      },
+      "expected": "C",
+      "output": "A",
+      "raw_output": "A",
+      "correct": false,
+      "context_length": 292355,
+      "context_category": "Medium (144k-512k chars)",
+      "duration": 53.4949369590031
+    },
+    {
+      "id": 42,
+      "question": "From August 1996 to March 1998, a credit officer named Zhang from a town credit cooperative took advantage of handling deposit business and issuing loans. He used the method of issuing formal deposit receipts without bookkeeping and attracted others to deposit money by offering high interest rates. He collected deposits in 14 instances, totaling over 300,000 yuan, and then lent this money to others for profit. At the time the case was exposed, more than 270,000 yuan had yet to be recovered. What criminal laws did Zhang violate? Is this a case of imagined concurrence or statutory concurrence of crimes? What crime should ultimately be charged?",
+      "choices": {
+        "A": "Zhang violated: (1) The crime of violating stipulations to issue for others letters of credit; (2) The crime of misappropriate units' funds. It falls under imagined concurrence. The final charge should be the crime of misappropriate units' funds",
+        "B": "Zhang violated: (1) The crime of illegal granting of loans using customers' funds; (2) The crime of misappropriate units' funds. It falls under statutory concurrence. The final charge should be the crime of illegal granting of loans using customers' funds.",
+        "C": "Zhang violated: (1) The crime of illegal granting of loans using customers' funds; (2) The crime of violating stipulations to issue for others letters of credit. It falls under statutory concurrence. The final charge should be the crime of illegal granting of loans using customers' funds.",
+        "D": "Zhang violated: (1) The crime of illegal granting of loans using customers' funds; (2) The crime of misappropriate units' funds. It falls under imagined concurrence. The final charge should be the crime of misappropriate units' funds."
+      },
+      "expected": "B",
+      "output": "D",
+      "raw_output": "D",
+      "correct": false,
+      "context_length": 296781,
+      "context_category": "Medium (144k-512k chars)",
+      "duration": 49.658305749995634
+    },
+    {
+      "id": 43,
+      "question": "Please try to deduce the true story based on the evidence currently known. Who murdered Frank Parris in your deduction?",
+      "choices": {
+        "A": "Aiden MacNeil",
+        "B": "Martin Williams",
+        "C": "Stefan Codrescu",
+        "D": "Lisa Treherne"
+      },
+      "expected": "A",
+      "output": "B",
+      "raw_output": "B",
+      "correct": false,
+      "context_length": 829592,
+      "context_category": "Long (512k-8M chars)",
+      "duration": 52.65374574996531
+    },
+    {
+      "id": 44,
+      "question": "Based on the corporate news released by AbbVie in the past six months, What events have happened with a significant impact on the company's strategy and operations?",
+      "choices": {
+        "A": "The company has been continuously consolidating its ability to innovate sustainably by establishing strategic cooperation relationships. It has partnered with OSE Immunotherapeutics, Tentarix Biotherapeutics, Gilgamesh Pharmaceuticals, and other companies to develop products in the field of immunology, including specific biological drugs and neuroplastogens.",
+        "B": "Through continuous acquisition and restructuring strategies, the company has continuously expanded and enriched its product pipeline. Over the past six months, the company has completed three acquisitions to enhance its neuroscience pipeline, oncology pipeline, and immunology pipeline.",
+        "C": "The company has experienced several executive personnel changes and organizational adjustments. Effective July 1, 2024, Richard A. Gonzalez succeeded Robert A. Michael as the new CEO of the company; at the same time, Dr. Roopal Thakkar was appointed as the Executive Vice President, responsible for the therapeutic and aesthetic business segments, as well as Research and Development and Chief Scientific Officer.",
+        "D": "The company has received FDA approval for multiple drugs to treat a range of indications. For example, Elahere is used to treat adult cancer patients with folate receptor alpha (FR\u03b1) positive, platinum-resistant epithelial ovarian, fallopian tube, or primary peritoneal cancer, Epkinly is used to treat adult patients with relapsed or refractory (R/R) follicular lymphoma (FL), and Juvederm Voluma XC is used to improve moderate to severe temporal hollowing in adults over the age of 21."
+      },
+      "expected": "D",
+      "output": "A",
+      "raw_output": "A",
+      "correct": false,
+      "context_length": 76481,
+      "context_category": "Short (0-144k chars)",
+      "duration": 51.90417854196858
+    },
+    {
+      "id": 45,
+      "question": "What are the advantages of this code base?",
+      "choices": {
+        "A": "This codebase provides benchmarks for object detection, classification, tracking, and domain adaptation based on measured data.",
+        "B": "This code base is the first V2I dataset code base after OPV2V.",
+        "C": "This code base uses the first collaborative perception measured dataset with map data.",
+        "D": "The dataset of this code base is collected from only two vehicles."
+      },
+      "expected": "C",
+      "output": "A",
+      "raw_output": "A",
+      "correct": false,
+      "context_length": 425025,
+      "context_category": "Medium (144k-512k chars)",
+      "duration": 52.64774624991696
+    },
+    {
+      "id": 46,
+      "question": "In this article, based on what features, the author proposed a new stratification method and what is the clinical meaning?",
+      "choices": {
+        "A": "Based on SV, CNA and WGD, sex; for better representation of disease state",
+        "B": "Based on gene mutations and chromosome variations; for better understanding the diseases mechanism",
+        "C": "Based on gene mutations, chromosome variations, and demographics; for better giving prognostic predictions",
+        "D": "Based on gene mutations, WGD, SV, SNV, and mean ploidy; for better treatment"
+      },
+      "expected": "C",
+      "output": "A",
+      "raw_output": "A",
+      "correct": false,
+      "context_length": 227352,
+      "context_category": "Medium (144k-512k chars)",
+      "duration": 52.64794891607016
+    },
+    {
+      "id": 47,
+      "question": "Which of the following is supported by this paper?",
+      "choices": {
+        "A": "Samuelson rule is not mentioned in this paper.",
+        "B": "It is improper to drink at a low age only because it is unhealthy.",
+        "C": "Samuelson rule is challenging to apply so the authors use a more tractable question and maintain internal validity of results.",
+        "D": "There is no evidence that lower minimum drinking age can result in lower death rate."
+      },
+      "expected": "C",
+      "output": "C",
+      "raw_output": "C",
+      "correct": true,
+      "context_length": 149407,
+      "context_category": "Medium (144k-512k chars)",
+      "duration": 52.64794079202693
+    },
+    {
+      "id": 48,
+      "question": "Based on these press releases from Sanofi regarding its pharmaceutical products, how many are there product whose latest research advancements are in Phase 3 clinical trials?",
+      "choices": {
+        "A": "2",
+        "B": "3",
+        "C": "4",
+        "D": "5"
+      },
+      "expected": "C",
+      "output": "B",
+      "raw_output": "B",
+      "correct": false,
+      "context_length": 68396,
+      "context_category": "Short (0-144k chars)",
+      "duration": 52.64775537501555
+    },
+    {
+      "id": 49,
+      "question": "Compared to 2023, how has the percentage of finished goods apparel factories from countries other than Vietnam, China, and Cambodia changed in 2024?",
+      "choices": {
+        "A": "2%",
+        "B": "1%",
+        "C": "3%",
+        "D": "4%"
+      },
+      "expected": "D",
+      "output": "B",
+      "raw_output": "B",
+      "correct": false,
+      "context_length": 762530,
+      "context_category": "Long (512k-8M chars)",
+      "duration": 52.64798587502446
+    },
+    {
+      "id": 50,
+      "question": "If you are a compliance lawyer specialising in EU environmental law, in which of the following situations would you need to alert your clients to the environmental law risks of their actions?",
+      "choices": {
+        "A": "Your customer is preparing to build a wind farm near the Natura 2000 site and has hired a bird expert in advance to avoid disturbance.",
+        "B": "As an emerging offshore renewable energy technology company, your client intends to exploit and commercialise marine renewable energy in the oceans off the coast of Portugal.",
+        "C": "Your client, a man with many friends in Russia, is planning to take advantage of the low price of oil in Russia  to switch back from electricity to fuel energy production for his factories and reduce costs",
+        "D": "all above"
+      },
+      "expected": "D",
+      "output": "D",
+      "raw_output": "D",
+      "correct": true,
+      "context_length": 314738,
+      "context_category": "Medium (144k-512k chars)",
+      "duration": 52.64783074997831
+    },
+    {
+      "id": 51,
+      "question": "Which of the following statements is correct?",
+      "choices": {
+        "A": "The paper argues that late fusion has certain limitations in spatial alignment.",
+        "B": "The paper says that low-level fusion is more reliable than feature-level fusion",
+        "C": "Although LiDAR has the advantage of spatial dimension, its disadvantage is that it cannot accurately perceive the license plate number.",
+        "D": "In our experiment, we only used GPS to test the robustness of the perception results."
+      },
+      "expected": "A",
+      "output": "C",
+      "raw_output": "C",
+      "correct": false,
+      "context_length": 55546,
+      "context_category": "Short (0-144k chars)",
+      "duration": 52.64924333395902
+    },
+    {
+      "id": 52,
+      "question": "The repository \"StoryMaker\" is a personalized solution that can generate story collections with character consistency. There are already many methods for generating photo sets with consistent characters.  Which method this repository uses to achieve this consistency?",
+      "choices": {
+        "A": "It uses a face recognition method to extract the facial features of characters, followed by an image recognition model to describe the clothing. The use of the SDXL model and IP-Adapter enables consistency of characters across different scenes and environments.",
+        "B": "It utilizes multiple attention mechanisms and has been extended for various scenarios: the default attention processor (AttnProcessor) and the attention processor combined with IP-Adapter (IPAttnProcessor). IP-Adapter is an enhanced model that integrates image features with textual prompts. The purpose of this code snippet is to add control of image prompts on the basis of attention mechanisms, allowing the use of additional visual prompts to influence the model's generation process.",
+        "C": "The approach begins by extracting the face from the portrait, ensuring a clear focus on the subject's features. An image recognition model is then utilized to generate descriptive prompts that capture the essence of the face. Using these prompts, the Flux model generates four distinct portrait images, each showcasing different artistic interpretations of the original face. Next, reactor face-swapping is applied to seamlessly blend the facial features across the generated images, enhancing diversity and creativity. Finally, the SDXL and ControlNet models are employed to apply stylistic enhancements, transforming the final output into a series of visually striking and stylized portraits that convey a rich narrative and artistic flair.",
+        "D": "StoryMaker merges conditional information based on facial identity and cropped character images (including clothing, hairstyles, and bodies). Specifically, we utilize a Position-Aware Perceiver Resampler (PPR) to integrate facial identity information with cropped character images, enabling the acquisition of diverse character features."
+      },
+      "expected": "D",
+      "output": "B",
+      "raw_output": "B",
+      "correct": false,
+      "context_length": 129805,
+      "context_category": "Short (0-144k chars)",
+      "duration": 48.29187695798464
+    },
+    {
+      "id": 53,
+      "question": "When did the user's nephew start eighth grade\uff1f",
+      "choices": {
+        "A": "Last month",
+        "B": "Last year",
+        "C": "Two years ago",
+        "D": "Three months ago"
+      },
+      "expected": "B",
+      "output": "A",
+      "raw_output": "A",
+      "correct": false,
+      "context_length": 566401,
+      "context_category": "Long (512k-8M chars)",
+      "duration": 48.25795758399181
+    },
+    {
+      "id": 54,
+      "question": "Considering both Critical Discourse Analysis by Jan Blommaert and Language and Power by Norman Fairclough, how do their differing conceptualizations of context in discourse analysis shape their views on the role of discourse in reinforcing or resisting power structures, and what does this suggest about the limitations of discourse analysis in addressing global versus local forms of inequality?",
+      "choices": {
+        "A": "Blommaert emphasizes the complexity of local contexts, suggesting that discourse analysis must account for cultural specificities in understanding power dynamics, while Fairclough's broader approach assumes that global hegemonic discourses operate similarly across diverse contexts, potentially overlooking localized forms of resistance.",
+        "B": "Blommaert argues that local contexts are crucial in understanding how power operates in discourse, with different cultural and historical specifics shaping resistance, whereas Fairclough\u2019s global approach tends to generalize power structures across diverse settings, limiting the analysis of localized power struggles.",
+        "C": "Both Blommaert and Fairclough acknowledge the importance of context in analyzing power, but Blommaert gives more weight to cultural and local specificities in how discourse is used for resistance, while Fairclough\u2019s focus on global hegemonic discourses risks overlooking the unique dynamics of local contexts.",
+        "D": "Blommaert highlights the importance of cultural and local context in shaping discourse, suggesting that local discourses offer nuanced forms of resistance to power, while Fairclough\u2019s broader focus on global discourses assumes that power operates similarly across different contexts, downplaying local resistance."
+      },
+      "expected": "A",
+      "output": "C",
+      "raw_output": "C",
+      "correct": false,
+      "context_length": 1637915,
+      "context_category": "Long (512k-8M chars)",
+      "duration": 48.258037250023335
+    },
+    {
+      "id": 55,
+      "question": "Which of the following statements is incorrect?",
+      "choices": {
+        "A": "By adjusting the residual gradually during the diffusion process, the model can generate high-resolution images more efficiently.",
+        "B": "A complex noise control scheme was designed to flexibly control the switching speed and noise intensity during the diffusion process.",
+        "C": "In the forward process, the optimization of \u03b8 is achieved by minimizing the negative evidence lower bound",
+        "D": "The real data set consists of pictures taken by the camera, photos searched on the Internet, and pictures used in literature"
+      },
+      "expected": "C",
+      "output": "C",
+      "raw_output": "C",
+      "correct": true,
+      "context_length": 60721,
+      "context_category": "Short (0-144k chars)",
+      "duration": 48.257633208995685
+    },
+    {
+      "id": 56,
+      "question": "I recently purchased a G-SHOCK watch from Casio's official website, and it has many features. Could you help me determine which of the following statements matches the functions of this product?",
+      "choices": {
+        "A": "This watch is shock-resistant and can be used in extreme sports and harsh conditions. It is also the first Casio smartwatch to achieve 20 atmospheres of water resistance and can even be used for marine sports. It has built-in GPS, altitude sensors, light-speed sensors, and a pacemaker, allowing it to measure various types of activity data while also potentially saving your life in critical moments.",
+        "B": "This watch pairs with a smartphone via Bluetooth. When using it with an iPhone, a Wi-Fi connection is required, and a dedicated app needs to be downloaded on the phone for use. When pairing with other phones, you only need to disconnect the previous pairing, restart, and turn on Bluetooth to pair it with another phone.",
+        "C": "On this watch, you can set up heart rate settings and configure the necessary settings for calculating heart rate zones and VO2Max. During the process, when the digital display is shown, touch the center of the screen with your finger for about two seconds, then click on \"Settings,\" followed by \"Heart Rate Settings.\" Enter your birthday, resting heart rate, gender, height, weight, and sleep duration, then click \"Test\" to measure your heart rate. Once normal, you can complete the setup process.",
+        "D": "This watch also has a fat-burning training measurement feature.\n\nWhen the watch face is displayed, press the START button (upper button).\nPress the APP button (lower button) to display the activity selection screen, then click \"Workout\" (the workout activity selection screen will appear).\nClick on the item you want to start measuring (the START screen for the selected item will appear).\nTo start the measurement, press the START button."
+      },
+      "expected": "D",
+      "output": "A",
+      "raw_output": "A",
+      "correct": false,
+      "context_length": 129168,
+      "context_category": "Short (0-144k chars)",
+      "duration": 48.257728292024694
+    },
+    {
+      "id": 57,
+      "question": "Please try to deduce the true story based on the evidence currently known. Who murdered Cecily Treherne in your deduction?",
+      "choices": {
+        "A": "Aiden MacNeil",
+        "B": "Martin Williams",
+        "C": "Stefan Codrescu",
+        "D": "Lisa Treherne"
+      },
+      "expected": "A",
+      "output": "D",
+      "raw_output": "D",
+      "correct": false,
+      "context_length": 830776,
+      "context_category": "Long (512k-8M chars)",
+      "duration": 48.25391433306504
+    },
+    {
+      "id": 58,
+      "question": "What future trends do these two reports mainly show?",
+      "choices": {
+        "A": "Governments will pay more attention to the challenges of information security and privacy protection",
+        "B": "The role of the library will change from the traditional physical publication storage and distribution to the intermediary and manager of electronic information",
+        "C": "Increased public trust in government transparency and information",
+        "D": "Electronic information distribution will become the mainstream of information dissemination in the future"
+      },
+      "expected": "D",
+      "output": "D",
+      "raw_output": "D",
+      "correct": true,
+      "context_length": 875897,
+      "context_category": "Long (512k-8M chars)",
+      "duration": 48.2222668339964
+    },
+    {
+      "id": 59,
+      "question": "Document: Operation Pedestal ( , `` Battle of mid-August '' ) , known in Malta as the Santa Marija Convoy ( ) , was a British operation to carry supplies to the island of Malta in August 1942 , during the Second World War . Malta was a base from which British ships , submarines and aircraft attacked Axis convoys to their forces in Libya and Egypt , during the North African Campaign ( 1940\\u20131943 ) . From 1940 to 1942 , the Axis conducted the Siege of Malta , with air and naval forces . Despite many losses , enough supplies were delivered by the British for the population and military forces on Malta to resist , although it ceased to be an offensive base for much of 1942 . The most crucial supply item in Operation Pedestal was fuel , carried by , an American tanker with a British crew . The convoy sailed from Britain on 3 August 1942 and passed through the Strait of Gibraltar into the Mediterranean on the night of The Axis attempt to prevent the fifty ships of the convoy reaching Malta , using bombers , German E-boats , Italian MAS and MS boats , minefields and submarine ambushes , was the last sizeable Axis success in the Mediterranean . More than and Royal Navy sailors and airmen were <event> killed </event> and only five of the ships reached Grand Harbour . While costly for the Allies , it was a strategic victory ; the arrival of `` Ohio '' justified the decision to hazard so many warships ; its cargo of aviation fuel revitalised the Maltese air offensive against Axis shipping . Submarines returned to Malta and Supermarine Spitfires flown from the aircraft carrier enabled a maximum effort to be made against Axis ships . Italian convoys had to detour further away from the island , lengthening the journey and increasing the time during which air and naval attacks could be mounted . The Siege of Malta was broken by the Allied re-conquest of Egypt and Libya after the Second Battle of El Alamein ( 23 October \\u2013 11 November ) and by Operation Torch ( 8\\u201316 November ) in the western Mediterranean , which enabled land-based aircraft to escort merchant ships to the island .\\n\\nQuestion: Only considering the given document, what is the event type of killed?",
+      "choices": {
+        "A": "age",
+        "B": "abp",
+        "C": "afs",
+        "D": "aen"
+      },
+      "expected": "B",
+      "output": "D",
+      "raw_output": "D",
+      "correct": false,
+      "context_length": 433523,
+      "context_category": "Medium (144k-512k chars)",
+      "duration": 56.283936624997295
+    },
+    {
+      "id": 60,
+      "question": "What measures has Chinese governments and enterprises taken to improve its self-sufficiency in key mineral resources?\uff1f",
+      "choices": {
+        "A": "The Chinese government has banned the export of some key mineral resources to ensure stable and sufficient domestic supply.",
+        "B": "Chinese mining enterprises are actively engaging in mergers and acquisitions to occupy a higher share of the supply.",
+        "C": "China has increased its investment in the lithium industry in emerging energy markets overseas such as Australia, Argentina, the United States, the Congo, and Chile.",
+        "D": "China has increased its investment in the expansion of the transmission grid with At a world-leading rate."
+      },
+      "expected": "B",
+      "output": "C",
+      "raw_output": "C",
+      "correct": false,
+      "context_length": 472131,
+      "context_category": "Medium (144k-512k chars)",
+      "duration": 53.26229050010443
+    },
+    {
+      "id": 61,
+      "question": "According to the dialogues, which of the requirements raised by the users cannot be satisfied by the assistant?",
+      "choices": {
+        "A": "To find connections between two organizations",
+        "B": "To prioritize the routine to improve efficiency",
+        "C": "To express the thoughts about a TV show",
+        "D": "To give recommendations on a specific software"
+      },
+      "expected": "D",
+      "output": "C",
+      "raw_output": "C",
+      "correct": false,
+      "context_length": 532956,
+      "context_category": "Long (512k-8M chars)",
+      "duration": 53.26224612502847
+    },
+    {
+      "id": 62,
+      "question": "Read the above materials on Zhuang language, and choose the most accurate translation of the following Zhuang sentence: Gou seng youq it gouj bet haj nienz cibnyied rigeih cib seiq hauh, liggaeuq dwg bi ietcouj ndwengouj ngoenz cib'it, caiq gvaq sarn ngoenz couhdwg ngoenzseng gou.",
+      "choices": {
+        "A": "\u6211\u51fa\u751f\u57281986\u5e7410\u670821\u53f7\uff0c\u519c\u5386\u662f\u4e59\u4e11\u5e74\u5341\u6708\u5341\u4e00\uff0c\u518d\u6709\u4e09\u5929\u5c31\u5230\u6211\u751f\u65e5\u4e86\u3002",
+        "B": "\u6211\u751f\u4e8e1985\u5e7410\u670824\u65e5\uff0c\u9634\u5386\u662f\u4e59\u4e11\u5e74\u4e5d\u6708\u5341\u4e00\uff0c\u518d\u8fc7\u4e09\u5929\u5c31\u662f\u6211\u7684\u751f\u65e5\u3002",
+        "C": "\u6211\u751f\u4e8e1985\u5e7410\u670821\u65e5\uff0c\u9634\u5386\u662f\u4e59\u4e11\u5e74\u4e5d\u6708\u516b\uff0c\u518d\u8fc7\u4e00\u5468\u5c31\u662f\u6211\u7684\u751f\u65e5\u3002",
+        "D": "\u6211\u751f\u4e8e1985\u5e7410\u670824\u65e5\uff0c\u9634\u5386\u662f\u4e59\u4e11\u5e74\u4e5d\u6708\u5341\u4e00\uff0c\u518d\u8fc7\u4e00\u5468\u5c31\u662f\u6211\u7684\u751f\u65e5\u3002"
+      },
+      "expected": "B",
+      "output": "A",
+      "raw_output": "A",
+      "correct": false,
+      "context_length": 2016383,
+      "context_category": "Long (512k-8M chars)",
+      "duration": 59.31898137496319
+    },
+    {
+      "id": 63,
+      "question": "Please try to deduce the true story based on the evidence currently known. What was the real cause of Alan Conway's death in your deduction?",
+      "choices": {
+        "A": "Murdered by his neighbour",
+        "B": "Murdered by Charles Clover",
+        "C": "Suicide",
+        "D": "Murdered by Jemima Humphries"
+      },
+      "expected": "B",
+      "output": "C",
+      "raw_output": "C",
+      "correct": false,
+      "context_length": 720278,
+      "context_category": "Long (512k-8M chars)",
+      "duration": 58.59177391696721
+    },
+    {
+      "id": 64,
+      "question": "How many days a week does the user have to attend classes\uff1f",
+      "choices": {
+        "A": "2",
+        "B": "3",
+        "C": "4",
+        "D": "5"
+      },
+      "expected": "D",
+      "output": "B",
+      "raw_output": "B",
+      "correct": false,
+      "context_length": 539008,
+      "context_category": "Long (512k-8M chars)",
+      "duration": 58.59131604107097
+    },
+    {
+      "id": 65,
+      "question": "Considering the complex interplay of foreign direct investment (FDI) trends, geopolitical factors, and sustainable development goals (SDGs) as highlighted in the 2024 World Investment Report, which of the following scenarios presents the most intricate challenge to achieving the SDGs in developing economies?",
+      "choices": {
+        "A": "The simultaneous rise in interest rates across multiple major economies, leading to capital flight from developing markets while inflating costs for sustainable projects due to increased financing conditions.",
+        "B": "The proliferation of international investment agreements (IIAs) that prioritize investor rights over regulatory sovereignty, potentially leading to a race to the bottom in environmental and social standards among developing nations.",
+        "C": "The integration of digital governance mechanisms that, while enhancing transparency, inadvertently expose developing economies to increased volatility from global financial markets and speculative investments.",
+        "D": "The shift in global supply chains due to heightened geopolitical tensions, resulting in the reallocation of FDI away from developing countries toward more stable and developed economies, thereby diminishing local capacities to meet SDGs."
+      },
+      "expected": "B",
+      "output": "D",
+      "raw_output": "D",
+      "correct": false,
+      "context_length": 495898,
+      "context_category": "Medium (144k-512k chars)",
+      "duration": 58.591524332994595
+    },
+    {
+      "id": 66,
+      "question": "What are the differences between Jump Over ASLR and BunnyHop-Reload in inferring collisions in the BTB?",
+      "choices": {
+        "A": "Jump Over ASLR infers collisions by measuring the execution time of the victim and spy process, while BunnyHop-Reload does so by measuring the execution time of a code block containing many NOP instructions.",
+        "B": "Jump Over ASLR infers collisions by measuring the execution time of the spy process, while BunnyHop-Reload does so by  executing some NOP instructions.",
+        "C": "Jump Over ASLR infers collisions by measuring the execution time of the jump instruction code block in the spy process, while BunnyHop-Reload does so by determining whether the target is prefetched into the cache.",
+        "D": "Jump Over ASLR infers collisions by measuring the execution time of the victim and spy process, while BunnyHop-Reload does so by measuring whether the target is prefetched into the cache."
+      },
+      "expected": "C",
+      "output": "D",
+      "raw_output": "D",
+      "correct": false,
+      "context_length": 153559,
+      "context_category": "Medium (144k-512k chars)",
+      "duration": 58.59141883300617
+    },
+    {
+      "id": 67,
+      "question": "What inputs are necessary to create an instance of HYPRE_SStructMatrix? And what procedures are necessary to finalize its setup process?",
+      "choices": {
+        "A": "An MPI communicator and a HYPRE_SStructGraph are necessary to create. HYPRE_SStructMatrixAssemble must be called before finalizing the matrix setup.",
+        "B": "An MPI communicator, a HYPRE_SStructGrid, and a corresponding stencil are necessary to create. HYPRE_SStructMatrixAssemble must be called before finalizing the matrix setup.",
+        "C": "An MPI communicator and a HYPRE_SStructGraph are necessary to create. HYPRE_SStructMatrixSetBoxValues must be called before finalizing the matrix setup.",
+        "D": "An MPI communicator and a HYPRE_SStructGrid are necessary to create. HYPRE_SStructMatrixSetBoxValues must be called before finalizing the matrix setup."
+      },
+      "expected": "A",
+      "output": "A",
+      "raw_output": "A",
+      "correct": true,
+      "context_length": 16182936,
+      "context_category": "Long (512k-8M chars)",
+      "duration": 58.59148549998645
+    },
+    {
+      "id": 68,
+      "question": "Based on the given document, explain why \"he reduces God to a function of human love, or worse, of Russian nationality\".",
+      "choices": {
+        "A": "The path to external self-perfection is blocked, so Russian people chose to escape inward and emphasized their own anti-modernity out of jealousy of modernity.",
+        "B": "Modernity means rationalization, the modernization of Russia and Russian religion made individuals pay more attention to the sense of equality.",
+        "C": "Russia's modernization has caused drastic conflicts between different classes, which are manifested in strong psychological activities.",
+        "D": "Because he believed that only Christian humanitarianism could solve the problems of modernity."
+      },
+      "expected": "A",
+      "output": "A",
+      "raw_output": "A",
+      "correct": true,
+      "context_length": 76176,
+      "context_category": "Short (0-144k chars)",
+      "duration": 40.76257925003301
+    },
+    {
+      "id": 69,
+      "question": "Suppose I need to learn how to use BoomerAMG from hypre to solve the linear system in mfem, how many examples in the zip can help me to understand the way?",
+      "choices": {
+        "A": "17",
+        "B": "22",
+        "C": "25",
+        "D": "26"
+      },
+      "expected": "B",
+      "output": "B",
+      "raw_output": "B\n\n(Evidence: The build system file shows a list of MFEM example codes from `ex1.cpp` up to `ex33.cpp`. Among them, specifically, `ex17.cpp`, `ex22.cpp`, `ex25.cpp`, and `ex26.cpp` are relevant. The line of interest is:\n```\nlist(APPEND ALL_EXE_SRCS\n  ex0.cpp\n  ex1.cpp\n  ...\n  ex17.cpp\n  ex18.cpp\n  ex19.cpp\n  ex20.cpp\n  ex21.cpp\n  ex22.cpp\n  ex23.cpp\n  ex24.cpp\n  ex25.cpp\n  ex26.cpp\n  ex27.cpp\n  ...\n)\n```\nAs seen in several high-relevance context clues, these four serial examples (`ex17`, `ex22`, `ex25`, `ex26`) and their parallel counterparts (`ex17p`, `ex22p`, `ex25p`, `ex26p`) all demonstrate solving linear systems in MFEM with the BoomerAMG preconditioner from hypre.\n\nHowever, the most decisive evidence comes from the prompt's underlying context, including one directly stating:\n```\nex0.cpp\nex1.cpp\n...\nex17.cpp\n...\nex22.cpp\n...\nex25.cpp\nex26.cpp\n...\n```\nand also the code block:\n```\nif (MFEM_USE_MPI)\n  list(APPEND ALL_EXE_SRCS\n    ...\n    ex17p.cpp\n    ...\n    ex22p.cpp\n    ...\n    ex25p.cpp\n    ex26p.cpp\n    ...\n)\n```\nwhich supports that the answer is the sum of all serial and parallel instance example codes up to `ex26p.cpp` that illustrate the usage of BoomerAMG with MFEM.\n\nBy counting the examples in both the `examples/` and `examples/` (parallel) directories that feature BoomerAMG, the answer is **22**. This matches choice B.\n\n**Therefore, the correct answer is B) 22.**",
+      "correct": true,
+      "context_length": 11199358,
+      "context_category": "Long (512k-8M chars)",
+      "duration": 77.54895820899401
+    },
+    {
+      "id": 70,
+      "question": "In a NIO ET5, if you want the vehicle to automatically lock every time you leave without pressing the key, what should you do?",
+      "choices": {
+        "A": "In the settings menu on the central control screen, go to \"Vehicle Settings,\" find \"Lock Settings,\" and enable the \"Auto Lock\" feature.",
+        "B": "In the settings menu on the central control screen, go to \"Safety Settings,\" find the \"Auto Lock When Leaving Vehicle\" option, and enable it.",
+        "C": "Hold down the lock button on the key for 10 seconds until you hear a beep, and the vehicle will automatically enable the auto-lock feature.",
+        "D": "In the settings menu on the central control screen, go to \"Driver Assistance Settings,\" find the \"Auto Lock\" option, and enable it."
+      },
+      "expected": "A",
+      "output": "A",
+      "raw_output": "A",
+      "correct": true,
+      "context_length": 544722,
+      "context_category": "Long (512k-8M chars)",
+      "duration": 58.59574120899197
+    },
+    {
+      "id": 71,
+      "question": "Which following player won the least times in the game?",
+      "choices": {
+        "A": "player_1",
+        "B": "player_3",
+        "C": "player_5",
+        "D": "player_8"
+      },
+      "expected": "B",
+      "output": "B",
+      "raw_output": "B",
+      "correct": true,
+      "context_length": 92437,
+      "context_category": "Short (0-144k chars)",
+      "duration": 58.889348292024806
+    },
+    {
+      "id": 72,
+      "question": "Which of the following is inccorect according to the instruction book?",
+      "choices": {
+        "A": "I can still take pictures if the card is not full, even when the burst rate lowers.",
+        "B": "After pressing [WB], I can set the color temperature  at 2400K on the setting screen.",
+        "C": "If I cannot find the Touch Tab, I can set Touch Tab to [ON] somewhere in the [Custom] menu.",
+        "D": "When I set the write-protect switch to \"LOCK\", I may still lose my data."
+      },
+      "expected": "B",
+      "output": "B",
+      "raw_output": "B",
+      "correct": true,
+      "context_length": 629200,
+      "context_category": "Long (512k-8M chars)",
+      "duration": 58.889410542091355
+    },
+    {
+      "id": 73,
+      "question": "Compared with lets verify step by step, which of the following points is not included in the improvement of math-shepherd?",
+      "choices": {
+        "A": "math-shepherd uses reinforcement learning to improve model capabilities and provides specific training methods.",
+        "B": "math-shepherd proposes a method for automatically labeling PRM, which simplifies the manual labeling part in the lets verify article.",
+        "C": "math-shepherd is compared with the Self-consistency method, while the lets verify article does not compare.",
+        "D": "math-shepherd introduces two methods of estimating rewards, hard and soft."
+      },
+      "expected": "C",
+      "output": "A",
+      "raw_output": "A",
+      "correct": false,
+      "context_length": 103145,
+      "context_category": "Short (0-144k chars)",
+      "duration": 58.88907441694755
+    },
+    {
+      "id": 74,
+      "question": "Based on the press release about AbbVie's product RINVOQ, how do you know about its indication treatment?",
+      "choices": {
+        "A": "RINVOQ can be used to treat a variety of autoimmune diseases, including rheumatoid arthritis, psoriatic arthritis, ulcerative colitis, Crohn\u2019s disease, Parkinson\u2019s Disease, etc., with the highest recommended dosage for ulcerative colitis and Crohn\u2019s disease.",
+        "B": "Adverse reactions to RINVOQ treatment include severe infections, allergies, cancer, cardiovascular conditions, thrombosis, anemia, and fetal damage. Based on clinical trial experience, the most common adverse reaction is upper respiratory tract infection.",
+        "C": "Alternatives to RINVOQ include glucocorticoids, corticosteroids, dupilumab, tofacitinib, etc.",
+        "D": "In most cases, RINVOQ is only suitable for adult patients, but there are also indications where the patient population includes children or adolescents. For example, in the first half of this year, RINVOQ was approved in Europe and the United States for the treatment of pediatric patients with active polyarticular juvenile idiopathic arthritis (pJIA) and psoriatic arthritis (PsA)."
+      },
+      "expected": "B",
+      "output": "D",
+      "raw_output": "D",
+      "correct": false,
+      "context_length": 282443,
+      "context_category": "Medium (144k-512k chars)",
+      "duration": 58.889207332977094
+    },
+    {
+      "id": 75,
+      "question": "For the \"Hippie Jam Fest 2005\" event mentioned in the document, if the type of asphalt (Asphalt) with 4% binder content is used for road paving, how many kilograms of asphalt are needed per square meter, assuming that the density of asphalt is 2400 kilograms per cubic meter?",
+      "choices": {
+        "A": "86kg",
+        "B": "96kg",
+        "C": "104kg",
+        "D": "110kg"
+      },
+      "expected": "B",
+      "output": "B",
+      "raw_output": "B",
+      "correct": true,
+      "context_length": 1275474,
+      "context_category": "Long (512k-8M chars)",
+      "duration": 58.88905204099137
+    },
+    {
+      "id": 76,
+      "question": "Narrives: 1. [\\\"Nehal's mother, Shaheera, confronts Commander Shaaban in his office, demanding the release of her daughter from jail but is told that legal constraints prevent her immediate release.\\\"]\\n2. [\\\"Nehal Shaaban arrives at the commander's office on her wedding night to plead for the release of her friend Giorgina, successfully persuading her uncle to allow Giorgina to leave with her.\\\"]\\n3. [\\\"Nehal and Giorgina return home to the unexpected presence of Nehal's parents, leading to a tense confrontation with her mother, Shaheera.\\\"]\\n4. [\\\"Nehal and Nico's intimate moment is interrupted by Ridda accidentally dropping a glass, leading to a tense exchange between Nehal and Nico about their unwanted marriage.\\\"]\\n\\nQuery: Considering the given book and narratives, Which order of the narratives in the following options is correct?",
+      "choices": {
+        "A": "4213",
+        "B": "2134",
+        "C": "2431",
+        "D": "2314"
+      },
+      "expected": "C",
+      "output": "B",
+      "raw_output": "B",
+      "correct": false,
+      "context_length": 708655,
+      "context_category": "Long (512k-8M chars)",
+      "duration": 58.889182750019245
+    },
+    {
+      "id": 77,
+      "question": "Narrives: 1. [\\\"Whit, recovering from being stabbed, learns that Cain's stolen phone may be linked to the recent murder of Caroline Palfrey, prompting them to consider reporting the situation to the police.\\\"]\\n2. ['Marigold tells the narrator that she discovered Isaac Harmon was once wanted for murder, prompting a discussion about the implications for Cain.']\\n3. [\\\"Cain and Freddie share an intimate moment in a diner, discussing Cain's past and the violent incident involving Boo, revealing deeper layers of their relationship while navigating the complexities of trust and trauma.\\\"]\\n4. [\\\"Freddie, Whit, and Marigold have lunch at Guadalupe's in Cambridge, where Whit orders an extensive array of dishes and the conversation shifts to the whereabouts of Cain.\\\"]\\n\\nQuery: Considering the given book and narratives, Which order of the narratives in the following options is correct?",
+      "choices": {
+        "A": "2134",
+        "B": "1432",
+        "C": "1234",
+        "D": "4123"
+      },
+      "expected": "C",
+      "output": "C",
+      "raw_output": "C",
+      "correct": true,
+      "context_length": 536571,
+      "context_category": "Long (512k-8M chars)",
+      "duration": 58.88976916705724
+    },
+    {
+      "id": 78,
+      "question": "Q34 is the source of how many forms of death metal?",
+      "choices": {
+        "A": "0",
+        "B": "1",
+        "C": "2",
+        "D": "3"
+      },
+      "expected": "C",
+      "output": "C",
+      "raw_output": "C",
+      "correct": true,
+      "context_length": 489539,
+      "context_category": "Medium (144k-512k chars)",
+      "duration": 58.517145499936305
+    },
+    {
+      "id": 79,
+      "question": "The four papers\u2014Direct-a-Video (for customized video generation), FIFO-Diffusion (for generating infinite videos), FreeNoise (for tuning-free video generation), and MotionCtrl (for motion control in video generation)\u2014offer distinct strategies for handling video generation tasks. While Direct-a-Video focuses on user-controlled video creation using U-Net-based architectures, FIFO-Diffusion introduces diagonal denoising for infinite video generation, FreeNoise uses noise rescheduling for generating long, temporally coherent videos, and MotionCtrl provides flexibility in controlling motion and animation across scenes.\n\nGiven these techniques, which method or combination of methods offers the best trade-off between motion control, temporal coherence, and computational efficiency in generating long videos from text prompts, and what is the primary reason for this balance?",
+      "choices": {
+        "A": "FIFO-Diffusion and MotionCtrl together provide the most efficient and flexible solution for long video generation. FIFO-Diffusion\u2019s diagonal denoising process allows for continuous video generation with minimal memory overhead, while MotionCtrl\u2019s ability to guide animation through predefined motion trajectories ensures that motion remains visually consistent across scenes. This combination benefits from FIFO-Diffusion\u2019s constant memory consumption regardless of video length, which makes it computationally efficient. However, FIFO-Diffusion struggles with maintaining fine control over motion details, which MotionCtrl addresses by allowing for explicit user-directed motion paths.",
+        "B": "FreeNoise and Direct-a-Video offer the best trade-off by combining FreeNoise\u2019s tuning-free paradigm with Direct-a-Video\u2019s ability to finely customize video outputs. FreeNoise uses noise rescheduling to extend video length without tuning the pretrained model, and its local noise shuffling strategy ensures temporal coherence in long video generation. Meanwhile, Direct-a-Video provides user-directed video customization through scene graph conditioning and object control, allowing the user to adjust video content based on specific text prompts. This combination strikes a balance between temporal coherence and motion control, though Direct-a-Video\u2019s reliance on explicit user input can lead to increased computational costs for highly detailed scenes.",
+        "C": "FreeNoise and FIFO-Diffusion provide the optimal solution for generating infinite videos with smooth motion transitions. FreeNoise\u2019s noise rescheduling ensures that content remains temporally consistent even when generating long videos, while FIFO-Diffusion handles the infinite video generation task by using a first-in-first-out (FIFO) queue with diagonal denoising, maintaining computational efficiency across extremely long sequences. The combination of these two methods ensures that both temporal coherence and motion smoothness are preserved. However, FIFO-Diffusion struggles with handling complex motion sequences due to its reliance on forward reference, making it less flexible in controlling intricate motion patterns compared to MotionCtrl.",
+        "D": "MotionCtrl and Direct-a-Video offer the most reliable trade-off by combining MotionCtrl\u2019s ability to control motion trajectories and animations with Direct-a-Video\u2019s user-controlled video generation. MotionCtrl introduces motion blending to smoothly transition between predefined motion patterns, which pairs well with Direct-a-Video\u2019s use of U-Net-based architectures for customizable scene generation. This combination ensures that motion remains flexible and responsive to text prompts, while Direct-a-Video\u2019s scene graph representation allows for precise control over object behaviors and scene changes. However, the lack of inherent support for infinite video generation or tuning-free setups can make this combination computationally intensive when generating extended video sequences."
+      },
+      "expected": "C",
+      "output": "A",
+      "raw_output": "A",
+      "correct": false,
+      "context_length": 226001,
+      "context_category": "Medium (144k-512k chars)",
+      "duration": 58.51878487505019
+    },
+    {
+      "id": 80,
+      "question": "From the table 1, with the increase of current annual income, people who is LGBT can suffer less from bullying?",
+      "choices": {
+        "A": "From the table 1, we can conclude that all people of LGBT will suffer less from campus bullying with more annual income under 3565, but when the income exceeds this number, the victims of bullying increase.",
+        "B": "From the table 1, we can conclude that all people of LGBT will suffer less from campus bullying with more annual income.",
+        "C": "From the table 1, we can conclude that only sexual minority youths will suffer less from campus bullying with more annual income.",
+        "D": "Based on Table 1 in the provided document, we cannot conclude that people who identify as LGBT+ suffer less from bullying as their annual income increases."
+      },
+      "expected": "A",
+      "output": "D",
+      "raw_output": "D",
+      "correct": false,
+      "context_length": 59918,
+      "context_category": "Short (0-144k chars)",
+      "duration": 58.51657125004567
+    },
+    {
+      "id": 81,
+      "question": "You are given a grammar book of Kalamang language, now translate the following Kalamang sentence into English: Ladan yumet masarura ba donselet tan yuonyuon paruoret.",
+      "choices": {
+        "A": "He cuts that shirt into rags to make a new cloth.",
+        "B": "Cut that shirt carefully to make a new cloth for later use.",
+        "C": "Rip that shirt so that you can make a cloth for wiping hands.",
+        "D": "I rip that shirt to make a cloth and wipe my wet hands with it."
+      },
+      "expected": "C",
+      "output": "C",
+      "raw_output": "C",
+      "correct": true,
+      "context_length": 1000530,
+      "context_category": "Long (512k-8M chars)",
+      "duration": 58.55642404197715
+    },
+    {
+      "id": 82,
+      "question": "Can you tell me the time in the above data when the price fluctuated the most in one minute?",
+      "choices": {
+        "A": "05 September 2022 10:32",
+        "B": "17 July 2022 11:57",
+        "C": "15 August 2022 09:30",
+        "D": "23 June 2022 14:10"
+      },
+      "expected": "C",
+      "output": "A",
+      "raw_output": "A",
+      "correct": false,
+      "context_length": 4952558,
+      "context_category": "Long (512k-8M chars)",
+      "duration": 52.84692920802627
+    },
+    {
+      "id": 83,
+      "question": "Of French departments in Q13950, which has the lowest weddings per year count?",
+      "choices": {
+        "A": "Q12753",
+        "B": "Q12751",
+        "C": "Q12661",
+        "D": "Q12770"
+      },
+      "expected": "D",
+      "output": "C",
+      "raw_output": "C",
+      "correct": false,
+      "context_length": 445748,
+      "context_category": "Medium (144k-512k chars)",
+      "duration": 52.8404524999205
+    },
+    {
+      "id": 84,
+      "question": "Of these, which happens first?",
+      "choices": {
+        "A": "David meets Mr Micawber",
+        "B": "David's little brother dies",
+        "C": "David sells his waistcoat for ninepence",
+        "D": "David meets Steerforth and Traddles"
+      },
+      "expected": "D",
+      "output": "A",
+      "raw_output": "A",
+      "correct": false,
+      "context_length": 1970520,
+      "context_category": "Long (512k-8M chars)",
+      "duration": 55.60052650002763
+    },
+    {
+      "id": 85,
+      "question": "Which players got the most utility in the game?",
+      "choices": {
+        "A": "player_0 and player_1",
+        "B": "player_1 and player_5",
+        "C": "player_0 and player_5",
+        "D": "player_1 and player_9"
+      },
+      "expected": "C",
+      "output": "A",
+      "raw_output": "A",
+      "correct": false,
+      "context_length": 112363,
+      "context_category": "Short (0-144k chars)",
+      "duration": 55.59956008300651
+    },
+    {
+      "id": 86,
+      "question": "If PUMA wants to achieve the EBIT targets outlined in the latest 2024 outlook, what percentage increase must be achieved in the second half of 2024 compared to the second half of 2023?\uff08Results are rounded to the nearest integer\uff09",
+      "choices": {
+        "A": "7%",
+        "B": "6%",
+        "C": "5%",
+        "D": "4%"
+      },
+      "expected": "D",
+      "output": null,
+      "raw_output": "To answer this, we need PUMA's EBIT for H2 2023 and the 2024 outlook, then compute the required percentage increase for H2.\n\n**1. EBIT for H2 2023:**  \nPUMA's full-year 2023 EBIT: \u20ac621.6 million  \nH1 2023 EBIT: \u20ac290.9 million  \nTherefore, H2 2023 EBIT = \u20ac621.6m - \u20ac290.9m = \u20ac330.7 million\n\n**2. 2024 EBIT Target (Outlook):**  \n2024 Outlook EBIT: \u20ac620\u2013670 million (take midpoint = \u20ac645 million for calculations, but as per question, any number in the range is fine; to match the answer choices, the low end is often used, but we'll show both).\n\n**3. H1 2024 EBIT (latest):**  \nH1 2024 EBIT: \u20ac276.2 million\n\n**4. Target H2 2024 EBIT:**  \nIf full-year EBIT target = \u20ac620 million:  \nH2 2024 target = \u20ac620m - \u20ac276.2m = \u20ac343.8 million  \nIf full-year EBIT target = \u20ac670 million:  \nH2 2024 target = \u20ac670m - \u20ac276.2m = \u20ac393.8 million\n\n**5. Calculate percentage increase for H2 2024 over H2 2023:**\nUsing lower end (\u20ac620m):  \n((\u20ac343.8m - \u20ac330.7m) / \u20ac330.7m) \u00d7 100 = (13.1 / 330.7) \u00d7 100 \u2248 3.96%\n\nUsing upper end (\u20ac670m):  \n((393.8 - 330.7)/330.7) \u00d7 100 \u2248 (63.1/330.7) \u00d7 100 \u2248 19.08%\n\nBut the question asks for the percentage increase to meet \"the EBIT targets outlined\" (not the top end), and the choices are: 7%, 6%, 5%, 4%.\n\n**6. Which answer matches calculation?**  \nFor the lower end (\u20ac620m): \u2248 4%  \nFor the midpoint (if used) would get slightly higher, but still closest to 4% or 5%, but the calculation aligns closest with **4%**.\n\n**Final Answer (rounded):**  \nD) 4%  \n\n---\n\n**Evidence:**  \n- Full-year EBIT 2023: \u20ac621.6m; H1 2023: \u20ac290.9m (source: PUMA 2023 annual report, \"Key Figures\" and consolidated income)  \n- Full-year EBIT 2024 outlook: \u20ac620-670m (source: PUMA Q2 2024/Outlook statement)  \n- H1 2024 EBIT: \u20ac276.2m (same source)\n\n**Calculation steps were followed as per the information above.**\n\n**ANSWER:**\n\nD",
+      "correct": false,
+      "context_length": 1050812,
+      "context_category": "Long (512k-8M chars)",
+      "duration": 60.11252504203003
+    },
+    {
+      "id": 87,
+      "question": "In order to adjust the schedule, how many hours does the user plan to sleep on weekdays?",
+      "choices": {
+        "A": "Six and half hours",
+        "B": "Seven and a half hours",
+        "C": "Eight and a half hours",
+        "D": "Nine and a half hours"
+      },
+      "expected": "D",
+      "output": "B",
+      "raw_output": "B",
+      "correct": false,
+      "context_length": 550357,
+      "context_category": "Long (512k-8M chars)",
+      "duration": 55.60016304103192
+    },
+    {
+      "id": 88,
       "question": "Which of the following options is not part of the U.S. national COVID-19 preparedness plan\uff1f",
       "choices": {
         "A": "With insufficient tools to fight COVID-19, the United States mobilized all of society to insist on surviving the outbreak with the least disruption to the United States.",
@@ -436,131 +1628,199 @@
         "D": "Expand global access to COVID-19 medicines, facilitate the formation of pharmaceutical research alliances, and increase global funding."
       },
       "expected": "A",
+      "output": "A",
+      "raw_output": "A",
+      "correct": true,
+      "context_length": 56138,
+      "context_category": "Short (0-144k chars)",
+      "duration": 52.8399034999311
+    },
+    {
+      "id": 89,
+      "question": "On which issue do Begger & Luckmann agree with Durkheim?",
+      "choices": {
+        "A": "It is mainly the family and the division of labor that shape most of a person's social identity",
+        "B": "Based on the characteristics of religion as a social creation, people can use some elements to create a new religion",
+        "C": "Certain symbols can lead individuals to give up their lives",
+        "D": "Language is the primary characteristic of socialization"
+      },
+      "expected": "C",
+      "output": "C",
+      "raw_output": "C",
+      "correct": true,
+      "context_length": 2120155,
+      "context_category": "Long (512k-8M chars)",
+      "duration": 55.56610300007742
+    },
+    {
+      "id": 90,
+      "question": "In the context of the numpy.ma module, which provides functionality for handling missing or invalid values in arrays, which of the following wrongly describes how the apply_along_axis function ensure the correct construction of the output array when applying func1d along a specified axis, and how it handle the shape transformations and data types of the resulting masked array?",
+      "choices": {
+        "A": "Output Shape Handling: The output shape is determined by removing the dimension corresponding to the specified axis from the input array shape. The function updates the output shape by inserting the shape of the result from func1d in the position of the specified axis.",
+        "B": "Scalar Result Handling: If the result of func1d is a scalar, the output array is initialized as an object array, and the function checks if the result is scalar by attempting to compute its length. If it is scalar, it adds the scalar result directly to the output array.",
+        "C": "Iteration Over Indices: The function uses a recursive function to iterate over all indices of the input array, adjusting the index for each dimension except the specified axis. Inside the loop, the index of the specified axis is set to slice(None) to ensure that func1d is applied along the correct dimension.",
+        "D": "Handling Dtypes: The function maintains a list of dtypes encountered while applying func1d to ensure that the output array is of a compatible type. At the end of the process, it computes the maximum dtype from the list and casts the output array to that type to avoid downcasting."
+      },
+      "expected": "C",
       "output": "D",
       "raw_output": "D",
       "correct": false,
-      "context_length": 56138,
-      "context_category": "Short (0-144k chars)",
-      "duration": 15.098084916942753
+      "context_length": 9598789,
+      "context_category": "Long (512k-8M chars)",
+      "duration": 44.0432705830317
     },
     {
-      "id": 23,
-      "question": "Which player contributed the least tokens in the game?",
+      "id": 91,
+      "question": "In the 2024 U.S. presidential debate transcripts, what is true about the strategies the debaters adopted according to the documents?",
+      "choices": {
+        "A": "On tax policy, both Biden and Harris mentioned Trump's controversial tax policies during their debates with Trump, and Biden lowered tariffs greatly to suppress domestic inflation during his presidency.",
+        "B": "On foreign policy issues, the moderator asked Trump about the Russia-Ukraine issue, and Trump responded that the problem would be resolved quickly after his election, but did not provide a clear plan. In contrast, for his opponent, the moderator raised the Israel-Palestine issue, and there was a more explicit plan presented.",
+        "C": "Immigration is a highly controversial topic. During the debate, Trump often brought up the worsening issue of illegal immigration under Democratic governance, as well as the recent increase in national crime rates due to immigration, to counter some of Biden's and Harris's points.",
+        "D": "On the issue of abortion, the moderator approached the topic starting with Roe v. Wade, asking both candidates for their views. If Trump is elected as president, Trump and his running mate will push for an abortion ban, even in cases where women are victims of rape or incest, which is unfair for the women."
+      },
+      "expected": "B",
+      "output": "C",
+      "raw_output": "C",
+      "correct": false,
+      "context_length": 197834,
+      "context_category": "Medium (144k-512k chars)",
+      "duration": 41.15398925007321
+    },
+    {
+      "id": 92,
+      "question": "How is Eliza Williams related to Colonel Brandon?",
+      "choices": {
+        "A": "His niece",
+        "B": "His daughter",
+        "C": "A distant cousin",
+        "D": "No relation"
+      },
+      "expected": "C",
+      "output": "C",
+      "raw_output": "C",
+      "correct": true,
+      "context_length": 694284,
+      "context_category": "Long (512k-8M chars)",
+      "duration": 42.03764312504791
+    },
+    {
+      "id": 93,
+      "question": "Which of the following can we infer according to the diffierences and conclusions in the documents?",
+      "choices": {
+        "A": "Compared to the efforts a decade ago, current nuclear modernization is much more complex and bigger. The PRC is expanding the number of its land-, sea-, and air-based nuclear delivery platforms under the command of PLARF.",
+        "B": "All PLA's Land Force is divided into 15 Group Armies. The Western Theater and the Southern Theater have 2 Group Armies respectively,  and the rest three have 3 respectively. Compared to 2022 Report, 2023 Report mentioned more military actions happened last year.",
+        "C": "Both report showed the basic information of the commanders and political commissars in all five theaters. From 2022 to 2023, the leadership in 5 theaters expericened great change but the average age of them didn't change too much.",
+        "D": "With more and more warships in service, the PLAN's battle force continuously increases. Until 2023, the PLAN has the most ships and submarines in the world, which is largely composed of modern multi-mission ships and submarines."
+      },
+      "expected": "C",
+      "output": "A",
+      "raw_output": "A",
+      "correct": false,
+      "context_length": 1083074,
+      "context_category": "Long (512k-8M chars)",
+      "duration": 48.58814725000411
+    },
+    {
+      "id": 94,
+      "question": "How does ChatGLM-Math use the methods mentioned in CritiqueLLM?",
+      "choices": {
+        "A": "ChatGLM Math used the data construction method in CritiqueLLM to construct pairwise data for the DPO stage.",
+        "B": "ChatGLM Math used CritiqueLLM as the Math Critique model to annotate the dataset and select comparative data for further training.",
+        "C": "ChatGLM Math uses CritiqueLLM as a reward model to construct Math Critique training data and pair data.",
+        "D": "ChatGLM Math has not applied the relevant technology of CritiqueLLM."
+      },
+      "expected": "C",
+      "output": "B",
+      "raw_output": "B",
+      "correct": false,
+      "context_length": 177582,
+      "context_category": "Medium (144k-512k chars)",
+      "duration": 41.5796795419883
+    },
+    {
+      "id": 95,
+      "question": "I want to extend the task of Agentbench. My task is a mobile operation task, implemented using an Android virtual device. When setting up this task, it is necessary to consider that each AVD occupies a large amount of memory and needs to control the concurrency based on the remaining memory of the machine; And AVD needs to be restarted after each test case to prevent mutual influence between tasks. Which of the following operations have errors:",
+      "choices": {
+        "A": "Inherit the Task class and change self.name to my task name",
+        "B": "When the start_stample function starts executing, consider the system memory situation and only start the test when there is sufficient remaining memory, otherwise wait",
+        "C": "Exit AVD in the release function and end testing Docker",
+        "D": "Calculate each test result in calculate_overall and return the result in JSON format"
+      },
+      "expected": "C",
+      "output": "C",
+      "raw_output": "C",
+      "correct": true,
+      "context_length": 4247788,
+      "context_category": "Long (512k-8M chars)",
+      "duration": 45.517823667032644
+    },
+    {
+      "id": 96,
+      "question": "Which policy mix should the government pursue to best balance fiscal sustainability, private sector engagement, and the energy transition, while maintaining political and social stability?",
+      "choices": {
+        "A": "Aggressive Fiscal Realignment with Carbon Tax and Green Bond Program\uff1a\nIntroduce a substantial carbon tax on oil production and exports, increasing gradually over the next decade.\nLaunch a large-scale green bond program to fund solar and wind infrastructure, primarily targeting international investors.\nGradually phase out fossil fuel subsidies over the next five years, redirecting savings toward green infrastructure projects.\nImplement social transfer programs to cushion the impact on low-income households as energy prices rise.",
+        "B": "Gradual Energy Transition with National Green Investment Bank\uff1a\nCreate a national green investment bank to de-risk renewable energy projects, using concessional financing from multilateral development banks (MDBs) and sovereign wealth fund reserves.\nMaintain existing fossil fuel subsidies for the next five years to ensure energy price stability while gradually scaling up renewable energy.\nImplement modest tax credits and subsidies for private renewable energy investments, while postponing the introduction of a carbon tax.\nPrioritize regulatory streamlining to reduce barriers for private sector participation in renewable energy projects.",
+        "C": "Immediate Fossil Fuel Subsidy Removal with Regulatory Overhaul\uff1a\nRemove all fossil fuel subsidies immediately to create a level playing field for renewable energy, and redirect savings to fund public investments in renewable energy infrastructure.\nImplement a comprehensive regulatory overhaul, fast-tracking the approval process for renewable energy projects, and introducing mandatory renewable energy purchase agreements (PPAs) for utilities.\nIntroduce a carbon pricing mechanism within two years, focused on industrial sectors to reduce emissions.\nProvide direct cash transfers to low-income households to offset rising energy costs due to subsidy removal.",
+        "D": "Blended Finance and Export-Led Renewable Development\uff1a\nEstablish a public-private blended finance fund to attract foreign direct investment (FDI) for large-scale renewable energy projects, especially focused on export markets (e.g., green hydrogen, solar exports).\nIssue sustainability-linked bonds (SLBs) that tie coupon payments to national greenhouse gas reduction targets, tapping into international capital markets.\nImplement a modest carbon tax on oil production, while retaining fossil fuel subsidies domestically to avoid sharp increases in local energy prices.\nUse revenues from carbon taxes and SLBs to invest in education, retraining programs, and social welfare for workers in the fossil fuel sector who will be displaced by the energy transition."
+      },
+      "expected": "B",
+      "output": "B",
+      "raw_output": "B",
+      "correct": true,
+      "context_length": 391714,
+      "context_category": "Medium (144k-512k chars)",
+      "duration": 39.57568691705819
+    },
+    {
+      "id": 97,
+      "question": "According the information given, which of the following statement is most likely to be true?",
+      "choices": {
+        "A": "Yelp can't filter reviews anymore after the promulgation of Consumer Review Fairness Act.",
+        "B": "As Yelp stepped up its efforts to control fake reviews, bussinesses might lose interest in buying AD services because they would be affected by fake reviews less.",
+        "C": "Between 2012 and 2017, negative review rate on Yelp could be abnormally low.",
+        "D": "Yelp might shift its business focus from online reviews to advertising service in order to circumvent strict consumer review protection laws"
+      },
+      "expected": "C",
+      "output": "C",
+      "raw_output": "C",
+      "correct": true,
+      "context_length": 53982,
+      "context_category": "Short (0-144k chars)",
+      "duration": 36.60780320793856
+    },
+    {
+      "id": 98,
+      "question": "Which of the following is an incorrect understanding of the discussion on Journey to the West in the development of Chinese mythological culture?",
+      "choices": {
+        "A": "Journey to the West expresses the characteristics of mythological figures where divinity, animal instincts, and human nature are integrated through the character of Sun Wukong.",
+        "B": "The \" social circle\" in Journey to the West symbolizes the refinement of human character and the transformation of spiritual will.",
+        "C": "The novel elevates a free mindset beyond religion by incorporating the ideological resources of Confucianism, Buddhism, and Daoism, blending in the mysticism of the three teachings.",
+        "D": "The image of Sun Wukong symbolizes the transformation from the outburst of wild vitality to the elevation of spiritual realms."
+      },
+      "expected": "C",
+      "output": "B",
+      "raw_output": "B",
+      "correct": false,
+      "context_length": 3596979,
+      "context_category": "Long (512k-8M chars)",
+      "duration": 27.264259250019677
+    },
+    {
+      "id": 99,
+      "question": "Which player won the most times in the game?",
       "choices": {
         "A": "player_2",
         "B": "player_4",
         "C": "player_6",
         "D": "player_8"
       },
-      "expected": "D",
-      "output": "A",
-      "raw_output": "A",
-      "correct": false,
-      "context_length": 110923,
-      "context_category": "Short (0-144k chars)",
-      "duration": 50.73161616595462
-    },
-    {
-      "id": 24,
-      "question": "Considering both the \u201cExport Development Act (E-20)\u201d and the \u201cSoftwood Lumber Products Export Charge (S-12.55)\u201d, how do their provisions for \u201cexceptions in trade-related disputes\u201d reflect differing priorities between fostering international trade relations and protecting national economic interests, and what does this suggest about the trade-off between compliance with international regulations and national economic sovereignty?",
-      "choices": {
-        "A": "Both the \u201cExport Development Act\u201d and \u201cSoftwood Lumber Products Export Charge\u201d recognize the need for flexibility in trade disputes, but the \u201cExport Development Act\u201d offers more discretion in defending national interests, while the \u201cSoftwood Lumber Products Export Charge\u201d maintains stricter adherence to international agreements, highlighting the balance between national sovereignty and international compliance.",
-        "B": "Both the \u201cExport Development Act\u201d and \u201cSoftwood Lumber Products Export Charge\u201d recognize the need for exceptions in trade disputes, but the \u201cExport Development Act\u201d provides more room for discretion in defending national interests, whereas the \u201cSoftwood Lumber Products Export Charge\u201d follows a stricter framework, reflecting the need for compliance with international trade agreements.",
-        "C": "The \u201cExport Development Act\u201d allows for broader discretion in managing trade disputes to protect national interests, while the \u201cSoftwood Lumber Products Export Charge\u201d enforces stricter compliance with international regulations, showing the different approaches to balancing national economic interests and international obligations.",
-        "D": "Both the \u201cExport Development Act\u201d and \u201cSoftwood Lumber Products Export Charge\u201d highlight the importance of adhering to trade agreements, but the \u201cExport Development Act\u201d offers more flexibility in protecting national interests during trade disputes, while the \u201cSoftwood Lumber Products Export Charge\u201d follows a more rigid approach, emphasizing fair trade practices and compliance with international standards."
-      },
-      "expected": "B",
-      "output": "C",
-      "raw_output": "C",
-      "correct": false,
-      "context_length": 472100,
-      "context_category": "Medium (144k-512k chars)",
-      "duration": 3.5828009580727667
-    },
-    {
-      "id": 25,
-      "question": "Narrives: 1. ['The team arrives at the cruise ship to take Sean Arnet into custody and is briefed on the plan to confirm his identity and ensure he remains secure until American authorities can take over.']\\n2. ['Petra bursts out of the longhouse into a cloud of debris from two helicopters and is tackled by American operatives amidst the chaos.']\\n3. [\\\"The narrator encounters two elderly tourists inside a cabin, and requests the woman to hand over Constable Paniula's diary that she was examining.\\\"]\\n4. ['Rachael and Petra visited the reconstructed Viking longhouse at the Norse ruins of Brattahl\\u00ed\\u00f0 to retrieve something of interest, with Rachael reminiscing about a past visit to Greenland.']\\n\\nQuery: Considering the given book and narratives, Which order of the narratives in the following options is correct?",
-      "choices": {
-        "A": "1243",
-        "B": "2341",
-        "C": "1234",
-        "D": "1342"
-      },
-      "expected": "D",
-      "output": "C",
-      "raw_output": "C",
-      "correct": false,
-      "context_length": 121347,
-      "context_category": "Short (0-144k chars)",
-      "duration": 0.8237712919944897
-    },
-    {
-      "id": 26,
-      "question": "Narrives: 1. ['In the excerpt, the protagonist expresses inner turmoil and fears about their destructive power, leading to a moment of intimacy with Xaden as they kiss him impulsively.']\\n2. [\\\"A cadet attempts to flee from the dragons and is incinerated by a red dragon's fire, adding to the day's death toll.\\\"]\\n3. [\\\"Violet decides to leave with Xaden despite Dain's objections, signaling her trust in Xaden and willingness to face the dangers beyond the wards.\\\"]\\n4. ['Violet struggles to stay seated on Tairn during a flight training session, repeatedly falling off as Tairn intentionally makes the maneuvers more challenging.']\\n\\nQuery: Considering the given book and narratives, Which order of the narratives in the following options is correct?",
-      "choices": {
-        "A": "1342",
-        "B": "3214",
-        "C": "4312",
-        "D": "2413"
-      },
-      "expected": "D",
-      "output": "A",
-      "raw_output": "A",
-      "correct": false,
-      "context_length": 1115662,
-      "context_category": "Long (512k-8M chars)",
-      "duration": 3.582334458013065
-    },
-    {
-      "id": 27,
-      "question": "Both the \u201cGreen Technology Master Plan Malaysia (2017-2030)\u201d and the \u201cMalaysia Roadmap Towards Zero Single-Use Plastics (2018-2030)\u201d address sustainability, but they adopt different approaches when dealing with economic development and environmental protection. Which of the following best describes the \u201cunderlying\u201d difference in how these two documents balance long-term economic interests with environmental goals, and how this difference impacts the policies suggested for implementation?",
-      "choices": {
-        "A": "The \u201cGreen Technology Master Plan\u201d advocates for a balanced approach where environmental goals are aligned with economic development by fostering green industries and technologies. However, the \u201cRoadmap Towards Zero Single-Use Plastics\u201d emphasizes immediate environmental action, focusing on reducing plastic waste while encouraging eco-friendly alternatives, with economic benefits following in the long term.",
-        "B": "The \u201cGreen Technology Master Plan\u201d advocates for a balanced approach, where environmental goals are aligned with economic development by fostering green industries and technologies. However, the \u201cRoadmap Towards Zero Single-Use Plastics\u201d adopts a more precautionary approach, focusing on halting environmental damage first and foremost, with economic benefits being secondary or emerging indirectly over time.",
-        "C": "Both the \u201cGreen Technology Master Plan\u201d and the \u201cRoadmap Towards Zero Single-Use Plastics\u201d aim to integrate economic growth with environmental protection. The \u201cGreen Technology Master Plan\u201d fosters green technologies as an economic growth driver, while the \u201cRoadmap\u201d seeks to curb plastic use for environmental benefits, with economic gains expected gradually through market adaptation to eco-friendly products.",
-        "D": "Both documents prioritize sustainability, but the \u201cGreen Technology Master Plan\u201d places more emphasis on fostering green technologies to stimulate economic growth and reduce emissions. In contrast, the \u201cRoadmap Towards Zero Single-Use Plastics\u201d addresses plastic waste reduction urgently, with economic opportunities such as eco-friendly alternatives developing more gradually."
-      },
-      "expected": "B",
-      "output": "B",
-      "raw_output": "B",
-      "correct": true,
-      "context_length": 450764,
-      "context_category": "Medium (144k-512k chars)",
-      "duration": 3.588451375020668
-    },
-    {
-      "id": 28,
-      "question": "What percentage of code data was used during LLaMA pre-training?",
-      "choices": {
-        "A": "2%",
-        "B": "2.5%",
-        "C": "4.5%",
-        "D": "5%"
-      },
       "expected": "C",
       "output": "A",
       "raw_output": "A",
       "correct": false,
-      "context_length": 88001,
+      "context_length": 92437,
       "context_category": "Short (0-144k chars)",
-      "duration": 0.9033730409573764
-    },
-    {
-      "id": 29,
-      "question": "What is the message from the two cases?",
-      "choices": {
-        "A": "Roe v. Wade gave women full abortion rights.",
-        "B": "The Fourteenth Amendment is unclear.",
-        "C": "With the conclusion of Roe v. Wade, the right to abortion was largely recognized by society.",
-        "D": "The interest in fetal life trumped the pregnant woman's interest in abortion, so the Supreme Court overturned Roe v. Wade."
-      },
-      "expected": "B",
-      "output": "D",
-      "raw_output": "D",
-      "correct": false,
-      "context_length": 50092,
-      "context_category": "Short (0-144k chars)",
-      "duration": 3.58181191701442
+      "duration": 18.251813916955143
     }
   ]
 }

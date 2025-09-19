@@ -1,0 +1,15 @@
+Task ID: 10
+Question: What is the core argument of this article?
+Context Length: 85,956 characters
+Context Category: Short
+
+Question Analysis:
+Type: ANALYTICAL  
+Complexity: 3  
+Context_Need: BROAD  
+
+Explanation:  
+- The question "What is the core argument of this article?" requires the reader to interpret and synthesize the main point or thesis from the article, which goes beyond simple fact retrieval.  
+- It does not necessarily require connecting multiple complex concepts (which would be COMPREHENSIVE), nor does it require making unstated inferences (which would be INFERENTIAL), but it does require analysis and interpretation.  
+- The complexity is moderate (3), as it involves understanding the article as a whole and distilling its main argument.  
+- It requires a broad understanding of the article's content, not just a narrow detail.

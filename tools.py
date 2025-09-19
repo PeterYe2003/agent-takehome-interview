@@ -1,4 +1,5 @@
 # tools.py
+# Deprecated code, used earlier when I was manually extracting key chunks from the context.
 import re
 from typing import Dict, Any, Optional, List
 

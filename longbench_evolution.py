@@ -17,13 +17,23 @@ from dotenv import load_dotenv
 from datasets import load_dataset
 from agents import Agent, Runner, function_tool, RunContextWrapper
 import matplotlib.pyplot as plt
-import json
 from openai import OpenAI
 from anthropic import Anthropic
 from dataclasses import dataclass
 from typing import Dict, Any, List, Tuple, Callable
 
+# Load environment variables (e.g., API keys) from a .env file if present.
 load_dotenv()
+
+# Common stop words for keyword extraction
+STOP_WORDS = {
+    "that", "this", "with", "from", "they", "have", "been", "will", "were", "said",
+    "each", "which", "their", "time", "would", "there", "could", "other", "after",
+    "first", "well", "also", "new", "want", "because", "any", "these", "give", "day",
+    "most", "us", "is", "are", "was", "were", "be", "been", "being", "have", "has",
+    "had", "do", "does", "did", "will", "would", "could", "should", "may", "might",
+    "must", "can", "shall"
+}
 
 logging.basicConfig(
     level=getattr(logging, os.getenv("LOG_LEVEL", "INFO").upper(), logging.INFO),
@@ -52,7 +62,7 @@ class TaskContext:
     original_context_length: int
     context_category: str
 
-
+# Categorizes context length into Short, Medium, or Long.
 def get_context_length_category(context_length: int) -> str:
     """Categorize context length into Short, Medium, or Long."""
     if context_length <= 144000:
@@ -61,6 +71,12 @@ def get_context_length_category(context_length: int) -> str:
         return "Medium (144k-512k chars)"
     else:
         return "Long (512k-8M chars)"
+# Ensures that the response is only one letter (A, B, C, D).
+def _letter_only(s: str) -> str | None:
+    """Extract just the letter (A, B, C, D) from the response."""
+    m = re.match(r"^\s*([ABCD])\b", s.strip().upper())
+    return m.group(1) if m else None
+
 
 
 # ================= Benchmark Creation =================
@@ -95,65 +111,7 @@ def create_search_benchmark_from_longbench() -> List[Dict[str, Any]]:
         # Simple keyword extraction - take first few meaningful words
         words = re.findall(r"\b\w+\b", correct_option_text.lower())
         meaningful_words = [
-            w
-            for w in words
-            if len(w) > 3
-            and w
-            not in [
-                "that",
-                "this",
-                "with",
-                "from",
-                "they",
-                "have",
-                "been",
-                "will",
-                "were",
-                "said",
-                "each",
-                "which",
-                "their",
-                "time",
-                "would",
-                "there",
-                "could",
-                "other",
-                "after",
-                "first",
-                "well",
-                "also",
-                "new",
-                "want",
-                "because",
-                "any",
-                "these",
-                "give",
-                "day",
-                "most",
-                "us",
-                "is",
-                "are",
-                "was",
-                "were",
-                "be",
-                "been",
-                "being",
-                "have",
-                "has",
-                "had",
-                "do",
-                "does",
-                "did",
-                "will",
-                "would",
-                "could",
-                "should",
-                "may",
-                "might",
-                "must",
-                "can",
-                "shall",
-            ]
+            w for w in words if len(w) > 3 and w not in STOP_WORDS
         ]
         keywords = (
             ", ".join(meaningful_words[:3])
@@ -178,9 +136,7 @@ def create_search_benchmark_from_longbench() -> List[Dict[str, Any]]:
     return benchmark
 
 
-# ================= Original Search Function =================
-
-
+# Original search function for evidence supporting a specific option.
 def search_evidence_for_option_tool_original(
     context: str,
     option_letter: str,
@@ -297,7 +253,7 @@ def search_evidence_for_option_tool_original(
 
 # ================= Evolution System =================
 
-
+# Helper function to remove markdown fences from generated code.
 def _strip_md_fences(code: str) -> str:
     code = code.strip()
     if code.startswith("```"):
@@ -305,7 +261,7 @@ def _strip_md_fences(code: str) -> str:
         code = re.sub(r"\s*```$", "", code)
     return code.strip()
 
-
+# converts function to string and removes decorators.
 def _clean_src(func: Callable) -> str:
     """Dedent source and strip decorators."""
     target = getattr(func, "func", func)
@@ -330,7 +286,7 @@ def get_callable(tool_obj: Any) -> Callable:
 
 
 def compile_code_to_plain_function(code_str: str) -> Callable:
-    """Compile mutated code as a PLAIN FUNCTION."""
+    """turns claude-mutated code into a function"""
     code = _strip_md_fences(code_str)
     g: Dict[str, Any] = {}
     l: Dict[str, Any] = {}
@@ -341,6 +297,42 @@ def compile_code_to_plain_function(code_str: str) -> Callable:
     if not tools:
         raise RuntimeError("No callable found in mutated code.")
     return tools[0]
+
+
+def create_search_tool_function(search_func: Callable):
+    """Create a function tool that wraps the search function and accesses context from TaskContext."""
+    
+    @function_tool
+    def search_evidence_for_option_tool(
+        wrapper: RunContextWrapper[TaskContext],
+        option_letter: str,
+        keywords: str,
+        expansion_chars: int = 500,
+        max_results: int = 15,
+    ) -> str:
+        """Search for evidence supporting a specific option using the evolved search function."""
+        # Get context from the wrapper
+        task_context = wrapper.context
+        context = task_context.context
+        choices = task_context.choices
+        
+        # Call the evolved search function
+        return search_func(
+            context=context,
+            option_letter=option_letter,
+            keywords=keywords,
+            choices=choices,
+            expansion_chars=expansion_chars,
+            max_results=max_results,
+        )
+    
+    return search_evidence_for_option_tool
+
+
+def create_other_tools():
+    """Create other necessary tools for the agent."""
+    # Return the standalone tool functions that are defined later in the file
+    return [analyze_question_type_tool, get_full_context_tool, extract_question_keywords_tool]
 
 
 async def evaluate_search_function(
@@ -359,14 +351,13 @@ Your systematic process:
 1. FIRST: Use analyze_question_type_tool to understand the question type, complexity, and context characteristics
 2. SECOND: If context is SHORT (≤100k chars), use get_full_context_tool to read the entire context directly
 3. THIRD: If context is MEDIUM/LONG, use extract_question_keywords_tool to identify keywords from the question
-4. FOURTH: For MEDIUM/LONG contexts, for each option (A, B, C, D), use extract_option_keywords_tool to get keywords specific to that option
-5. FIFTH: For MEDIUM/LONG contexts, for each option, use search_evidence_for_option_tool with the question keywords + option keywords and CHOOSE parameters based on question type analysis
-6. SIXTH: Compare the evidence found for each option and select the one with the strongest supporting evidence
-7. SEVENTH: Respond with ONLY the letter of your chosen answer (A, B, C, or D)
+4. FOURTH: For MEDIUM/LONG contexts, use search_evidence_for_option_tool for each option (A, B, C, D) with appropriate parameters
+5. FIFTH: Compare the evidence found for each option and select the one with the strongest supporting evidence
+6. SIXTH: Respond with ONLY the letter of your chosen answer (A, B, C, or D)
 
 Remember: Your response must be exactly one letter (A, B, C, or D).""",
         model="gpt-4o-mini",  # Use faster model for evaluation
-        tools=[search_tool] + list(other_tools)
+        tools=[search_tool] + other_tools
     )
     
     runner = Runner()
@@ -397,7 +388,7 @@ Remember: Your response must be exactly one letter (A, B, C, or D).""",
                 context_category=context_category
             )
 
-            # Create input prompt
+            # Create input prompt (without context - it's stored in TaskContext)
             input_prompt = (
                 f"Question:\n{question}\n\n"
                 "Choices:\n"
@@ -405,6 +396,7 @@ Remember: Your response must be exactly one letter (A, B, C, or D).""",
                 f"B) {choices['B']}\n"
                 f"C) {choices['C']}\n"
                 f"D) {choices['D']}\n\n"
+                "Use the available tools to analyze the context and find evidence for your answer. Follow your systematic process.\n"
                 "Answer:"
             )
 
@@ -518,42 +510,13 @@ async def evolve_search_function(
 
 # ================= Agent Creation =================
 
+@function_tool
+def extract_question_keywords_tool(wrapper: RunContextWrapper[TaskContext]) -> str:
+    """Extract the most important keywords from the question using LLM analysis."""
+    task_context = wrapper.context
 
-def create_search_tool_function(evolved_search_func: Callable):
-    """Create a function_tool wrapper for the evolved search function."""
-
-    @function_tool
-    def search_evidence_for_option_tool(
-        wrapper: RunContextWrapper[TaskContext],
-        option_letter: str,
-        keywords: str,
-        expansion_chars: int = 500,
-        max_results: int = 15,
-    ) -> str:
-        """Search the context for evidence supporting a specific option using the provided keywords."""
-        task_context = wrapper.context
-        return evolved_search_func(
-            context=task_context.context,
-            option_letter=option_letter,
-            keywords=keywords,
-            choices=task_context.choices,
-            expansion_chars=expansion_chars,
-            max_results=max_results,
-        )
-
-    return search_evidence_for_option_tool
-
-
-def create_other_tools():
-    """Create the other tools copied from test.py."""
-
-    @function_tool
-    def extract_question_keywords_tool(wrapper: RunContextWrapper[TaskContext]) -> str:
-        """Extract the most important keywords from the question using LLM analysis."""
-        task_context = wrapper.context
-
-        # Use the LLM to identify the most important keywords in the question
-        prompt = f"""Analyze this question and identify the 3-5 most important keywords that would be crucial for finding relevant information in a long context.
+    # Use the LLM to identify the most important keywords in the question
+    prompt = f"""Analyze this question and identify the 3-5 most important keywords that would be crucial for finding relevant information in a long context.
 
 Question: {task_context.question}
 
@@ -565,46 +528,46 @@ Focus on:
 
 Return only the keywords separated by commas, no explanations."""
 
-        try:
-            response = openai_client.chat.completions.create(
-                model="gpt-4.1",
-                messages=[{"role": "user", "content": prompt}],
-                max_tokens=100,
-                temperature=0.1,
-            )
-            keywords = response.choices[0].message.content.strip()
+    try:
+        response = openai_client.chat.completions.create(
+            model="gpt-4.1",
+            messages=[{"role": "user", "content": prompt}],
+            max_tokens=100,
+            temperature=0.1,
+        )
+        keywords = response.choices[0].message.content.strip()
 
-            # Save to combined keywords file for debugging
-            with open(f"keywords_task_{task_context.task_id}.txt", "w") as f:
-                f.write(f"Task ID: {task_context.task_id}\n")
-                f.write(f"Question: {task_context.question}\n")
-                f.write(f"Question Keywords: {keywords}\n")
-                f.write(f"Choices: {task_context.choices}\n")
-                f.write(f"Answer: {task_context.answer}\n")
-                f.write(f"Context Length: {len(task_context.context)} chars\n")
-                f.write(f"Context Category: {task_context.context_category}\n\n")
+        # Save to combined keywords file for debugging
+        with open(f"keywords_task_{task_context.task_id}.txt", "w") as f:
+            f.write(f"Task ID: {task_context.task_id}\n")
+            f.write(f"Question: {task_context.question}\n")
+            f.write(f"Question Keywords: {keywords}\n")
+            f.write(f"Choices: {task_context.choices}\n")
+            f.write(f"Answer: {task_context.answer}\n")
+            f.write(f"Context Length: {len(task_context.context)} chars\n")
+            f.write(f"Context Category: {task_context.context_category}\n\n")
 
-            return f"Question keywords: {keywords}"
-        except Exception as e:
-            logger.warning(
-                f"Failed to extract question keywords for task {task_context.task_id}: {e}"
-            )
-            return "Failed to extract question keywords"
+        return f"Question keywords: {keywords}"
+    except Exception as e:
+        logger.warning(
+            f"Failed to extract question keywords for task {task_context.task_id}: {e}"
+        )
+        return "Failed to extract question keywords"
 
-    @function_tool
-    def extract_option_keywords_tool(
-        wrapper: RunContextWrapper[TaskContext], option_letter: str
-    ) -> str:
-        """Extract the most important keywords from a specific option using LLM analysis."""
-        task_context = wrapper.context
+@function_tool
+def extract_option_keywords_tool(
+    wrapper: RunContextWrapper[TaskContext], option_letter: str
+) -> str:
+    """Extract the most important keywords from a specific option using LLM analysis."""
+    task_context = wrapper.context
 
-        if option_letter not in task_context.choices:
-            return f"Invalid option letter: {option_letter}"
+    if option_letter not in task_context.choices:
+        return f"Invalid option letter: {option_letter}"
 
-        option_text = task_context.choices[option_letter]
+    option_text = task_context.choices[option_letter]
 
-        # Use the LLM to identify the most important keywords in this specific option
-        prompt = f"""Analyze this answer choice and identify the 2-4 most important keywords that would be crucial for finding supporting evidence in a long context.
+    # Use the LLM to identify the most important keywords in this specific option
+    prompt = f"""Analyze this answer choice and identify the 2-4 most important keywords that would be crucial for finding supporting evidence in a long context.
 
 Answer Choice {option_letter}: {option_text}
 
@@ -616,45 +579,45 @@ Focus on:
 
 Return only the keywords separated by commas, no explanations."""
 
-        try:
-            response = openai_client.chat.completions.create(
-                model="gpt-4.1",
-                messages=[{"role": "user", "content": prompt}],
-                max_tokens=100,
-                temperature=0.1,
-            )
-            keywords = response.choices[0].message.content.strip()
+    try:
+        response = openai_client.chat.completions.create(
+            model="gpt-4.1",
+            messages=[{"role": "user", "content": prompt}],
+            max_tokens=100,
+            temperature=0.1,
+        )
+        keywords = response.choices[0].message.content.strip()
 
-            # Append to combined keywords file for debugging
-            with open(f"keywords_task_{task_context.task_id}.txt", "a") as f:
-                f.write(f"Option {option_letter} Keywords: {keywords}\n")
+        # Append to combined keywords file for debugging
+        with open(f"keywords_task_{task_context.task_id}.txt", "a") as f:
+            f.write(f"Option {option_letter} Keywords: {keywords}\n")
 
-            return f"Option {option_letter} keywords: {keywords}"
-        except Exception as e:
-            logger.warning(
-                f"Failed to extract option {option_letter} keywords for task {task_context.task_id}: {e}"
-            )
-            return f"Failed to extract option {option_letter} keywords"
+        return f"Option {option_letter} keywords: {keywords}"
+    except Exception as e:
+        logger.warning(
+            f"Failed to extract option {option_letter} keywords for task {task_context.task_id}: {e}"
+        )
+        return f"Failed to extract option {option_letter} keywords"
 
-    @function_tool
-    def analyze_question_type_tool(wrapper: RunContextWrapper[TaskContext]) -> str:
-        """Analyze the question type and context to help the LLM decide search parameters."""
-        task_context = wrapper.context
-        context_length = len(task_context.context)
-        question = task_context.question
+@function_tool
+def analyze_question_type_tool(wrapper: RunContextWrapper[TaskContext]) -> str:
+    """Analyze the question type and context to help the LLM decide search parameters."""
+    task_context = wrapper.context
+    context_length = len(task_context.context)
+    question = task_context.question
 
-        # Categorize context length
-        if context_length <= 100000:
-            context_category = "Short"
-        elif context_length <= 500000:
-            context_category = "Medium"
-        elif context_length <= 1000000:
-            context_category = "Long"
-        else:
-            context_category = "Very Long"
+    # Categorize context length
+    if context_length <= 100000:
+        context_category = "Short"
+    elif context_length <= 500000:
+        context_category = "Medium"
+    elif context_length <= 1000000:
+        context_category = "Long"
+    else:
+        context_category = "Very Long"
 
-        # Analyze question type using LLM
-        analysis_prompt = f"""Analyze this question and determine its type and complexity:
+    # Analyze question type using LLM
+    analysis_prompt = f"""Analyze this question and determine its type and complexity:
 
 Question: {question}
 
@@ -675,24 +638,23 @@ Complexity: [1-5]
 Context_Need: [BROAD/NARROW]
 Reasoning: [Brief explanation]"""
 
-        try:
-            response = openai_client.chat.completions.create(
-                model="gpt-4.1",
-                messages=[{"role": "user", "content": analysis_prompt}],
-                max_tokens=150,
-                temperature=0.1,
-            )
-            analysis = response.choices[0].message.content.strip()
+    response = openai_client.chat.completions.create(
+        model="gpt-4.1",
+        messages=[{"role": "user", "content": analysis_prompt}],
+        max_tokens=150,
+        temperature=0.1,
+    )
+    analysis = response.choices[0].message.content.strip()
 
-            # Save analysis to file for debugging
-            with open(f"question_analysis_task_{task_context.task_id}.txt", "w") as f:
-                f.write(f"Task ID: {task_context.task_id}\n")
-                f.write(f"Question: {question}\n")
-                f.write(f"Context Length: {context_length:,} characters\n")
-                f.write(f"Context Category: {context_category}\n\n")
-                f.write(f"Question Analysis:\n{analysis}\n")
+    # Save analysis to file for debugging
+    with open(f"question_analysis_task_{task_context.task_id}.txt", "w") as f:
+        f.write(f"Task ID: {task_context.task_id}\n")
+        f.write(f"Question: {question}\n")
+        f.write(f"Context Length: {context_length:,} characters\n")
+        f.write(f"Context Category: {context_category}\n\n")
+        f.write(f"Question Analysis:\n{analysis}\n")
 
-            info = f"""Context and Question Analysis:
+        info = f"""Context and Question Analysis:
 - Context Length: {context_length:,} characters
 - Context Category: {context_category}
 
@@ -707,13 +669,13 @@ Parameter Selection Guidelines (MAXIMIZE CONTEXT USAGE):
 
 Context Usage Strategy:
 - SHORT contexts (≤100k chars): Use 60-80% of available context
-  * expansion_chars: 800-2000, max_results: 20-80
+* expansion_chars: 800-2000, max_results: 20-80
 - MEDIUM contexts (100k-500k chars): Use 70-90% of available context
-  * expansion_chars: 1200-3000, max_results: 40-120
+* expansion_chars: 1200-3000, max_results: 40-120
 - LONG contexts (500k-1M chars): Use 80-95% of available context
-  * expansion_chars: 2000-4000, max_results: 60-150
+* expansion_chars: 2000-4000, max_results: 60-150
 - VERY LONG contexts (>1M chars): Use 90-98% of available context
-  * expansion_chars: 2500-5000, max_results: 80-200
+* expansion_chars: 2500-5000, max_results: 80-200
 
 Token Limit Considerations:
 - 128k token limit ≈ 512k characters
@@ -723,44 +685,32 @@ Token Limit Considerations:
 
 Choose parameters that MAXIMIZE context usage while staying within token limits."""
 
-            return info
-        except Exception as e:
-            logger.warning(
-                f"Failed to analyze question type for task {task_context.task_id}: {e}"
-            )
-            return f"Context Length: {context_length:,} characters, Category: {context_category}. Use standard parameters."
+        return info
 
-    @function_tool
-    def get_full_context_tool(wrapper: RunContextWrapper[TaskContext]) -> str:
-        """Get the full context for short contexts that can be read entirely."""
-        task_context = wrapper.context
-        context = task_context.context
+@function_tool
+def get_full_context_tool(wrapper: RunContextWrapper[TaskContext]) -> str:
+    """Get the full context for short contexts that can be read entirely."""
+    task_context = wrapper.context
+    context = task_context.context
 
-        # Save full context to file for debugging
-        try:
-            with open(f"full_context_task_{task_context.task_id}.txt", "w") as f:
-                f.write(f"Task ID: {task_context.task_id}\n")
-                f.write(f"Question: {task_context.question}\n")
-                f.write(f"Choices: {task_context.choices}\n")
-                f.write(f"Answer: {task_context.answer}\n")
-                f.write(f"Context Length: {len(context)} chars\n")
-                f.write(f"Context Category: {task_context.context_category}\n\n")
-                f.write("Full Context:\n")
-                f.write("=" * 60 + "\n")
-                f.write(context)
-        except Exception as e:
-            logger.warning(
-                f"Failed to save full context for task {task_context.task_id}: {e}"
-            )
+    # Save full context to file for debugging
+    try:
+        with open(f"full_context_task_{task_context.task_id}.txt", "w") as f:
+            f.write(f"Task ID: {task_context.task_id}\n")
+            f.write(f"Question: {task_context.question}\n")
+            f.write(f"Choices: {task_context.choices}\n")
+            f.write(f"Answer: {task_context.answer}\n")
+            f.write(f"Context Length: {len(context)} chars\n")
+            f.write(f"Context Category: {task_context.context_category}\n\n")
+            f.write("Full Context:\n")
+            f.write("=" * 60 + "\n")
+            f.write(context)
+    except Exception as e:
+        logger.warning(
+            f"Failed to save full context for task {task_context.task_id}: {e}"
+        )
 
-        return f"Full context ({len(context):,} characters):\n\n{context}"
-
-    return (
-        extract_question_keywords_tool,
-        extract_option_keywords_tool,
-        analyze_question_type_tool,
-        get_full_context_tool,
-    )
+    return f"Full context ({len(context):,} characters):\n\n{context}"
 
 
 def create_agent_with_evolved_search(
@@ -768,7 +718,6 @@ def create_agent_with_evolved_search(
 ) -> Agent[TaskContext]:
     """Create an agent that uses the evolved search function."""
     search_tool = create_search_tool_function(evolved_search_func)
-    other_tools = create_other_tools()
 
     agent = Agent[TaskContext](
         name="evolved-systematic-evidence-agent",
@@ -811,18 +760,15 @@ Systematic Workflow:
 
 Remember: Your response must be exactly one letter (A, B, C, or D).""",
         model="gpt-4.1",
-        tools=[search_tool] + list(other_tools)
+        tools=[search_tool] + [extract_question_keywords_tool,
+        extract_option_keywords_tool,
+        analyze_question_type_tool,
+        get_full_context_tool]
     )
     return agent
 
 
 # ================= Agent Evaluation =================
-
-
-def _letter_only(s: str) -> str | None:
-    """Extract just the letter (A, B, C, D) from the response."""
-    m = re.match(r"^\s*([ABCD])\b", s.strip().upper())
-    return m.group(1) if m else None
 
 
 def prepare_longbench2(n=None):

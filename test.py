@@ -26,7 +26,7 @@ logger = logging.getLogger("agents-test")
 # Suppress verbose HTTP logs
 logging.getLogger("httpx").setLevel(logging.WARNING)
 
-
+# Helper function to categorize context length.
 def get_context_length_category(context_length: int) -> str:
     """Categorize context length into Short, Medium, or Long."""
     if context_length <= 144000:
@@ -35,6 +35,11 @@ def get_context_length_category(context_length: int) -> str:
         return "Medium (144k-512k chars)"
     else:
         return "Long (512k-8M chars)"
+# Ensures that the response is only one letter (A, B, C, D).
+def _letter_only(s: str) -> str | None:
+    """Extract just the letter (A, B, C, D) from the response."""
+    m = re.match(r"^\s*([ABCD])\b", s.strip().upper())
+    return m.group(1) if m else None
 
 
 client = OpenAI()
@@ -53,97 +58,7 @@ class TaskContext:
     context_category: str
 
 
-@function_tool
-def extract_question_keywords_tool(wrapper: RunContextWrapper[TaskContext]) -> str:
-    """Extract the most important keywords from the question using LLM analysis."""
-    task_context = wrapper.context
-
-    # Use the LLM to identify the most important keywords in the question
-    prompt = f"""Analyze this question and identify the 3-5 most important keywords that would be crucial for finding relevant information in a long context.
-
-Question: {task_context.question}
-
-Focus on:
-- Key concepts, entities, or topics
-- Important verbs or actions
-- Specific terms that would appear in supporting evidence
-- Avoid common words like "what", "which", "the", "is", etc.
-
-Return only the keywords separated by commas, no explanations."""
-
-    try:
-        response = client.chat.completions.create(
-            model="gpt-4.1",
-            messages=[{"role": "user", "content": prompt}],
-            max_tokens=100,
-            temperature=0.1,
-        )
-        keywords = response.choices[0].message.content.strip()
-
-        # Save to combined keywords file for debugging
-        with open(f"keywords_task_{task_context.task_id}.txt", "w") as f:
-            f.write(f"Task ID: {task_context.task_id}\n")
-            f.write(f"Question: {task_context.question}\n")
-            f.write(f"Question Keywords: {keywords}\n")
-            f.write(f"Choices: {task_context.choices}\n")
-            f.write(f"Answer: {task_context.answer}\n")
-            f.write(f"Context Length: {len(task_context.context)} chars\n")
-            f.write(f"Context Category: {task_context.context_category}\n\n")
-
-        return f"Question keywords: {keywords}"
-    except Exception as e:
-        logger.warning(
-            f"Failed to extract question keywords for task {task_context.task_id}: {e}"
-        )
-        return "Failed to extract question keywords"
-
-
-@function_tool
-def extract_option_keywords_tool(
-    wrapper: RunContextWrapper[TaskContext], option_letter: str
-) -> str:
-    """Extract the most important keywords from a specific option using LLM analysis."""
-    task_context = wrapper.context
-
-    if option_letter not in task_context.choices:
-        return f"Invalid option letter: {option_letter}"
-
-    option_text = task_context.choices[option_letter]
-
-    # Use the LLM to identify the most important keywords in this specific option
-    prompt = f"""Analyze this answer choice and identify the 2-4 most important keywords that would be crucial for finding supporting evidence in a long context.
-
-Answer Choice {option_letter}: {option_text}
-
-Focus on:
-- Key concepts, entities, or specific terms unique to this option
-- Important details that would distinguish this option from others
-- Terms that would appear in evidence supporting this choice
-- Avoid common words like "the", "is", "and", etc.
-
-Return only the keywords separated by commas, no explanations."""
-
-    try:
-        response = client.chat.completions.create(
-            model="gpt-4.1",
-            messages=[{"role": "user", "content": prompt}],
-            max_tokens=100,
-            temperature=0.1,
-        )
-        keywords = response.choices[0].message.content.strip()
-
-        # Append to combined keywords file for debugging
-        with open(f"keywords_task_{task_context.task_id}.txt", "a") as f:
-            f.write(f"Option {option_letter} Keywords: {keywords}\n")
-
-        return f"Option {option_letter} keywords: {keywords}"
-    except Exception as e:
-        logger.warning(
-            f"Failed to extract option {option_letter} keywords for task {task_context.task_id}: {e}"
-        )
-        return f"Failed to extract option {option_letter} keywords"
-
-
+# Analyzes the question type and context to help the LLM decide search parameters.
 @function_tool
 def analyze_question_type_tool(wrapper: RunContextWrapper[TaskContext]) -> str:
     """Analyze the question type and context to help the LLM decide search parameters."""
@@ -180,25 +95,25 @@ Also assess:
 Respond in this format:
 Type: [FACTUAL/ANALYTICAL/COMPREHENSIVE/INFERENTIAL]
 Complexity: [1-5]
-Context_Need: [BROAD/NARROW]
-Reasoning: [Brief explanation]"""
+Context_Need: [BROAD/NARROW]"""
 
     try:
         response = client.chat.completions.create(
             model="gpt-4.1",
             messages=[{"role": "user", "content": analysis_prompt}],
             max_tokens=150,
-            temperature=0.1,
+            temperature=0,
         )
         analysis = response.choices[0].message.content.strip()
 
         # Save analysis to file for debugging
-        with open(f"question_analysis_task_{task_context.task_id}.txt", "w") as f:
-            f.write(f"Task ID: {task_context.task_id}\n")
-            f.write(f"Question: {question}\n")
-            f.write(f"Context Length: {context_length:,} characters\n")
-            f.write(f"Context Category: {context_category}\n\n")
-            f.write(f"Question Analysis:\n{analysis}\n")
+        if task_context.task_id % 10 == 0:
+            with open(f"question_analysis_task_{task_context.task_id}.txt", "w") as f:
+                f.write(f"Task ID: {task_context.task_id}\n")
+                f.write(f"Question: {question}\n")
+                f.write(f"Context Length: {context_length:,} characters\n")
+                f.write(f"Context Category: {context_category}\n\n")
+                f.write(f"Question Analysis:\n{analysis}\n")
 
         info = f"""Context and Question Analysis:
 - Context Length: {context_length:,} characters
@@ -215,13 +130,13 @@ Parameter Selection Guidelines (MAXIMIZE CONTEXT USAGE):
 
 Context Usage Strategy:
 - SHORT contexts (≤100k chars): Use 60-80% of available context
-  * expansion_chars: 800-2000, max_results: 20-80
+  * expansion_chars: 400-1000, max_results: 30-100
 - MEDIUM contexts (100k-500k chars): Use 70-90% of available context
-  * expansion_chars: 1200-3000, max_results: 40-120
+  * expansion_chars: 600-1500, max_results: 50-150
 - LONG contexts (500k-1M chars): Use 80-95% of available context
-  * expansion_chars: 2000-4000, max_results: 60-150
+  * expansion_chars: 1000-2000, max_results: 80-200
 - VERY LONG contexts (>1M chars): Use 90-98% of available context
-  * expansion_chars: 2500-5000, max_results: 80-200
+  * expansion_chars: 1250-2500, max_results: 80-150
 
 Token Limit Considerations:
 - 128k token limit ≈ 512k characters
@@ -238,7 +153,168 @@ Choose parameters that MAXIMIZE context usage while staying within token limits.
         )
         return f"Context Length: {context_length:,} characters, Category: {context_category}. Use standard parameters."
 
+# Extracts keywords from question and all options/answers, then finds relevant text sections.
+@function_tool
+def extract_keywords_and_find_relevant_text_tool(
+    wrapper: RunContextWrapper[TaskContext],
+    expansion_chars: int = 1000,
+    max_results: int = 20,
+) -> str:
+    """Extract keywords from question and all options, then find relevant text sections."""
+    task_context = wrapper.context
 
+    # Combine question and all options for comprehensive keyword extraction
+    question_and_options = f"Question: {task_context.question}\n\n"
+    for letter, choice in task_context.choices.items():
+        question_and_options += f"Option {letter}: {choice}\n"
+
+    # Use the LLM to identify the most important keywords from the entire question and all options
+    prompt = f"""Analyze this multiple-choice question and all answer options to identify the 8-12 most important keywords that would be crucial for finding relevant information in a long context. Try to have at least one unique keyword from each answer option.
+
+{question_and_options}
+
+Focus on:
+- Key concepts, entities, or topics from the question
+- Important terms from each answer option that would distinguish them
+- Specific terms that would appear in supporting evidence
+- Avoid common words like "what", "which", "the", "is", "and", etc.
+- Prioritize terms that are unique or specific to this question
+
+Return only the keywords separated by commas, no explanations."""
+
+    try:
+        response = client.chat.completions.create(
+            model="gpt-4.1",
+            messages=[{"role": "user", "content": prompt}],
+            max_tokens=150,
+            temperature=0,
+        )
+        keywords = response.choices[0].message.content.strip()
+
+        # Parse keywords from the string (comma-separated)
+        keyword_list = [kw.strip().lower() for kw in keywords.split(",") if kw.strip()]
+
+        if not keyword_list:
+            return "No valid keywords extracted."
+
+        # Search for relevant text sections using the keywords
+        context = task_context.context
+        context_lower = context.lower()
+
+        # Find all matches for each keyword with scoring
+        scored_matches = []
+
+        for keyword in keyword_list:
+            if not keyword or len(keyword) < 2:
+                continue
+
+            # Find all occurrences of the keyword
+            start = 0
+            while True:
+                pos = context_lower.find(keyword, start)
+                if pos == -1:
+                    break
+
+                # Calculate expansion boundaries
+                expand_start = max(0, pos - expansion_chars // 2)
+                expand_end = min(len(context), pos + len(keyword) + expansion_chars // 2)
+
+                # Extract the expanded text
+                expanded_text = context[expand_start:expand_end]
+
+                # Add context markers
+                if expand_start > 0:
+                    expanded_text = "..." + expanded_text
+                if expand_end < len(context):
+                    expanded_text = expanded_text + "..."
+
+                # Calculate relevance score for this match
+                text_lower = expanded_text.lower()
+                score = 0
+
+                # Base score for finding the keyword
+                score += 1
+
+                # Bonus for multiple keyword matches in the same section
+                for other_keyword in keyword_list:
+                    if other_keyword != keyword and other_keyword in text_lower:
+                        score += 2  # Bonus for multiple keywords
+
+                # Bonus for question-relevant terms appearing in context
+                question_words = re.findall(r"\b\w+\b", task_context.question.lower())
+                for qw in question_words:
+                    if len(qw) > 3 and qw in text_lower:
+                        score += 1
+
+                scored_matches.append(
+                    {
+                        "keyword": keyword,
+                        "position": pos,
+                        "text": expanded_text.strip(),
+                        "score": score,
+                        "keywords_found": [kw for kw in keyword_list if kw in text_lower],
+                    }
+                )
+
+                start = pos + expansion_chars//2
+
+        if not scored_matches:
+            return f"No relevant text found with keywords: {', '.join(keyword_list)}"
+
+        # Sort by score (highest first), then by position
+        scored_matches.sort(key=lambda x: (-x["score"], x["position"]))
+
+        # Remove duplicates and select top results
+        unique_texts = []
+        seen_texts = set()
+
+        for match in scored_matches:
+            # Use a normalized version for deduplication
+            normalized_text = re.sub(r"\s+", " ", match["text"].lower().strip())
+
+            if normalized_text not in seen_texts and len(unique_texts) < max_results:
+                keywords_found = ", ".join(match["keywords_found"])
+                unique_texts.append(
+                    f"[Score: {match['score']:.1f}, Keywords: {keywords_found}]: {match['text']}"
+                )
+                seen_texts.add(normalized_text)
+
+        if not unique_texts:
+            return f"No unique relevant text found with keywords: {', '.join(keyword_list)}"
+
+        # Save results to file for debugging
+        if task_context.task_id % 10 == 0:
+            with open(f"relevant_text_task_{task_context.task_id}.txt", "w") as f:
+                f.write(f"Task ID: {task_context.task_id}\n")
+                f.write(f"Question: {task_context.question}\n")
+                f.write(f"Choices: {task_context.choices}\n")
+                f.write(f"Answer: {task_context.answer}\n")
+                f.write(f"Context Length: {len(context)} chars\n")
+                f.write(f"Context Category: {task_context.context_category}\n\n")
+                f.write(f"Extracted Keywords: {', '.join(keyword_list)}\n")
+                f.write(f"Expansion Chars: {expansion_chars}\n")
+                f.write(f"Max Results: {max_results}\n")
+                f.write(f"Total Matches Found: {len(scored_matches)}\n")
+                f.write(f"Unique Results Returned: {len(unique_texts)}\n\n")
+                f.write("Relevant Text Sections (by relevance score):\n")
+                f.write("=" * 60 + "\n")
+                for i, text in enumerate(unique_texts, 1):
+                    f.write(f"\nSection {i}:\n{text}\n")
+                    f.write("-" * 40 + "\n")
+        result = (
+            f"Relevant text sections found ({len(unique_texts)} sections):\n\n"
+            + "\n\n".join(unique_texts)
+        )
+        return result
+
+    except Exception as e:
+        logger.warning(
+            f"Failed to extract keywords and find relevant text for task {task_context.task_id}: {e}"
+        )
+        return f"Error in keyword extraction and text search: {e}"
+
+
+# Gets the full context for short contexts that can be read entirely.
 @function_tool
 def get_full_context_tool(wrapper: RunContextWrapper[TaskContext]) -> str:
     """Get the full context for short contexts that can be read entirely."""
@@ -246,7 +322,7 @@ def get_full_context_tool(wrapper: RunContextWrapper[TaskContext]) -> str:
     context = task_context.context
 
     # Save full context to file for debugging
-    try:
+    if task_context.task_id % 10 == 0:
         with open(f"full_context_task_{task_context.task_id}.txt", "w") as f:
             f.write(f"Task ID: {task_context.task_id}\n")
             f.write(f"Question: {task_context.question}\n")
@@ -257,168 +333,9 @@ def get_full_context_tool(wrapper: RunContextWrapper[TaskContext]) -> str:
             f.write("Full Context:\n")
             f.write("=" * 60 + "\n")
             f.write(context)
-    except Exception as e:
-        logger.warning(
-            f"Failed to save full context for task {task_context.task_id}: {e}"
-        )
 
     return f"Full context ({len(context):,} characters):\n\n{context}"
 
-
-@function_tool
-def search_evidence_for_option_tool(
-    wrapper: RunContextWrapper[TaskContext],
-    option_letter: str,
-    keywords: str,
-    expansion_chars: int = 500,
-    max_results: int = 15,
-) -> str:
-    """Search the context for evidence supporting a specific option using the provided keywords."""
-    task_context = wrapper.context
-    context = task_context.context
-
-    if option_letter not in task_context.choices:
-        return f"Invalid option letter: {option_letter}"
-
-    option_text = task_context.choices[option_letter]
-
-    # Parse keywords from the string (comma-separated)
-    keyword_list = [kw.strip().lower() for kw in keywords.split(",") if kw.strip()]
-
-    if not keyword_list:
-        return f"No valid keywords provided for searching evidence for option {option_letter}."
-
-    context_lower = context.lower()
-
-    # Find all matches for each keyword with scoring
-    scored_matches = []
-
-    for keyword in keyword_list:
-        if not keyword or len(keyword) < 2:  # Allow shorter keywords
-            continue
-
-        # Find all occurrences of the keyword
-        start = 0
-        while True:
-            pos = context_lower.find(keyword, start)
-            if pos == -1:
-                break
-
-            # Calculate expansion boundaries
-            expand_start = max(0, pos - expansion_chars // 2)
-            expand_end = min(len(context), pos + len(keyword) + expansion_chars // 2)
-
-            # Extract the expanded text
-            expanded_text = context[expand_start:expand_end]
-
-            # Add context markers
-            if expand_start > 0:
-                expanded_text = "..." + expanded_text
-            if expand_end < len(context):
-                expanded_text = expanded_text + "..."
-
-            # Calculate relevance score for this match
-            text_lower = expanded_text.lower()
-            score = 0
-
-            # Base score for finding the keyword
-            score += 1
-
-            # Bonus for multiple keyword matches in the same section
-            for other_keyword in keyword_list:
-                if other_keyword != keyword and other_keyword in text_lower:
-                    score += 3  # Higher bonus for multiple keywords
-
-            # Bonus for option-specific terms appearing in context
-            option_words = re.findall(r"\b\w+\b", option_text.lower())
-            for ow in option_words:
-                if len(ow) > 3 and ow in text_lower:
-                    score += 2
-
-            scored_matches.append(
-                {
-                    "keyword": keyword,
-                    "position": pos,
-                    "text": expanded_text.strip(),
-                    "score": score,
-                    "keywords_found": [kw for kw in keyword_list if kw in text_lower],
-                    "option_terms_found": [
-                        ow for ow in option_words if len(ow) > 3 and ow in text_lower
-                    ],
-                }
-            )
-
-            start = pos + 1
-
-    if not scored_matches:
-        return f"No evidence found for option {option_letter} with keywords: {', '.join(keyword_list)}"
-
-    # Sort by score (highest first), then by position
-    scored_matches.sort(key=lambda x: (-x["score"], x["position"]))
-
-    # Remove duplicates and select top results
-    unique_texts = []
-    seen_texts = set()
-
-    for match in scored_matches:
-        # Use a normalized version for deduplication
-        normalized_text = re.sub(r"\s+", " ", match["text"].lower().strip())
-
-        if normalized_text not in seen_texts and len(unique_texts) < max_results:
-            keywords_found = ", ".join(match["keywords_found"])
-            option_terms = ", ".join(match["option_terms_found"])
-            unique_texts.append(
-                f"[Score: {match['score']:.1f}, Keywords: {keywords_found}, Option terms: {option_terms}]: {match['text']}"
-            )
-            seen_texts.add(normalized_text)
-
-    if not unique_texts:
-        return f"No unique evidence found for option {option_letter} with keywords: {', '.join(keyword_list)}"
-
-    # Save search results to combined evidence file for debugging/analysis
-    try:
-        # Check if this is the first option being processed (create new file)
-        # or if we're appending to existing file
-        file_mode = "w" if option_letter == "A" else "a"
-
-        with open(f"evidence_task_{task_context.task_id}.txt", file_mode) as f:
-            if option_letter == "A":
-                # Write header only for the first option
-                f.write(f"Task ID: {task_context.task_id}\n")
-                f.write(f"Question: {task_context.question}\n")
-                f.write(f"Choices: {task_context.choices}\n")
-                f.write(f"Answer: {task_context.answer}\n")
-                f.write(f"Context Length: {len(context)} chars\n")
-                f.write(f"Context Category: {task_context.context_category}\n\n")
-
-            f.write(f"Evidence for Option {option_letter}: {option_text}\n")
-            f.write(f"Keywords Searched: {', '.join(keyword_list)}\n")
-            f.write(f"Expansion Chars: {expansion_chars}\n")
-            f.write(f"Max Results: {max_results}\n")
-            f.write(f"Total Matches Found: {len(scored_matches)}\n")
-            f.write(f"Unique Results Returned: {len(unique_texts)}\n\n")
-            f.write(f"Evidence for Option {option_letter} (by relevance score):\n")
-            f.write("=" * 60 + "\n")
-            for i, text in enumerate(unique_texts, 1):
-                f.write(f"\nEvidence {i}:\n{text}\n")
-                f.write("-" * 40 + "\n")
-            f.write("\n\n")
-    except Exception as e:
-        logger.warning(
-            f"Failed to save evidence for option {option_letter} task {task_context.task_id}: {e}"
-        )
-
-    result = (
-        f"Evidence for Option {option_letter} ({len(unique_texts)} sections found):\n\n"
-        + "\n\n".join(unique_texts)
-    )
-    return result
-
-
-def _letter_only(s: str) -> str | None:
-    """Extract just the letter (A, B, C, D) from the response."""
-    m = re.match(r"^\s*([ABCD])\b", s.strip().upper())
-    return m.group(1) if m else None
 
 
 agent = Agent[TaskContext](
@@ -428,18 +345,14 @@ agent = Agent[TaskContext](
 Your systematic process:
 1. FIRST: Use analyze_question_type_tool to understand the question type, complexity, and context characteristics
 2. SECOND: If context is SHORT (≤100k chars), use get_full_context_tool to read the entire context directly
-3. THIRD: If context is MEDIUM/LONG, use extract_question_keywords_tool to identify keywords from the question
-4. FOURTH: For MEDIUM/LONG contexts, for each option (A, B, C, D), use extract_option_keywords_tool to get keywords specific to that option
-5. FIFTH: For MEDIUM/LONG contexts, for each option, use search_evidence_for_option_tool with the question keywords + option keywords and CHOOSE parameters based on question type analysis
-6. SIXTH: Compare the evidence found for each option and select the one with the strongest supporting evidence
-7. SEVENTH: Respond with ONLY the letter of your chosen answer (A, B, C, or D)
+3. THIRD: If context is MEDIUM/LONG, use extract_keywords_and_find_relevant_text_tool to identify keywords from question and all options, then find relevant text sections
+4. FOURTH: Analyze the relevant text sections to determine which option is best supported by the evidence
+5. FIFTH: Respond with ONLY the letter of your chosen answer (A, B, C, or D)
 
 Tool Usage:
 - analyze_question_type_tool: Analyzes question type, complexity, and provides parameter guidance
 - get_full_context_tool: Gets the complete context for short contexts (≤100k chars)
-- extract_question_keywords_tool: Gets 3-5 most important keywords from the question (for medium/long contexts)
-- extract_option_keywords_tool(option_letter): Gets 2-4 keywords specific to option A, B, C, or D (for medium/long contexts)
-- search_evidence_for_option_tool(option_letter, keywords, expansion_chars, max_results): Searches for evidence with your chosen parameters (for medium/long contexts)
+- extract_keywords_and_find_relevant_text_tool(expansion_chars, max_results): Extracts keywords from question and all options, then finds relevant text sections (for medium/long contexts)
 
 Systematic Workflow:
 1. Call analyze_question_type_tool to understand question type, complexity, and context characteristics
@@ -447,18 +360,14 @@ Systematic Workflow:
    a. Call get_full_context_tool to read the entire context
    b. Analyze the full context directly to answer the question
 3. If context is MEDIUM/LONG (>100k chars):
-   a. Call extract_question_keywords_tool to get question keywords
-   b. For each option (A, B, C, D):
-      i. Call extract_option_keywords_tool with the option letter
-      ii. Combine question keywords + option keywords
-      iii. Call search_evidence_for_option_tool with the combined keywords AND choose parameters based on:
-          - Question type (FACTUAL/ANALYTICAL/COMPREHENSIVE/INFERENTIAL)
-          - Complexity level (1-5)
-          - Context need (BROAD/NARROW)
-          - Context length and characteristics
-4. Compare the evidence quality and quantity for each option
-5. Select the option with the strongest, most relevant evidence
-6. Respond with only the letter (A, B, C, or D)
+   a. Call extract_keywords_and_find_relevant_text_tool with parameters based on:
+      - Question type (FACTUAL/ANALYTICAL/COMPREHENSIVE/INFERENTIAL)
+      - Complexity level (1-5)
+      - Context need (BROAD/NARROW)
+      - Context length and characteristics
+   b. This tool will extract keywords from both question and all options, then find relevant text sections
+4. Analyze the relevant text sections to determine which option is best supported by the evidence
+5. Respond with only the letter (A, B, C, or D)
 
 Question-Type-Based Parameter Selection (MAXIMIZE CONTEXT USAGE):
 - FACTUAL questions: Aggressive search (expansion_chars: 800-2000, max_results: 20-80)
@@ -475,8 +384,6 @@ Question-Type-Based Parameter Selection (MAXIMIZE CONTEXT USAGE):
   * Use maximum expansion and results for comprehensive evidence gathering
 
 Context Maximization Strategy:
-- Use 60-98% of available context based on length
-- Prioritize max_results over expansion_chars for broader coverage
 - Stay within 128k token limit (≈512k characters)
 - Be aggressive with parameters to capture all relevant information
 
@@ -507,18 +414,16 @@ Remember: Your response must be exactly one letter (A, B, C, or D).""",
     tools=[
         analyze_question_type_tool,
         get_full_context_tool,
-        extract_question_keywords_tool,
-        extract_option_keywords_tool,
-        search_evidence_for_option_tool,
+        extract_keywords_and_find_relevant_text_tool,
     ],
 )
 
 runner = Runner()
 
-
+# Randomly samples a subset of the LongBench-v2 dataset.
 def prepare_longbench2(n=None):
     if n is None:
-        n = int(os.getenv("N", "50"))  # Default to 50 for testing
+        n = int(os.getenv("N", "100"))  # Default to 100 for testing
     logger.info("Preparing dataset sample: n=%d", n)
     dataset = load_dataset("THUDM/LongBench-v2", split="train")
     total = len(dataset)
@@ -547,7 +452,7 @@ async def run_task(i: int, task: dict):
     # The search tools will handle finding relevant sections
     task_context = TaskContext(
         question=question,
-        context=context,  # Use the full context - let the search tools handle filtering
+        context=context,  # Use full context - the search tools handle filtering
         choices=choices,
         answer=task["answer"],
         task_id=i,
@@ -563,6 +468,7 @@ async def run_task(i: int, task: dict):
         f"B) {choices['B']}\n"
         f"C) {choices['C']}\n"
         f"D) {choices['D']}\n\n"
+        "Use the available tools to analyze the context and find evidence for your answer. Follow your systematic process.\n"
         "Answer:"
     )
 
@@ -594,7 +500,7 @@ async def run_task(i: int, task: dict):
         "duration": duration,
     }
 
-
+# Early visualization of accuracy by context length category
 def create_accuracy_chart(category_accuracy, category_stats):
     """Create a bar chart showing accuracy by context length category."""
     categories = list(category_accuracy.keys())
@@ -704,7 +610,7 @@ def create_accuracy_chart(category_accuracy, category_stats):
     plt.savefig("accuracy_and_distribution.png", dpi=300, bbox_inches="tight")
     logger.info("Combined chart saved as 'accuracy_and_distribution.png'")
 
-
+# Saving scores to json
 def save_results_to_json(results, category_stats, overall_accuracy):
     """Save detailed results to JSON file."""
     output_data = {
@@ -782,7 +688,6 @@ async def main():
 
     # Save detailed results to JSON
     save_results_to_json(results, category_stats, accuracy)
-
 
 if __name__ == "__main__":
     asyncio.run(main())
