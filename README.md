@@ -8,8 +8,6 @@ This project evaluates AI agents on the LongBench-v2 dataset for long-context qu
 
 1. **Baseline Agent Implementation** (`test.py`) - An agent with keyword extraction and evidence search tools
 2. **Evolutionary Tool Optimization** (`evolution.py`) - Genetic algorithm approach to improve search tools using AI-generated code mutations
-3. **Performance Analysis** - Comprehensive evaluation across different context lengths and task types
-
 ## Prerequisites
 - Python 3.12+
 - OpenAI API key
